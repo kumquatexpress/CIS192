@@ -8,6 +8,14 @@ $(function(){
       return d.classes;
     });
 
+ var drag = d3.behavior.drag()
+        .on("drag", function(d,i) {
+            d.x += d3.event.dx;
+            d.y += d3.event.dy;
+            d3.select(this).attr("transform", function(d,i){
+                return "translate(" + [ d.x,d.y ] + ")";
+            });
+        });
   var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
@@ -76,4 +84,6 @@ $(function(){
   });
 
   d3.select(self.frameElement).style("height", height + "px");
+  // set draggable
+  $('#hierarchy-wrapper svg').draggable();
 });
