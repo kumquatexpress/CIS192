@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/detail-pane.css' />
+    <link rel='stylesheet' href='/stylesheets/solarized_dark.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/data.js"></script>
+    <script src="/scripts/ui.js"></script>
+    <script src="/scripts/display.js"></script>
+    <script src="/scripts/display-detail.js"></script>
+    <script src="/scripts/sockets.js"></script>
+    <script src="/scripts/display-view-heierarchy.js"></script>
+    <script src="/scripts/code_skeletons/java_skeleton.js"></script>
+    <script src="/scripts/code_skeletons/ruby_skeleton.js"></script>
+    <script src="/scripts/jointjs.min.js"></script>
+    <script src="/scripts/code_skeletons/python_skeleton.js"></script>
+    <script src="/scripts/display-view-code.js"></script>
+    <script src="/scripts/highlight.pack.js"></script>
+  </head>
+  <body>
+    <input id="chat-username" placeholder="Chat Username"/>
+    <div id="chatbox"> 
+      <div id="messages">
+        <p> <span class="user">AnonymousUser0000</span>: <span class="message">:D </span> </p>
+      </div>
+      <input id="chat" placeholder="Type your message here"/>  
+    </div>
+	  <script type='text/javascript'>
+		  var project = null;
+      var me = 'AnonymousUser' + parseInt(Math.random() * 10000)
+	  $(document).ready(function() {
+		  var project_id = '<%= project_id %>';
+		  $.ajax({
+		  method : "GET",
+		  url : "/projects/"+project_id+".json",
+		  success : function(data) {
+			 project = data; 
+       if(!project.classes) project.classes = [];
+			 for(var i in project.classes) {
+				 project.classes[i].methods = [];
+			 }
+       if(!project.interfaces) project.interfaces = [];
+			 for(var i in project.interfaces) {
+				 project.interfaces[i].methods = [];
+			 }
+			 loadProjectDetail();
+			 $.ajax({
+				 method : "GET",
+				 url : "/methods/"+project_id+".json",
+				 success : function(data) {
+						 for(var i in data) {
+							 processAction({ action : "add", type :"method",info : data[i] });
+						 }
+					 }
+				 });
+			 console.log(project);
+			 socket.emit('openProject',{ project_id: project.id });
+		  }
+		  });
+		  detailListeners();
+		  $(".edit-object").hide();
+      /* chat */
+
+
+      function sendMessage(){
+        var message = $('#chatbox input').val();
+        if(message === '') return;
+        $('#chatbox input').val('');
+        console.log(message);
+        socket.emit('chat', {
+          username: me,
+          message: message
+        });
+      }
+
+      // chat username
+      $('#chat-username').keypress(function(keycode){
+        if(keycode.keyCode === 13){
+          me = $('#chat-username').val();
+          $('#chat-username').val('');
+        }
+      });
+
+      socket.on('chat', function(data){
+        var new_msg = $('#messages p').first().clone();
+        new_msg.find('.user').text(data.username);
+        new_msg.find('.message').text(data.message);
+        new_msg.appendTo('#messages');
+        $('#messages').stop().animate({scrollTop: $('#messages').prop('scrollHeight')});
+      });
+
+      
+      $('#chatbox input').keydown(function (event){
+        if (!event) { event = window.event; }
+        if(event.keyCode === 13 ) {
+          sendMessage();
+          $('#game').focus();
+        }
+      });
+
+		  $(".back").click(function(){
+		  	loadProjectDetail();
+		  })
+	  });
+	  </script>
+    <div id="project-IDGOESHERE" class="project">
+		<div class="detail-panel">
+			<div class="project-info">
+				<div class="project_title">Project Title</div>
+				<div class="description">Description of project...</div>
+				<label>Language: </label>
+					<select id="language" onchange='changeLanguage()'>
+					<option value="java">Java</option>
+					<option value="ruby">Ruby</option>
+					<option value="python">Python</option>
+					</select>
+				<div class="back">Back</div>
+			</div>
+			<div class="add-controls">
+				<div class="add-class">Add a Class</div>
+				<div class="add-attributes" style="display:none">Add Attributes</div>
+				<div class="add-methods" style="display:none">Add Methods</div>
+			</div>
+			<div id="detail-hidden-info">
+				<div id="current-project-id"></div>
+				<div id="current-object-id"></div>
+				<div id="current-object-type">class</div>
+			</div>
+			<div class="add-object">
+				<div id="add-class">
+					<div class="class-form">
+						<input id="class-name-textbox" type="text" placeholder="MyClass"/>
+						<select id="class-type">
+							<option selected="selected" value='class'>Class</option>
+							<option value='interface'>Interface</option>
+						</select>
+						<textarea id="class-description-textbox" placeholder="Description of my Class"></textarea>
+						<div id="create-class">Create Class</div>
+					</div>
+				</div>
+				<div id="add-attribute">
+					<div class="attribute-prompt prompt">Enter an attribute name to get started.</div>
+					<div class="attribute-preview preview"></div>
+					<div class="attribute-form">
+						<div class="form-state"></div>
+						<input id="attribute-textbox" type="text" />
+					</div>
+				</div>
+				<div id="add-method">
+					<div class="method-prompt prompt">Enter a method name to get started.</div>
+					<div class="method-preview preview"></div>
+					<div class="method-form">
+						<div class="form-state"></div>
+						<input id="method-textbox" type="text" />
+					</div>
+				</div>
+			</div>
+			<div id="edit-object-IDGOESHERE" class="edit-object">
+				<div class="info">
+					<div class="name">Name</div>
+					<div class="description">Put a description here...</div>
+					
+					<div class="relations">
+							<div class="parent">MyParent</div>
+							<div class="interface">My Interface</div>
+							<input class="add-parent" type="text" placeholder="ParentClass"/>
+							<input class="add-interface" type="text" placeholder="MyInterface"/>
+					</div>
+				</div>
+				<div class="attributes">
+					<h3>Attributes</h3>
+					<div class="attribute">
+						<div class="vital-info">
+							<div class="scope">private</div>
+							<div class="name"><span>id</span></div>
+							<div class="type">int</div>
+							<div id="delete-attribute-name-IDGOESHERE" class="delete">Delete</div>
+						</div>
+						<div class="description">It's a frickin id</div>	
+					</div>
+				</div>
+				<div class="methods">
+					<h3>Methods</h3>
+					<div class="method">
+						<div class="vital-info">
+							<div class="scope">public</div>
+							<div class="name"><span>MyDangMethod</span></div>
+							<div class="return-type">void</div>
+							<div id="delete-method-id-" class="delete">Delete</div>
+						</div>
+						<div class="description">It's a cool little method I wrote.</div>
+						<div class="arguments">
+							<div class="argument">
+								<div class="vital-info">								
+									<div class="name">arg1</div>
+									<div class="type">String</div>
+									<div class="description">The first argument</div>
+								</div>
+							</div>
+							<div class="toggle-add-argument">Add Argument</div>
+							<div class="add-argument">
+								<div class="method-id">1</div>
+								<div class="form-state"></div>
+								<div class="argument-prompt prompt"></div>
+								<div class="argument-preview"></div>
+								<div class="argument-form">
+									<input class="argument-textbox" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<! -- End Method -- !>
+				</div>
+			</div>
+		</div>
+		<div class="visualizer-panel">
+			<div class="the-code" id="canvas"></div>
+			<div class="warnings-panel"></div>
+		</div>
+    </div>
+  </body>
+</html>

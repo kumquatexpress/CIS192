@@ -25,7 +25,7 @@ $(function(){
     .append("g")
       .attr("transform", "translate(40,0)");
 
-  d3.json("data.json", function(error, root) {
+  d3.json("static/data.json", function(error, root) {
     // set to default for now, future needs to change to "class"
     // console.log(root);
     

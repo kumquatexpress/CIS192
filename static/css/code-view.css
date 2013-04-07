@@ -1,0 +1,27 @@
+.code-view {
+	height: 100%;
+}
+
+.code-view .the-code {
+	float: left;
+	height: 100%;
+	width: 75%;
+}
+
+.code-view .warnings-panel {
+	float: left;
+	height: 96%;
+	width: 20%;
+	padding: 2%;
+}
+
+.code-view .the-code pre {
+	margin: 0px;
+	height: 100%;
+}
+
+.code-view .the-code pre code {
+	padding: 2%;
+	height: 96 %;
+	overflow: auto;
+}

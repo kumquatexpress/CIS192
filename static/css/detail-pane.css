@@ -1,0 +1,350 @@
+
+@font-face {
+  font-family: col;
+  src: url('../Fonts/ColabThi.otf');
+}
+
+body, textarea, input, button, select{
+  font-family: col;
+  color: #dde3e4
+  
+}
+textarea, input{
+
+  color: black;
+  background-color: #AFCED1;
+}
+::-webkit-input-placeholder {
+  color:    #black;
+}
+:-moz-placeholder {
+    color:    #black;
+}
+::-moz-placeholder {
+    color:    #black;
+}
+:-ms-input-placeholder {
+    color:    #black;
+}
+
+select {
+  color: black;
+}
+
+.project_title {
+  margin: 3px 0px 3px 0px;
+  padding: 0px;
+  font-size: 50px;
+  font-weight: bold;
+}
+.description {
+  font-style: italic;
+  margin: 3px 0px 3px 0px;
+}
+
+
+.detail-panel {
+	background: #0A2329;
+	
+	float: left;
+	
+	overflow-y: auto;
+	width: 26%;
+	height: 100%;
+	padding: 0px 2%;
+}
+
+#detail-hidden-info, .form-state, .add-argument, .method-id {
+	display: none;
+}
+
+.edit-object {
+	margin-top : 10px;
+	position: relative;
+}
+
+/*
+ * Generic detail panel styles
+ * 
+ * */
+.edit-object h3 {
+	margin: 5px 0px;
+}
+ 
+.edit-object .description {
+	font-size: 90%;
+	color: #999;
+	clear: both;
+}
+
+.edit-object .vital-info {
+	height: 20px;
+	width: 100%;
+	background:#002c36;
+	overflow: hidden;
+}
+
+.edit-object .vital-info > div {
+	float: left;
+	padding-right: 5px;
+}
+
+.edit-object .vital-info .name span {
+	cursor: pointer;
+}
+
+.edit-object .vital-info .inputed {
+	width: 25%;
+}
+
+.edit-object .vital-info input {
+	width: 100%;
+	height: 18px;
+}
+
+.edit-object .description input {
+	width:100%;
+	height: 20px;
+	margin-top: 5px;
+}
+
+.edit-object .argument .description input {
+	margin-top: -4px;
+	height: 18px;
+}
+
+.edit-object .vital-info .scope {
+	padding-top: 2px;
+	font-size: 80%;
+	color: #99f;
+}
+
+.edit-object .vital-info .type {
+	padding-top: 2px;
+	font-size: 90%;
+	color: #393;
+}
+
+.edit-object .vital-info .name {
+	font-weight: bold;
+}
+
+.edit-object .vital-info .delete {
+	padding-top: 3px;
+	font-size: 80%;
+	color: #f99;
+}
+
+.detail-panel .prompt span {
+	font-size: 80%;
+	color: #999;
+}
+
+.detail-panel .preview > div {
+	float: left;
+	width: 33%;
+}
+
+.detail-panel .preview .name {
+}
+
+.detail-panel .preview .type {
+	color: #393;
+}
+
+/*
+ * Add object styling
+ * /
+ */
+.add-controls {
+	width: 100%;
+	height: 40px;
+	padding-bottom: 10px;
+}
+ 
+.add-controls > div {
+	float: left;
+	text-align: center;
+	width: 24%;
+	padding: 5px 2%;
+	margin: 0px 2%;
+	background: #005164;
+	border-radius : 5px;
+	cursor: pointer;
+}
+
+.add-controls > div:hover {
+	background: #DDE3E4;
+  color: #005164;
+}
+
+.add-object input {
+	padding: 5px 2%;
+	width: 96%;
+	height: 25px;
+	font-size: 120%;
+}
+
+.add-object textarea {
+	width: 96%;
+	min-height: 60px;
+	margin-top: 5px;
+	padding: 5px 2%;
+}
+
+#add-class, #add-attribute, #add-method {
+	display: none;
+}
+
+#add-class input {
+	width: 66%;
+}
+
+#add-class select {
+	float: right;
+	width: 26%;
+	font-size: 120%;
+	height: 38px;
+}
+
+
+#create-class {
+	width: 100%;
+	text-align: center;
+	font-size: 120%;
+	font-weight: bold;
+	padding: 5px 0px;
+	background: #005164;
+	cursor: pointer;
+}
+
+/*
+ * Info styling
+ * 
+ * */
+.edit-object .info .name {
+	font-size: 150%;
+}
+
+/*
+ * 
+ * Relations styling
+ */
+.relations {
+	margin-top: 5px;
+}
+ 
+.relations div, .relations input {
+	display: inline;
+	padding: 3px;
+	font-size: 70%;
+	border-radius: 2px;
+	color: #001c23;
+	margin: 0px 2px;
+}
+
+.relations .parent {
+	background: #171;
+}
+
+
+.relations .interface {
+	background: #CAEAFF;
+}
+
+.relations .add-parent {
+	border: 1px solid #171;
+	color: black;
+	width: 60px;
+}
+
+.relations .add-interface {
+	border: 1px solid #117;
+	color: black;
+	width: 60px;
+}
+/*
+ * Attribute styling
+ * 
+ * */
+
+.edit-object .attributes {
+	padding: 10px 0px 10px 20px;
+}
+
+.edit-object .attributes .attribute {
+	width: 100%;
+	padding-bottom: 5px;
+}
+
+
+/*
+ * Method styling
+ * 
+ * */
+
+
+.edit-object .methods {
+	padding: 10px 0px 10px 20px;
+}
+
+.edit-object .methods .method {
+	width: 100%;
+	padding-bottom: 5px;
+}
+
+/* 
+ * Argument styling
+ * 
+ */
+.edit-object .method .arguments {
+	padding: 5px 0px 5px 10px;
+}
+
+.edit-object .method .arguments .description {
+	clear: none;
+	padding-top: 3px;
+}
+
+
+
+
+/* chat */
+
+#chatbox {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 600px;
+  max-height: 200px; }
+
+#messages {
+  color: white; 
+  max-height: 160px;
+  overflow-y:scroll;
+}
+  #messages p {
+    margin: 5px 0 5px 0;
+    font-size: 13px; }
+
+#chat {
+  font-size: 13px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 5px;
+  width: 100%; 
+  overflow:hidden;
+  max-height: 200px;
+}
+
+#chat-username {
+  position:absolute;
+  top:0px;
+  right:0px;
+
+}
+::-webkit-input-placeholder { color:black; }
+::-moz-placeholder { color:black; } /* firefox 19+ */
+input:-moz-placeholder { color:black; }
