@@ -1,0 +1,25 @@
+html {
+	height: 100%;
+}
+
+body {
+	background: #001c23;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;	
+}
+
+.project {
+	height: 100%;
+}
+
+.visualizer-panel {
+	float: left;
+	width: 70%;
+	height: 100%;
+	
+}
+
+a {
+  color: #00B7FF;
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>create a new thing</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script >
+/*
+      $.ajax({
+        type: "POST",
+        url: "/save",
+        data: { 
+           action : "modify",
+           type : "project",
+           info : { 
+             id : "50fa3cef529eff3333000003",
+             name : "new name",
+             description : "new description"
+           },  
+         }  
+         
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+*/
+/*
+$.ajax({
+        type: "POST",
+        url: "/save",
+        data: { 
+           action : "modify",
+           type : "class",
+           info : { 
+             id : "50fa45dda632103137000001",
+             name: "new name",
+             description: "new dwef",
+             attributes: [{ name : "id", scope : "private", attr_type : "int", description : "The ID in the database" }],
+             interfaces : ["Object","Comparable"]
+           },  
+         }  
+         
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+$.ajax({
+        type: "POST",
+        url: "/save",
+        data: { 
+           action : "modify",
+           type : "interface",
+           info : { 
+             id : "50fa4a0ac4c59f7c38000002",
+             name: "new intefrace",
+             description: "new interface desc",
+             attributes: [{ name : "idni", scope : "private", attr_type : "wefint", description : "The ID in the database" }],
+             interfaces : ["Object","Comparable"]
+           },  
+         }  
+         
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+
+      $.ajax({
+        type: "POST",
+        url: "/save",
+        data: { 
+           action : "modify",
+           type : "method",
+           info : { 
+             id : "50fa49e8c4c59f7c38000001",
+             parent: "50fb0080e23c34b75f000001",                          
+             parent_type: "class",
+             name: "new method",
+             description: "new method desc",
+             scope: "publics",
+             ret: " return type",
+             args: [{ name : "idni", scope : "private", attr_type : "wefint", description : "The ID in the database" }],
+           },  
+         }  
+         
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+
+
+      $.ajax({
+        type: "POST",
+        url: "/save",
+        data: { 
+           action : "delete",
+           type : "project",
+           info : { 
+             id : "50fa3cef529eff3333000003",
+             parent: "50fb0080e23c34b75f000001",                          
+             parent_type: "class",
+             name: "new method",
+             description: "new method desc",
+             scope: "publics",
+             ret: " return type",
+             args: [{ name : "idni", scope : "private", attr_type : "wefint", description : "The ID in the database" }],
+           },  
+         }  
+         
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
+
+*/
+
+
+
+    </script>
+  </head>
+  <body>
+
+    project
+    <form method="POST" action="/projects/new">
+      <input name="name" />
+      <input name="description" />
+      <input type="submit">
+    </form>
+
+    class
+    <form method="POST" action="/classes/new">
+      <input name="name" />
+      <input name="description" />
+      <input name="project" />
+      <input type="submit">
+    </form>
+    method 
+    <form method="POST" action= "/methods/new">
+      <input name="name" />
+      <input name="description" />
+      <input name="scope" />
+      <input name="ret" />
+      <input name="parent" />
+      <input type="submit">
+    </form>
+    interface 
+    <form method="POST" action= "/interfaces/new">
+      <input name="name" />
+      <input name="description" />
+      <input name="project" />
+      <input type="submit">
+    </form>
+    EDIT
+    project
+      <form method="POST" action="/projects/new">
+      <input name="name" />
+      <input name="description" />
+      <input type="submit">
+    </form>
+
+    class
+    <form method="POST" action="/classes/new">
+      <input name="name" />
+      <input name="description" />
+
+      <input type="submit">
+    </form>
+    method 
+    <form method="POST" action= "/methods/new">
+      <input name="name" />
+      <input name="description" />
+      <input name="scope" />
+      <input name="ret" />
+      <input name="parent" />
+      <input type="submit">
+    </form>
+    interface 
+    <form method="POST" action= "/interfaces/new">
+      <input name="name" />
+      <input name="description" />
+      <input name="project" />
+      <input type="submit">
+    </form>
+
+ 
+    class
+
+    method
+
+    interface
+
+  </body>
+</html>
