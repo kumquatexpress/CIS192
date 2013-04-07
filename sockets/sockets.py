@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import socket, threading, time, re
-from base64 import b64encode
+from base64 import b64encode, decodestring
 from hashlib import sha1
 
 def handle(s,a):
@@ -20,14 +20,15 @@ def handle(s,a):
   response = "\r\n".join(handshake_response).format(hashed_key=server_key)
   print response
   s.send(response)
-  time.sleep(10)
+  time.sleep(2)
   print "sending hello"
-  s.send('\x00hello\xff')
+  s.send('\x00hello\xFF')
   print "sending world"
   time.sleep(1)
-  s.send('\x00world\xff')
+  s.send('\x00world\xFF')
+  s.send("aksdfasdfasdf")
   msg = s.recv(4096)
-  print msg
+  s.send("\x00baller\xFF")
   #s.close()
 
 s = socket.socket()
