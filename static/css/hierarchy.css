@@ -1,0 +1,31 @@
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+#hierarchy-wrapper {
+  position: relative;
+}
+
+#class-info {
+  z-index: 10000;
+  position: absolute;
+  float: left;
+  display: none;
+  background-color: rgba(255,255,255,0.9);
+}
+
+svg {
+  z-index: 1000;
+}
