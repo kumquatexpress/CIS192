@@ -6,11 +6,20 @@
     <script>
       window.onload = function() {
         var s = new WebSocket("ws://localhost:9876/");
-        s.onopen = function(e) { alert("opened"); }
+        s.onopen = function(e) { 
+          alert("opened");
+          s.send("\x00testing\xFF");
+ }
         s.onclose = function(e) { 
           alert(e.toString()); 
         }
-        s.onmessage = function(e) { alert("got: " + e.data); }
+        s.onmessage = function(e) { 
+          alert("got something!");
+          console.log(e.data);
+        }
+        s.onerror = function(e) {
+          alert("something fucked up");
+        }
       };
     </script>
   </head>
