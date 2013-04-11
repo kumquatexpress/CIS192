@@ -5,7 +5,7 @@ from hashlib import sha1
 def handle(s,a):
   print a
   handshake_data = s.recv(4096)
-  client_key = re.search("Sec-WebSocket-Key:\s+(.*?)[\n\r]+", handshake_data).groups()[0].strip()
+  client_key = re.search("Sec-WebSocket-Key:\s+(.*?)[\n\r]+", handshake_data).group(1).strip()
   handshake_response = (
     'HTTP/1.1 101 Web Socket Protocol Handshake',
     'Upgrade: WebSocket',
@@ -22,14 +22,19 @@ def handle(s,a):
   s.send('\x00hello\xff')
   time.sleep(1)
   s.send('\x00world\xff')
-  s.close()
+  msg = s.recv(4096)
+  print msg
 
-s = socket.socket()
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('', 9876));
-s.listen(1);
-print "Now listening on port 9876"
-while 1:
-  t,a = s.accept();
-  print "Connection received"
-  threading.Thread(target = handle, args = (t,a)).start()
+def main():
+  s = socket.socket()
+  s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+  s.bind(('', 9876));
+  s.listen(1);
+  print "Now listening on port 9876"
+  while 1:
+    t,a = s.accept();
+    print "Connection received"
+    threading.Thread(target = handle, args = (t,a)).start()
+
+if __name__ == "__main__":
+  main()

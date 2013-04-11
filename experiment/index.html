@@ -6,7 +6,10 @@
     <script>
       window.onload = function() {
         var s = new WebSocket("ws://localhost:9876/");
-        s.onopen = function(e) { alert("opened"); }
+        s.onopen = function(e) { 
+          alert("opened");
+          s.send("some data");
+         }
         s.onclose = function(e) { 
           alert(e.toString()); 
         }
