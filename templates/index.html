@@ -1,16 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='static/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form action="/projects/new" method="post">
-		<input type="text" name="name" placeholder="Project name..."/>
-		<textarea name="description">Enter your project description...</textarea>
-		<input type="submit"/>
-    </form>
-  </body>
-</html>
+<!DOCTYPE HTML>
+<html>                                                                           
+<head>                                                                           
+    <title>Flask/Gevent WebSocket Test</title>                                                   
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8">                              
+        $(document).ready(function(){                                            
+            $('form').submit(function(event){                                    
+                ws.send($('#data').val())                                        
+                return false;                                                    
+            });                                                                  
+            if ("WebSocket" in window) {                                         
+                ws = new WebSocket("ws://localhost:8080/ws");                
+                ws.onmessage = function (msg) {                                  
+                    $("#log").append("<p>"+msg.data+"</p>")                      
+                };                                                               
+            } else {                                                             
+                alert("WebSocket not supported");                                
+            }                                                                    
+        });                                                                      
+    </script>                                                                    
+</head>                                                                          
+<body>                                                                           
+    <h1>Send:</h1>                                                               
+    <form method='POST' action='#'>                                              
+        <textarea name='data' id="data"></textarea>                              
+        <div><input type='submit'></div>                                         
+    </form>                                                                      
+    <h1>Receive:</h1>                                                            
+    <div id="log"></div>                                                         
+</body>                                                                          
+</html>    
