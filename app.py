@@ -2,13 +2,14 @@ from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket import WebSocketError
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, render_template
+import json
 
 app = Flask(__name__)
 
-connections = []
+connections = {}
 
 @app.route("/")
-def main_page():
+def experiment():
     return render_template('index.html')
 
 @app.route("/create")
@@ -40,15 +41,23 @@ def api():
     if request.environ.get('wsgi.websocket'):
         try:
             ws = request.environ['wsgi.websocket']
-            connections.append(ws)
             print dir(ws)
             while True:
                 print "waiting"
                 message = ws.receive()
-                ws.send(message)
-                for s in connections:
-                    if s is not ws:
-                        s.send(message)
+                obj = json.loads(message)
+                ws.send(str(obj))
+                proj = obj['project_id']
+                print proj
+                if proj in connections:
+                    connections[proj].append(ws)
+                else:
+                    connections[proj] = [ws]
+                for s in connections[proj]:
+                    try:
+                        s.send("You're in proj %s" % proj)
+                    except WebSocketError:
+                        connections[proj].remove(s)
                     print "sending"
         except WebSocketError:
             print "Connection closed"
