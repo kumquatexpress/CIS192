@@ -1,9 +1,11 @@
 (function(sockets, $, undefined){
 	var ws = null;
-	sockets.init = function() {
+	sockets.init = function(proj_id) {
 		ws = new WebSocket("ws://localhost:8080/ws");
 		ws.onopen = function() {
 			console.log("WebSocket opened.");
+			handshake = {"project_id" : proj_id}
+			ws.send(JSON.stringify(handshake))
 		};
 		ws.onmessage = function(evt) {
 			console.log(evt.data);
@@ -17,6 +19,11 @@
 
 		};
 	};
+
+	sockets.send = function(msg) {
+		console.log("Sending : " + msg);
+		ws.send(msg);
+	}
 
 }(window.sockets = window.sockets || {}, jQuery));
 /*
@@ -34,8 +41,8 @@ socket.on('add_method', function(data){
 function saveAction(action_obj) {
   console.log(action_obj);
 	//socket.emit('saveAction', action_obj);
+  sockets.send(JSON.stringify(action_obj));
   console.log('save action done');
-  processAction(action_obj);
 }
 function processAction(action_obj) {
 	switch(action_obj.type) {

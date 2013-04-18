@@ -21,9 +21,9 @@ def start_connection(ws,groups):
 def handle_json(json_obj):
     obj_type = json_obj['type']
     action_type = json_obj['action']
-    if msg_type == "method":
+    if obj_type == "method":
         pass
-    elif msg_type == "class":
+    elif obj_type == "class":
         pass
     else:
         pass

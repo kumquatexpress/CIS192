@@ -43,6 +43,7 @@ def ws():
     if request.environ.get('wsgi.websocket'):
         try:
             cc = actions.start_connection(request.environ['wsgi.websocket'],connections)
+            print "Client now connected, listening for connections"
             while True:
                 in_obj = cc.get_json()
                 out_obj = {"tag" : "update", "data" : in_obj}
