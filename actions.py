@@ -25,5 +25,5 @@ def handle_json(json_obj):
         pass
     elif msg_type == "class":
         pass
-    else
+    else:
         pass

@@ -34,7 +34,8 @@ def new():
 
 @app.route("/project")
 def project():
-    return render_template('project.html')
+    proj_id = request.args.get("id")
+    return render_template('project.html',project_id=proj_id)
 
 
 @app.route('/ws')

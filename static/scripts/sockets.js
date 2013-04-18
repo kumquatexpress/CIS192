@@ -33,8 +33,9 @@ socket.on('add_method', function(data){
 
 function saveAction(action_obj) {
   console.log(action_obj);
-	socket.emit('saveAction', action_obj);
+	//socket.emit('saveAction', action_obj);
   console.log('save action done');
+  processAction(action_obj);
 }
 function processAction(action_obj) {
 	switch(action_obj.type) {
