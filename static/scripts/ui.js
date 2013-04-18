@@ -38,7 +38,7 @@ function resetAddClass() {
 			info : the_class,
 			project_id : $("#current-project-id").text()
 		};
-		saveAction(data);
+		sockets.saveAction(data);
 		resetAddClass();
 		$("#add-class").hide();
 	});
@@ -82,7 +82,7 @@ function resetAddAttribute() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 				resetAddAttribute();
 				break;
 		}
@@ -135,7 +135,7 @@ function resetAddArgument(the_method) {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 				resetAddArgument(the_method);
 				break;
 		}
@@ -224,7 +224,7 @@ function classListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 			}
 		});
 		
@@ -242,7 +242,7 @@ function classListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 	});
 	
 	
@@ -258,7 +258,7 @@ function classListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 	});
 	
 	$(".info .add-parent").unbind("keydown");
@@ -273,7 +273,7 @@ function classListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 				update_hierarchy(project);
 				$(this).val("");
 		}
@@ -292,7 +292,7 @@ function classListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 				$(this).val("");
 		}
 	});
@@ -317,7 +317,7 @@ function attributeListeners() {
 						project_id : $("#current-project-id").text()
 					}
 					console.log(data);
-					saveAction(data);
+					sockets.saveAction(data);
 		});
 	
 	$('.attribute .name span').unbind('click');
@@ -359,7 +359,7 @@ function attributeListeners() {
 					project_id : $("#current-project-id").text()
 				}
 				console.log(data);
-				saveAction(data);
+				sockets.saveAction(data);
 			}
 		});
 		
