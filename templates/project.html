@@ -21,13 +21,6 @@
     <script src="/scripts/highlight.pack.js"></script>
   </head>
   <body>
-    <input id="chat-username" placeholder="Chat Username"/>
-    <div id="chatbox"> 
-      <div id="messages">
-        <p> <span class="user">AnonymousUser0000</span>: <span class="message">:D </span> </p>
-      </div>
-      <input id="chat" placeholder="Type your message here"/>  
-    </div>
 	  <script type='text/javascript'>
 		  var project = null;
       var me = 'AnonymousUser' + parseInt(Math.random() * 10000)
@@ -47,59 +40,11 @@
 				 project.interfaces[i].methods = [];
 			 }
 			 loadProjectDetail();
-			 $.ajax({
-				 method : "GET",
-				 url : "/methods/"+project_id+".json",
-				 success : function(data) {
-						 for(var i in data) {
-							 processAction({ action : "add", type :"method",info : data[i] });
-						 }
-					 }
-				 });
 			 console.log(project);
-			 socket.emit('openProject',{ project_id: project.id });
 		  }
 		  });
 		  detailListeners();
 		  $(".edit-object").hide();
-      /* chat */
-
-
-      function sendMessage(){
-        var message = $('#chatbox input').val();
-        if(message === '') return;
-        $('#chatbox input').val('');
-        console.log(message);
-        socket.emit('chat', {
-          username: me,
-          message: message
-        });
-      }
-
-      // chat username
-      $('#chat-username').keypress(function(keycode){
-        if(keycode.keyCode === 13){
-          me = $('#chat-username').val();
-          $('#chat-username').val('');
-        }
-      });
-
-      socket.on('chat', function(data){
-        var new_msg = $('#messages p').first().clone();
-        new_msg.find('.user').text(data.username);
-        new_msg.find('.message').text(data.message);
-        new_msg.appendTo('#messages');
-        $('#messages').stop().animate({scrollTop: $('#messages').prop('scrollHeight')});
-      });
-
-      
-      $('#chatbox input').keydown(function (event){
-        if (!event) { event = window.event; }
-        if(event.keyCode === 13 ) {
-          sendMessage();
-          $('#game').focus();
-        }
-      });
 
 		  $(".back").click(function(){
 		  	loadProjectDetail();

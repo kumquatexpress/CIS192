@@ -3,6 +3,7 @@ from geventwebsocket import WebSocketError
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, render_template
 import json
+import actions
 
 app = Flask(__name__)
 
@@ -37,33 +38,25 @@ def project():
 
 
 @app.route('/ws')
-def api():
+def ws():
     if request.environ.get('wsgi.websocket'):
         try:
-            ws = request.environ['wsgi.websocket']
-            print dir(ws)
+            cc = actions.start_connection(request.environ['wsgi.websocket'],connections)
             while True:
-                print "waiting"
-                message = ws.receive()
-                obj = json.loads(message)
-                ws.send(str(obj))
-                proj = obj['project_id']
-                print proj
-                if proj in connections:
-                    connections[proj].append(ws)
-                else:
-                    connections[proj] = [ws]
-                for s in connections[proj]:
-                    try:
-                        s.send("You're in proj %s" % proj)
-                    except WebSocketError:
-                        connections[proj].remove(s)
-                    print "sending"
+                in_obj = cc.get_json()
+                out_obj = {"tag" : "update", "data" : in_obj}
+                cc.group.broadcast_json(out_obj)
+                actions.handle_json(in_obj)
         except WebSocketError:
             print "Connection closed"
+            try:
+                cc.close()
+            except NameError:
+                pass
     return ""
 
 if __name__ == '__main__':
     app.debug = True
     http_server = WSGIServer(('', 8080), app, handler_class=WebSocketHandler)
+    print "Now listening on port 8080"
     http_server.serve_forever()

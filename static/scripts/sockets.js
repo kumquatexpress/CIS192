@@ -1,3 +1,25 @@
+(function(sockets, $, undefined){
+	var ws = null;
+	sockets.init = function() {
+		ws = new WebSocket("ws://localhost:8080/ws");
+		ws.onopen = function() {
+			console.log("WebSocket opened.");
+		};
+		ws.onmessage = function(evt) {
+			console.log(evt.data);
+			data = $.parseJSON(evt.data);
+			if(data.tag == "update") {
+				processAction(data.data);
+			}
+		};
+		ws.onerror = function(evt) {
+			console.log("WebSocket error occured: " + evt.data);
+
+		};
+	};
+
+}(window.sockets = window.sockets || {}, jQuery));
+/*
 var socket = io.connect("/");
 
 socket.on('update', function(data){
@@ -6,7 +28,7 @@ socket.on('update', function(data){
 });
 socket.on('add_method', function(data){
   tmp_methods.push(data);
-});
+});*/
 
 
 function saveAction(action_obj) {
