@@ -1,5 +1,6 @@
-
 (function() {
+  app.util = app.util || {};
+  app.util.details = app.util.details || {};
 
   app.util.details.loadProjectDetail = function() {
     $("#current-project-id").text(project.id);

@@ -1,4 +1,6 @@
 (function() {
+  app.util = app.util || {};
+  app.util.data = app.util.data || {};
   app.sample_data = {
     id : "1",
     name : "My Project",
