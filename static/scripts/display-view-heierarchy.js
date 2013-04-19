@@ -93,7 +93,7 @@ function update_hierarchy(project)
 
 		_ids.push(_classes[x].id)
 		box.wrapper.click(function(){
-			loadClassDetail(_ids[boxes.indexOf(this)]);
+			app.util.details.loadClassDetail(_ids[boxes.indexOf(this)]);
 		});
 
 		boxes.push(box.wrapper)

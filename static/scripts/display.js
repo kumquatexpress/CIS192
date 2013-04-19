@@ -25,7 +25,7 @@ function modifyClass(info_obj) {
 	if(the_obj) {
 		//Update the detail panel if necessary
 		if(the_obj.id == $("#current-object-id").text()) {
-			loadObjInfoDetail(the_obj);
+			app.util.details.loadObjInfoDetail(the_obj);
 		}
 		//Update the code view if necessary
 		if(the_obj.id == $("#current-object-id").text()) {
@@ -41,7 +41,7 @@ function deleteClass(info_obj) {
 
 function addInterface(info_obj) {
 	project.interfaces.push(info_obj);
-	loadInterfaceDetail(info_obj.id);
+	app.util.details.loadInterfaceDetail(info_obj.id);
 	update_hierarchy(project);
 }
 function modifyInterface(info_obj) {
@@ -62,7 +62,7 @@ function modifyInterface(info_obj) {
 		//Update the detail panel if necessary
 		if($("#current-object-type").text() == "interface" && 
 		the_obj.id == $("#current-object-id").text()) {
-			loadObjInfoDetail(the_obj);
+			app.util.details.loadObjInfoDetail(the_obj);
 		}
 		//Update the code view if necessary
 		//Update the heierachical view if necessary
@@ -97,7 +97,7 @@ function addMethod(info_obj) {
 	}
 	if(the_obj) {
 		if($("#current-object-id").text() == the_obj.id) {
-			loadMethodsDetail(the_obj);
+			app.util.details.loadMethodsDetail(the_obj);
 		}
 	}
 }
@@ -141,7 +141,7 @@ function modifyMethod(info_obj) {
 	}
 	if(the_obj) {
 		if($("#current-object-id").text() == the_obj.id) {
-			loadMethodsDetail(the_obj);
+			app.util.details.loadMethodsDetail(the_obj);
 		}
 	}
 }
@@ -177,7 +177,7 @@ function deleteMethod(info_obj) {
 	}
 	if(the_obj) {
 		if($("#current-object-id").text() == the_obj.id) {
-			loadMethodsDetail(the_obj);
+			app.util.details.loadMethodsDetail(the_obj);
 		}
 	}
 }

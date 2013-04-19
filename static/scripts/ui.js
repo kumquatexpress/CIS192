@@ -73,7 +73,7 @@ function resetAddAttribute() {
 			case "2":
 				the_attribute.description = $("#attribute-textbox").val();
 				var obj_type = $("#current-object-type").text();
-				var modified_class = getInterClass($("#current-object-id").text(),obj_type);
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
 				modified_class.attributes.push(the_attribute);
 				var data = {
 					action : "modify",
@@ -122,7 +122,7 @@ function resetAddArgument(the_method) {
 				break;
 			case "2":
 				the_argument.description = the_method.find(".argument-textbox").val();
-				var modified_method = getMethod(
+				var modified_method = app.util.getMethod(
 				the_method.find(".method-id").text(),
 				$("#current-object-id").text(),
 				$("#current-object-type").text()
@@ -214,7 +214,7 @@ function classListeners() {
 				var n_desc =$('.edit-class-desc-'+_name).val();
 				
 				var obj_type = $("#current-object-type").text();
-				var modified_class = getInterClass($("#current-object-id").text(),obj_type);
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
 				modified_class.name = n_name;
 				modified_class.description = n_desc;
 				var data = {
@@ -233,7 +233,7 @@ function classListeners() {
 	$(".info .parent").unbind("click");
 	$(".info .parent").click(function() {
 		
-				var modified_class = getInterClass($("#current-object-id").text(),"class");
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
 				modified_class.parents.splice(modified_class.parents.indexOf($(this).text()),1);
 				var data = {
 					action : "modify",
@@ -249,7 +249,7 @@ function classListeners() {
 	$(".info .interface").unbind("click");
 	$(".info .interface").click(function() {
 		
-				var modified_class = getInterClass($("#current-object-id").text(),"class");
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
 				modified_class.interfaces.splice(modified_class.interfaces.indexOf($(this).text()),1);
 				var data = {
 					action : "modify",
@@ -264,7 +264,7 @@ function classListeners() {
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
 		if(event.keyCode == 13) {
-				var modified_class = getInterClass($("#current-object-id").text(),"class");
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
 				modified_class.parents.push($(this).val());
 				var data = {
 					action : "modify",
@@ -283,7 +283,7 @@ function classListeners() {
 	$(".info .add-interface").unbind("keydown");
 	$(".info .add-interface").keydown(function(event) {
 		if(event.keyCode == 13) {
-				var modified_class = getInterClass($("#current-object-id").text(),"class");
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
 				modified_class.interfaces.push($(this).val());
 				var data = {
 					action : "modify",
@@ -301,7 +301,7 @@ function classListeners() {
 function attributeListeners() {
 		$('.attribute .delete').unbind('click');
 		$('.attribute .delete').click(function() {
-					var modified_obj = getInterClass(
+					var modified_obj = app.util.getInterClass(
 					$('#current-object-id').text(),
 					$('#current-object-type').text()
 					);
@@ -344,7 +344,7 @@ function attributeListeners() {
 				//_attribute.find('.type').html(n_type);
 				//_attribute.find('.description').html(n_desc);
 				var obj_type = $("#current-object-type").text();
-				var modified_class = getInterClass($("#current-object-id").text(),obj_type);
+				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
 				for(var i=0;i<modified_class.attributes.length;i++) {
 					if(modified_class.attributes[i].name == _name) {
 						modified_class.attributes[i].name = n_name;
@@ -401,7 +401,7 @@ function methodListeners() {
 					//_method.find('.description:first').html(n_desc);
 					
 					
-					var modified_method = getMethod(
+					var modified_method = app.util.getMethod(
 					_method.find(".method-id").text(),
 					$("#current-object-id").text(),
 					$("#current-object-type").text()
@@ -423,7 +423,7 @@ function methodListeners() {
 		});
 		
 		the_method.find(".delete:first").click(function() {
-					var modified_method = getMethod(
+					var modified_method = app.util.getMethod(
 					the_method.find(".method-id").text(),
 					$("#current-object-id").text(),
 					$("#current-object-type").text()
@@ -442,7 +442,7 @@ function methodListeners() {
 			var the_arg = $(this);
 			the_arg.find('.delete').unbind('click');
 			the_arg.find('.delete').click(function() {
-						var modified_method = getMethod(
+						var modified_method = app.util.getMethod(
 						the_method.find(".method-id").text(),
 						$("#current-object-id").text(),
 						$("#current-object-type").text()
@@ -488,7 +488,7 @@ function methodListeners() {
 						//_arg.find('.description:first').html(n_desc);
 						
 						
-						var modified_method = getMethod(
+						var modified_method = app.util.getMethod(
 						the_method.find(".method-id").text(),
 						$("#current-object-id").text(),
 						$("#current-object-type").text()

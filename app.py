@@ -7,13 +7,16 @@ app = Flask(__name__)
 
 connections = []
 
+
 @app.route("/")
 def main_page():
     return render_template('index.html')
 
+
 @app.route("/create")
-def main_page():
+def create():
     return render_template('create.html')
+
 
 @app.route("/hierarchy")
 def hierarchy():
