@@ -7,33 +7,33 @@ var project = null;
 var me = 'AnonymousUser' + parseInt(Math.random() * 10000);
 
 $(document).ready(function() {
-  // $.ajax({
-  // method : "GET",
-  // url : 'data.json',//"/projects/"+project_id+".json",
-  // success : function(data) {
-  //  project = data; 
-  //  if(!project.classes) project.classes = [];
-  //  for(var i in project.classes) {
-  //    project.classes[i].methods = [];
-  //  }
-  //  if(!project.interfaces) project.interfaces = [];
-  //  for(var i in project.interfaces) {
-  //    project.interfaces[i].methods = [];
-  //  }
-  //  app.util.details.loadProjectDetail();
-  //  $.ajax({
-  //    method : "GET",
-  //    url : 'data.json' // "/methods/"+project_id+".json",
-  //    success : function(data) {
-  //        for(var i in data) {
-  //          processAction({ action : "add", type :"method",info : data[i] });
-  //        }
-  //      }
-  //    });
-  //  console.log(project);
-  //  // socket.emit('openProject',{ project_id: project.id });
-  // }
-  // });
+  $.ajax({
+  method : "GET",
+  url : 'data.json',//"/projects/"+project_id+".json",
+  success : function(data) {
+   project = data; 
+   if(!project.classes) project.classes = [];
+   for(var i in project.classes) {
+     project.classes[i].methods = [];
+   }
+   if(!project.interfaces) project.interfaces = [];
+   for(var i in project.interfaces) {
+     project.interfaces[i].methods = [];
+   }
+   app.util.details.loadProjectDetail();
+   $.ajax({
+     method : "GET",
+     url : 'data.json' // "/methods/"+project_id+".json",
+     success : function(data) {
+         for(var i in data) {
+           processAction({ action : "add", type :"method",info : data[i] });
+         }
+       }
+     });
+   console.log(project);
+   // socket.emit('openProject',{ project_id: project.id });
+  }
+  });
   detailListeners();
   $(".edit-object").hide();
   /* chat */
