@@ -10,19 +10,34 @@
     $(".add-methods").css("display", "none");
     update_hierarchy(project);
   };
+  function find_class(cls, class_id) {
+    var ret_class;
+    _.each(cls, function(c){
+      if(c.id === class_id) {
+        ret_class = c;
+        return;
+      }
+      // if it contains a classes thats not empty
+      if(c.classes && c.classes.length > 0) {
+        ret_class = find_class(c.classes, class_id);
+      }
+    });
+    return ret_class;
+  }
 
   app.util.details.loadClassDetail = function(class_id) {
     var the_class;
-    for(var i in project.classes) {
-      if(project.classes[i].id == class_id) {
-        the_class = project.classes[i];
-        console.log(the_class);
-        $("#current-object-type").text("class");
-        $("#current-object-id").text(the_class.id);
-        app.util.details.loadObjectDetail(the_class);
-      }
+
+    the_class = find_class(project.classes, class_id);
+    console.log('the_class')
+    console.log(the_class);
+    if(the_class) {
+      $("#current-object-type").text("class");
+      $("#current-object-id").text(the_class.id);
+      app.util.details.loadObjectDetail(the_class);
+      update_codeview(the_class, project.interfaces, "class", "java");
     }
-    update_codeview(the_class, project.interfaces, "class", "java");
+    else console.log('error, could not find class')
   };
 
   app.util.details.loadInterfaceDetail = function(interface_id) {
