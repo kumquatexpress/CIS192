@@ -1,86 +1,86 @@
 {
-    "id": "1",
-    "name": "My Project",
-    "description": "It's a frickin awesome project",
+    "description": "thisisatest",
     "classes": [
-    {
-        "id": "1",
-        "name": "Commentable",
-        "project": "1",
-        "description": "Interface for things that are commentable",
-        "attributes": [
-        {"scope": "private", "name": "other_id", "attr_type": "int", "description": "The other id."},
-        {"scope": "private", "name": "details", "attr_type": "string", "description": "Some details."}
-        ],
-        "classes": [
         {
-            "id": "2",
-            "name": "Comment",
-            "project": "1",
-            "description": "It's a class for comments",
-            "parents": ["DBObj"],
-            "classes": [
-            {
-                "id": "4",
-                "name": "Hello World",
-                "project": "1",
-                "description": "hi",
-                "parents": ["Comment"],
-                "interfaces": ["Commentable"],
-                "attributes": [],
-                "methods": []
-            }
-            ],
-            "interfaces": ["Commentable", "Likeable"],
-            "attributes": [
-            {"scope": "private", "name": "id", "attr_type": "int", "description": "The DB id."},
-            {"scope": "private", "name": "comment", "attr_type": "string", "description": "The comment"}
-            ],
             "methods": [
-            {
-                "id":  "1",
-                "scope": "public",
-                "name": "like",
-                "description": "testing",
-                "parent": "1",
-                "parent_type": "class",
-                "ret": "void",
-                "args": [
-                {"name": "user", "attr_type": "User", "description": "The user liking it"},
-                {"name": "timestamp", "attr_type": "long", "description": "The UNIX timestamp"}
-                ]
-            }
-            ]
-        }
-        ],
-        "methods": [
-        {
-            "id":  "1",
-            "scope": "public",
-            "name": "addComment",
-            "parent": "1",
-            "parent_type": "interface",
-            "ret": "boolean",
-            "args": [
-            {"name": "comment", "attr_type": "string", "description": "The comment to add"},
-            {"name": "user", "attr_type": "User", "description": "The user commenting."}
-            ]
-        }
-        ]
+                {
+                    "description": "methodforclassA",
+                    "class_id": 1,
+                    "ret": "void",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "public",
+                    "id": 1,
+                    "name": "methodA"
+                },
+                {
+                    "description": "methodforclassB",
+                    "class_id": 1,
+                    "ret": "string",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "private",
+                    "id": 2,
+                    "name": "methodB"
+                }
+            ],
+            "name": "testClass",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                
+            ],
+            "id": 1,
+            "description": "0"
         },
         {
-            "id": "5",
-            "name": "uncommentable yo",
-            "project": "1",
-            "description": "hi",
-            "parents": [""],
-            "interfaces": [""],
-            "attributes": [],
-            "methods": []
+            "methods": [
+                {
+                    "description": "justkiddingmethodBwaspartofclassA",
+                    "class_id": 2,
+                    "ret": "void",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "protected",
+                    "id": 3,
+                    "name": "methodrealB"
+                }
+            ],
+            "name": "child",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                
+            ],
+            "id": 2,
+            "description": "thisisachildclass"
+        },
+        {
+            "methods": [
+                
+            ],
+            "name": "classC",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                
+            ],
+            "id": 3,
+            "description": "classCisaseparateclassfromAandB"
         }
-        ],
-        "interfaces": [
-
-        ]
-    }
+    ],
+    "id": 1,
+    "name": "testProj"
 }

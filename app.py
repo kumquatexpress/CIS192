@@ -60,7 +60,8 @@ def new_class():
     name = request.args.get("name")
     project_id = request.args.get("id")
     abstract = request.args.get("abstract")
-    return models.new_class(name, project_id, abstract)
+    description = request.args.get("description")
+    return models.new_class(name, description, project_id, abstract)
 
 
 @app.route("/method/new")
@@ -70,7 +71,8 @@ def new_method():
     scope = request.args.get("scope")
     desc = request.args.get("desc")
     ret = request.args.get("ret")
-    return models.new_method(name, scope, ret, desc, project_id)
+    class_id = request.args.get("class_id")
+    return models.new_method(name, scope, ret, desc, class_id, project_id)
 
 
 @app.route("/attribute/new")
