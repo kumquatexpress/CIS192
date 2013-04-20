@@ -3,6 +3,7 @@ var width = 960,
     height = 2200;
 
 app.util.generate_hierarchy = function(id, data){
+  var root = data;
 
   var cluster = d3.layout.cluster()
     .size([height, width - 160])
@@ -27,7 +28,8 @@ app.util.generate_hierarchy = function(id, data){
     .append("g")
       .attr("transform", "translate(40,0)");
 
-  d3.json("static/data.json", function(error, root) {
+
+  // d3.json("static/data.json", function(error, root) {
     // set to default for now, future needs to change to "class"
     // console.log(root);
     
@@ -84,7 +86,7 @@ app.util.generate_hierarchy = function(id, data){
         .attr("stroke", 'white')
         .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
         .text(function(d) { return d.name; });
-  });
+  // });
 
   d3.select(self.frameElement).style("height", height + "px");
   // set draggable

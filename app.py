@@ -50,28 +50,56 @@ def sample_data():
         "description": "It's a frickin awesome project",
         "classes": [
         {
-            "id": "2",
-            "name": "Comment",
+            "id": "1",
+            "name": "Commentable",
             "project": "1",
-            "description": "It's a class for comments",
-            "parents": ["DBObj"],
-            "interfaces": ["Commentable", "Likeable"],
+            "description": "Interface for things that are commentable",
             "attributes": [
-            {"scope": "private", "name": "id", "attr_type": "int", "description": "The DB id."},
-            {"scope": "private", "name": "comment", "attr_type": "string", "description": "The comment"}
+            {"scope": "private", "name": "other_id", "attr_type": "int", "description": "The other id."},
+            {"scope": "private", "name": "details", "attr_type": "string", "description": "Some details."}
+            ],
+            "classes": [
+                {
+                    "id": "2",
+                    "name": "Comment",
+                    "project": "1",
+                    "description": "It's a class for comments",
+                    "parents": ["DBObj"],
+                    "classes": [
+                    ],
+                    "interfaces": ["Commentable", "Likeable"],
+                    "attributes": [
+                    {"scope": "private", "name": "id", "attr_type": "int", "description": "The DB id."},
+                    {"scope": "private", "name": "comment", "attr_type": "string", "description": "The comment"}
+                    ],
+                    "methods": [
+                    {
+                        "id":  "1",
+                        "scope": "public",
+                        "name": "like",
+                        "description": "testing",
+                        "parent": "1",
+                        "parent_type": "class",
+                        "ret": "void",
+                        "args": [
+                        {"name": "user", "attr_type": "User", "description": "The user liking it"},
+                        {"name": "timestamp", "attr_type": "long", "description": "The UNIX timestamp"}
+                        ]
+                    }
+                    ]
+                }
             ],
             "methods": [
             {
                 "id":  "1",
                 "scope": "public",
-                "name": "like",
-                "description": "testing",
+                "name": "addComment",
                 "parent": "1",
-                "parent_type": "class",
-                "ret": "void",
+                "parent_type": "interface",
+                "ret": "boolean",
                 "args": [
-                {"name": "user", "attr_type": "User", "description": "The user liking it"},
-                {"name": "timestamp", "attr_type": "long", "description": "The UNIX timestamp"}
+                {"name": "comment", "attr_type": "string", "description": "The comment to add"},
+                {"name": "user", "attr_type": "User", "description": "The user commenting."}
                 ]
             }
             ]
@@ -88,30 +116,7 @@ def sample_data():
         }
         ],
         "interfaces": [
-        {
-            "id": "1",
-            "name": "Commentable",
-            "project": "1",
-            "description": "Interface for things that are commentable",
-            "attributes": [
-            {"scope": "private", "name": "other_id", "attr_type": "int", "description": "The other id."},
-            {"scope": "private", "name": "details", "attr_type": "string", "description": "Some details."}
-            ],
-            "methods": [
-            {
-                "id":  "1",
-                "scope": "public",
-                "name": "addComment",
-                "parent": "1",
-                "parent_type": "interface",
-                "ret": "boolean",
-                "args": [
-                {"name": "comment", "attr_type": "string", "description": "The comment to add"},
-                {"name": "user", "attr_type": "User", "description": "The user commenting."}
-                ]
-            }
-            ]
-        }
+
         ]
     }
     return jsonify(data)

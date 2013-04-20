@@ -39,7 +39,7 @@ $(document).ready(function() {
       console.log(project);
 
       // app.util.details.loadProjectDetail();
-      app.util.generate_hierarchy('hierarchy-wrapper');
+      app.util.generate_hierarchy('hierarchy-wrapper', project);
       console.log(project);
       detailListeners();
       $(".edit-object").hide();
