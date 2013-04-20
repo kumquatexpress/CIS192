@@ -23,6 +23,7 @@
 
 	sockets.saveAction = function(action_obj) {
 		console.log("Saving object : " + action_obj);
+    console.log(action_obj)
 		ws.send(JSON.stringify(action_obj));
 		console.log('Finished saving action.');
 	};

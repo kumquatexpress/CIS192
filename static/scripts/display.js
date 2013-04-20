@@ -23,7 +23,7 @@
         the_class.name = info_obj.name;
         the_class.descripton = info_obj.description;
         the_class.attributes = info_obj.attributes;
-        the_class.parent = info_obj.parent;
+        // the_class.parent = info_obj.parent;
         the_class.interfaces = info_obj.interfaces;
         the_obj = the_class;
       }
@@ -61,7 +61,7 @@
         the_interface.name = info_obj.name;
         the_interface.descripton = info_obj.description;
         the_interface.attributes = info_obj.attributes;
-        the_interface.parent = info_obj.parent;
+        // the_interface.parent = info_obj.parent;
         the_interface.interfaces = info_obj.interfaces;
         the_obj = the_interface;
       }

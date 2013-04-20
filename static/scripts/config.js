@@ -1,7 +1,7 @@
 var app = {
   util: {},
   display: {}
-  };
+};
 
 
 var project = null;

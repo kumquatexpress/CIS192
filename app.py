@@ -64,14 +64,12 @@ def sample_data():
                     "name": "Comment",
                     "project": "1",
                     "description": "It's a class for comments",
-                    "parents": ["DBObj"],
                     "classes": [
                         {
                             "id": "4",
                             "name": "Hello World",
                             "project": "1",
                             "description": "hi",
-                            "parents": ["Comment"],
                             "interfaces": ["Commentable"],
                             "attributes": [],
                             "methods": []
@@ -88,8 +86,6 @@ def sample_data():
                         "scope": "public",
                         "name": "like",
                         "description": "testing",
-                        "parent": "1",
-                        "parent_type": "class",
                         "ret": "void",
                         "args": [
                         {"name": "user", "attr_type": "User", "description": "The user liking it"},
@@ -104,8 +100,6 @@ def sample_data():
                 "id":  "1",
                 "scope": "public",
                 "name": "addComment",
-                "parent": "1",
-                "parent_type": "interface",
                 "ret": "boolean",
                 "args": [
                 {"name": "comment", "attr_type": "string", "description": "The comment to add"},
@@ -119,7 +113,6 @@ def sample_data():
             "name": "uncommentable yo",
             "project": "1",
             "description": "hi",
-            "parents": [""],
             "interfaces": [""],
             "attributes": [],
             "methods": []

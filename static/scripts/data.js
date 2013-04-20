@@ -73,6 +73,8 @@
   };
 
   app.util.data.getInterClass = function(class_id,type) {
+    console.log('inside getinterclass')
+    console.log(project)
     if(type == "class") {		
       for(var i=0;i<project.classes.length;i++) {
         if(project.classes[i].id == class_id) {

@@ -10,6 +10,7 @@
     $(".add-methods").css("display", "none");
     update_hierarchy(project);
   };
+
   function find_class(cls, class_id) {
     var ret_class;
     _.each(cls, function(c){
