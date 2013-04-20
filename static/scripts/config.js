@@ -1,5 +1,6 @@
 var app = {
-  util: {}
+  util: {},
+  display: {}
   };
 
 

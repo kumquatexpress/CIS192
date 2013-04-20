@@ -66,6 +66,16 @@ def sample_data():
                     "description": "It's a class for comments",
                     "parents": ["DBObj"],
                     "classes": [
+                        {
+                            "id": "4",
+                            "name": "Hello World",
+                            "project": "1",
+                            "description": "hi",
+                            "parents": ["Comment"],
+                            "interfaces": ["Commentable"],
+                            "attributes": [],
+                            "methods": []
+                        }
                     ],
                     "interfaces": ["Commentable", "Likeable"],
                     "attributes": [
@@ -105,12 +115,12 @@ def sample_data():
             ]
         },
         {
-            "id": "4",
-            "name": "Hello World",
+            "id": "5",
+            "name": "uncommentable yo",
             "project": "1",
             "description": "hi",
-            "parents": ["Comment"],
-            "interfaces": ["Commentable"],
+            "parents": [""],
+            "interfaces": [""],
             "attributes": [],
             "methods": []
         }

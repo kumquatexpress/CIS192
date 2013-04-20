@@ -19,7 +19,7 @@
         console.log(the_class);
         $("#current-object-type").text("class");
         $("#current-object-id").text(the_class.id);
-        loadObjectDetail(the_class);
+        app.util.details.loadObjectDetail(the_class);
       }
     }
     update_codeview(the_class, project.interfaces, "class", "java");

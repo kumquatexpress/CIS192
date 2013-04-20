@@ -76,6 +76,12 @@ app.util.generate_hierarchy = function(id, data){
         })
         .on('mouseout', function(d) {
           $('#class-info').toggle();
+        })
+        .on('mousedown', function(d) {
+          console.log('this')
+          console.log(this)
+          console.log(d);
+          app.util.details.loadClassDetail(d.id);
         });
 
     // console.log(node.value());
