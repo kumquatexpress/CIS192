@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Table, Boolean, Integer, String, Date, MetaData
-from sqlalchemy import create_engine, ForeignKey
+from sqlalchemy import Column, Table, Boolean, Integer, String, create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-import json
 from sqlalchemy.orm import relationship, backref, sessionmaker
 
 engine = create_engine('mysql://codify@cis330.ca9iefbk06km.us-east-1.rds.amazonaws.com:3306/codify')
@@ -27,14 +25,16 @@ class Class(Base):
     project_id = Column(Integer, ForeignKey("projects.id"))
     project = relationship("Project", backref=backref("classes"))
     abstract = Column(Boolean)
+    description = Column(String(length=1500))
 
-    def __init__(self, name, abstract):
+    def __init__(self, name, description, abstract=False):
         self.name = name
         self.abstract = abstract
+        self.description = description
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'children': self.children, 'methods': self.methods,
-                  'attributes': self.attributes, 'abstract': self.abstract, 'project_id': self.project_id}
+        result = {'id': self.id, 'name': self.name, 'description': self.description, 'children': self.children,
+                  'methods': self.methods, 'attributes': self.attributes, 'abstract': self.abstract, 'project_id': self.project_id}
         return str(result)
 
 
@@ -45,7 +45,7 @@ class Argument(Base):
     attr_type = Column(String(length=50))
     description = Column(String(length=1500))
     method_id = Column(Integer, ForeignKey("methods.id"))
-    method = relationship("Methods", backref="arguments")
+    method = relationship("Method", backref="arguments")
 
     def __init__(self, name, attr_type, desc):
         self.name = name
@@ -133,28 +133,26 @@ def new_project(name, description):
     p = Project(name, description)
     db.add(p)
     db.commit()
-    db.close()
     return p
 
 
-def new_class(name, project_id, abstract):
+def new_class(name, description, project_id, abstract=False):
     db = make_session()
-    c = Class(name, abstract)
+    c = Class(name, description, abstract)
     c.project_id = project_id
     db.add(c)
     db.commit()
-    p = db.query(Project).filter(Project.id == c.project_id)
-    db.close()
+    p = db.query(Project).filter(Project.id == c.project_id).first()
     return p
 
 
-def new_method(name, scope, ret, description, project_id):
+def new_method(name, scope, ret, description, class_id, project_id):
     db = make_session()
     m = Method(name, scope, ret, description)
+    m.class_id = class_id
     db.add(m)
     db.commit()
-    p = db.query(Project).filter(Project.id == project_id)
-    db.close()
+    p = db.query(Project).filter(Project.id == project_id).first()
     return p
 
 
@@ -162,8 +160,7 @@ def new_attribute(name, scope, attr_type, description, project_id):
     db = make_session()
     a = Attribute(name, scope, attr_type, description)
     db.commit(a)
-    p = db.query(Project).filter(Project.id == project_id)
-    db.close()
+    p = db.query(Project).filter(Project.id == project_id).first()
     return p
 
 # to use ORM, call
