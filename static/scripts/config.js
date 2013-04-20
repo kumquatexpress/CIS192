@@ -7,33 +7,51 @@ var project = null;
 var me = 'AnonymousUser' + parseInt(Math.random() * 10000);
 
 $(document).ready(function() {
+  console.log('hoihwaiueh');
   $.ajax({
-  method : "GET",
-  url : 'data.json',//"/projects/"+project_id+".json",
-  success : function(data) {
-   project = data; 
-   if(!project.classes) project.classes = [];
-   for(var i in project.classes) {
-     project.classes[i].methods = [];
-   }
-   if(!project.interfaces) project.interfaces = [];
-   for(var i in project.interfaces) {
-     project.interfaces[i].methods = [];
-   }
-   app.util.details.loadProjectDetail();
-   $.ajax({
-     method : "GET",
-     url : 'data.json' // "/methods/"+project_id+".json",
-     success : function(data) {
-         for(var i in data) {
-           processAction({ action : "add", type :"method",info : data[i] });
-         }
-       }
-     });
-   console.log(project);
-   // socket.emit('openProject',{ project_id: project.id });
-  }
+    method : "GET",
+    url : 'sample_data',//"/projects/"+project_id+".json",
+    success : function(data) {
+      project = data; 
+      console.log('insideeeee');
+      console.log('projeect');
+      console.log(data);
+      if(!project.classes) project.classes = [];
+      for(var i in project.classes) {
+        project.classes[i].methods = [];
+      }
+      if(!project.interfaces) project.interfaces = [];
+      for(var i in project.interfaces) {
+        project.interfaces[i].methods = [];
+      }
+      // stuff
+      // app.util.details.loadProjectDetail();
+      $.ajax({
+        method : "GET",
+        url : 'static/testdata.json', // "/methods/"+project_id+".json",
+        success : function(data) {
+          for(var i in data) {
+            sockets.processAction({ action : "add", type :"method",info : data[i] });
+          }
+        }
+      });
+      console.log('project:');
+      console.log(project);
+
+      // app.util.details.loadProjectDetail();
+      console.log(project);
+      detailListeners();
+      $(".edit-object").hide();
+      // loadClassDetail(2);
+
+      // socket.emit('openProject',{ project_id: project.id });
+    }
   });
+  $(".back").click(function() {
+      loadProjectDetail();
+  });
+
+  sockets.init("1");
   detailListeners();
   $(".edit-object").hide();
   /* chat */

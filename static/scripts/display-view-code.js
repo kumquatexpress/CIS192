@@ -5,7 +5,11 @@ function update_codeview(_class, _interfaces, flag)
   var theskelton;
 	if(lang == "java")
 	{
+    console.log('hihihihihi');
+    console.log(_class);
+    console.log(_interfaces);
 		theskeleton = java_skeleton(_class, _interfaces, flag);
+    
 	}
 	if(lang == "ruby")
 	{

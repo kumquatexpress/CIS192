@@ -15,7 +15,7 @@ function java_skeleton(_class, _interfaces, flag)
 	//get parent info if exists
 	var parent = _class.parents
 	var parname = ""
-	if (parent[0])
+	if (parent && parent[0])
 	{
 		var parname = " extends " + parent.join(", ")
 	}
@@ -42,7 +42,7 @@ function java_skeleton(_class, _interfaces, flag)
 	}
 
 	var intstring = ""
-	if(interfaces[0])
+	if(interfaces && interfaces[0])
 	{
 		intstring = " implements " + interfaces.join(", ")
 	}
@@ -63,7 +63,7 @@ function java_skeleton(_class, _interfaces, flag)
 		class_string = class_string + name + parname + 
 		intstring + " {\n"	
 	}
-	if(attributes[0]){
+	if(attributes && attributes[0]){
 		for(var xy in attributes)
 		{
 			class_string = class_string + "\t" + attr_string(attributes[xy], _warnings)
@@ -76,7 +76,7 @@ function java_skeleton(_class, _interfaces, flag)
 		class_string = class_string + "\n"+ java_constructor(_class)
 	}
 
-	if(methods[0]){
+	if(methods && methods[0]){
 		for(var xy in methods)
 		{
 			class_string = class_string + "\t" + javadoc(methods[xy])
@@ -89,6 +89,7 @@ function java_skeleton(_class, _interfaces, flag)
 
 function attr_string(attr, warn)
 {
+  console.log('attr_string')
 	console.log(attr)
 	var attr_name = check_warnings(attr.attr_type, warn)
 	return attr.scope + " " + attr_name + " " + attr.name + ";\n"
@@ -97,6 +98,8 @@ function attr_string(attr, warn)
 function method_string(method, warn)
 {
 	var arguments = []
+  console.log('method_string')
+  console.log(method.ret)
 	for(var xy in method.args)
 	{
 		arguments.push(method.args[xy].attr_type + " " + method.args[xy].name)

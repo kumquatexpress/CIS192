@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: col;
-  src: url('../Fonts/ColabThi.otf');
+  /* src: url('../Fonts/ColabThi.otf');*/
 }
 
 body, textarea, input, button, select{

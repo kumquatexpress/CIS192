@@ -1,9 +1,10 @@
 from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket import WebSocketError
 from gevent.pywsgi import WSGIServer
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import json
 import actions
+import requests
 
 app = Flask(__name__)
 
@@ -39,6 +40,81 @@ def new():
 def project():
     proj_id = request.args.get("id")
     return render_template('project.html',project_id=proj_id)
+
+
+@app.route("/sample_data")
+def sample_data():
+    data = {
+        "id": "1",
+        "name": "My Project",
+        "description": "It's a frickin awesome project",
+        "classes": [
+        {
+            "id": "2",
+            "name": "Comment",
+            "project": "1",
+            "description": "It's a class for comments",
+            "parents": ["DBObj"],
+            "interfaces": ["Commentable", "Likeable"],
+            "attributes": [
+            {"scope": "private", "name": "id", "attr_type": "int", "description": "The DB id."},
+            {"scope": "private", "name": "comment", "attr_type": "string", "description": "The comment"}
+            ],
+            "methods": [
+            {
+                "id":  "1",
+                "scope": "public",
+                "name": "like",
+                "description": "testing",
+                "parent": "1",
+                "parent_type": "class",
+                "ret": "void",
+                "args": [
+                {"name": "user", "attr_type": "User", "description": "The user liking it"},
+                {"name": "timestamp", "attr_type": "long", "description": "The UNIX timestamp"}
+                ]
+            }
+            ]
+        },
+        {
+            "id": "4",
+            "name": "Hello World",
+            "project": "1",
+            "description": "hi",
+            "parents": ["Comment"],
+            "interfaces": ["Commentable"],
+            "attributes": [],
+            "methods": []
+        }
+        ],
+        "interfaces": [
+        {
+            "id": "1",
+            "name": "Commentable",
+            "project": "1",
+            "description": "Interface for things that are commentable",
+            "attributes": [
+            {"scope": "private", "name": "other_id", "attr_type": "int", "description": "The other id."},
+            {"scope": "private", "name": "details", "attr_type": "string", "description": "Some details."}
+            ],
+            "methods": [
+            {
+                "id":  "1",
+                "scope": "public",
+                "name": "addComment",
+                "parent": "1",
+                "parent_type": "interface",
+                "ret": "boolean",
+                "args": [
+                {"name": "comment", "attr_type": "string", "description": "The comment to add"},
+                {"name": "user", "attr_type": "User", "description": "The user commenting."}
+                ]
+            }
+            ]
+        }
+        ]
+    }
+    return jsonify(data)
 
 
 @app.route('/ws')
