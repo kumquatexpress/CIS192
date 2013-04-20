@@ -1,14 +1,16 @@
+(function(){
 var width = 960,
     height = 2200;
 
-$(function(){
+app.util.generate_hierarchy = function(id, data){
+
   var cluster = d3.layout.cluster()
     .size([height, width - 160])
     .children(function(d){
       return d.classes;
     });
 
- var drag = d3.behavior.drag()
+  var drag = d3.behavior.drag()
         .on("drag", function(d,i) {
             d.x += d3.event.dx;
             d.y += d3.event.dy;
@@ -19,7 +21,7 @@ $(function(){
   var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-  var svg = d3.select("#hierarchy-wrapper").append("svg")
+  var svg = d3.select("#" + id).append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
@@ -79,6 +81,7 @@ $(function(){
     node.append("text")
         .attr("dx", function(d) { return d.children ? -8 : 8; })
         .attr("dy", 3)
+        .attr("stroke", 'white')
         .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
         .text(function(d) { return d.name; });
   });
@@ -86,4 +89,5 @@ $(function(){
   d3.select(self.frameElement).style("height", height + "px");
   // set draggable
   $('#hierarchy-wrapper svg').draggable();
-});
+};
+})();

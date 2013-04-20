@@ -4,7 +4,11 @@
     <link rel='stylesheet' href='static/stylesheets/style.css' />
     <link rel='stylesheet' href='static/stylesheets/detail-pane.css' />
     <link rel='stylesheet' href='static/stylesheets/solarized_dark.css'/>
+    <link rel="stylesheet" type="text/css" href="static/stylesheets/hierarchy.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="static/scripts/lib/underscore-min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="static/scripts/lib/jquery-ui-1.10.2.custom.js"></script>
     <script src="static/scripts/config.js"></script>
     <script src="static/scripts/data.js"></script>
     <script src="static/scripts/ui.js"></script>
@@ -18,6 +22,7 @@
     <script src="static/scripts/code_skeletons/ruby_skeleton.js"></script>
     <script src="static/scripts/code_skeletons/python_skeleton.js"></script>
     <script src="static/scripts/display-view-code.js"></script>
+    <script src="static/scripts/hierarchy.js"></script>
 </head>
 <body>
    <script type='text/javascript'>
@@ -271,6 +276,9 @@ $(document).ready(function() {
     <div class="visualizer-panel">
         <div class="the-code" id="canvas"></div>
         <div class="warnings-panel"></div>
+      <div id="hierarchy-wrapper">
+        <div id="class-info"> <p> this is where i put the method info </p> </div>
+      </div>
     </div>
 </div>
 </body>
