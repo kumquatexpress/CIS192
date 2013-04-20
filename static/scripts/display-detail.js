@@ -29,6 +29,7 @@
   app.util.details.loadClassDetail = function(class_id) {
     var the_class;
 
+    console.log(project.classes)
     the_class = find_class(project.classes, class_id);
     console.log('the_class')
     console.log(the_class);
@@ -65,6 +66,8 @@
   };
 
   app.util.details.loadObjInfoDetail = function(the_obj) {
+    console.log('inside loadobjinfodetail');
+    console.log(the_obj);
         var edit_obj = $(".edit-object");	
         edit_obj.attr("id","edit-object-"+the_obj.id);
         edit_obj.find(".info .name").html("<span>"+the_obj.name+"</span>");
