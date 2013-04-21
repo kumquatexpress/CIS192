@@ -1,14 +1,16 @@
 (function(){
-var width = 960,
-    height = 2200;
-
 app.util.generate_hierarchy = function(id, data){
+var width = $('#hierarchy-wrapper').width(),
+    height = $(window).height();
+
+
   var root = data;
 
   var cluster = d3.layout.cluster()
     .size([height, width - 160])
     .children(function(d){
-      return d.classes;
+      
+      return d.classes || d.children;
     });
 
   var drag = d3.behavior.drag()
@@ -82,6 +84,8 @@ app.util.generate_hierarchy = function(id, data){
           console.log(this)
           console.log(d);
           app.util.details.loadClassDetail(d.id);
+          // hide
+          $('#hierarchy-wrapper').toggle();
         });
 
     // console.log(node.value());
