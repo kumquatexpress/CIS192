@@ -70,32 +70,6 @@ sample_dat = {
         },
         {
             "methods": [
-                {
-                    "description": "justkiddingmethodBwaspartofclassA",
-                    "class_id": 2,
-                    "ret": "void",
-                    "arguments": [
-                        
-                    ],
-                    "scope": "protected",
-                    "id": 3,
-                    "name": "methodrealB"
-                }
-            ],
-            "name": "child",
-            "attributes": [
-                
-            ],
-            "abstract": "False",
-            "project_id": 1,
-            "children": [
-                
-            ],
-            "id": 2,
-            "description": "thisisachildclass"
-        },
-        {
-            "methods": [
                 
             ],
             "name": "classC",
@@ -105,7 +79,32 @@ sample_dat = {
             "abstract": "False",
             "project_id": 1,
             "children": [
-                
+            {
+                  "methods": [
+                      {
+                          "description": "justkiddingmethodBwaspartofclassA",
+                          "class_id": 2,
+                          "ret": "void",
+                          "arguments": [
+                              
+                          ],
+                          "scope": "protected",
+                          "id": 3,
+                          "name": "methodrealB"
+                      }
+                  ],
+                  "name": "child",
+                  "attributes": [
+                      
+                  ],
+                  "abstract": "False",
+                  "project_id": 1,
+                  "children": [
+                      
+                  ],
+                  "id": 2,
+                  "description": "thisisachildclass"
+              }      
             ],
             "id": 3,
             "description": "classCisaseparateclassfromAandB"

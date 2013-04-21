@@ -12,12 +12,20 @@ function java_skeleton(_class, _interfaces, flag)
 	//get methods
 	var methods = _class.methods
 
-	//get parent info if exists
-	var parent = _class.parents
-	var parname = ""
+  console.log('javaskel')
+  console.log(_class)
+	//get parent info if exists, pluck only from the ones that have "project" attribute
+	var parent = _.pluck(_.filter((_class.parents), function(item){
+      return item.project_id !== undefined;
+    }), 'name');
+	var parname = "";
 	if (parent && parent[0])
 	{
-		var parname = " extends " + parent.join(", ")
+    console.log('parent')
+    console.log(parent)
+    console.log(parent)
+    console.log(_class)
+		parname = " extends " + parent.join(", ")
 	}
 
 	//get interfaces info if exists

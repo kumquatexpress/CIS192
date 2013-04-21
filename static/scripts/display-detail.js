@@ -19,8 +19,8 @@
         return;
       }
       // if it contains a classes thats not empty
-      if(c.classes && c.classes.length > 0) {
-        ret_class = find_class(c.classes, class_id);
+      if(c.children && c.children.length > 0) {
+        ret_class = find_class(c.children, class_id);
       }
     });
     return ret_class;

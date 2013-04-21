@@ -39,6 +39,8 @@ function update_codeview(_class, _interfaces, flag)
 function changeLanguage()
 {
 	lang = $('#language').val();
-	var the_class = app.util.getInterClass($("#current-object-id").text(),$("#current-object-type").text());
+	var the_class = app.util.data.getInterClass($("#current-object-id").text(),$("#current-object-type").text());
+  console.log('this is the class')
+  console.log(the_class)
 	update_codeview(the_class,project.interfaces,$("#current-object-type").text());
 }

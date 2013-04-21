@@ -34,9 +34,107 @@ var width = $('#hierarchy-wrapper').width(),
   // d3.json("static/data.json", function(error, root) {
     // set to default for now, future needs to change to "class"
     // console.log(root);
+
+
+    // go through all the nodes, and check, if the nodes exist already, then add to the existing node's parents attribute
+    function re_node(nodes){
+      var all_nodes = [];
+      remove_nodes = [];
+      // push all nodes to all_nodes
+      _.each(nodes, function(node) {
+        // instantiate its parents if it doesn't have it
+        node.parents = node.parents || [];
+        // check if its parents contains its parent, otherwise push it on
+        if(!_.contains(node.parents, node.parent)){
+          node.parents.push(node.parent);
+        }
+        var existing_node = _.findWhere(all_nodes, {id: node.id, name: node.name});
+        if(existing_node !== undefined){
+          // push the parent to the existing node
+          existing_node.parents.push(node.parent);
+          // remove it from its parent
+          node.parent.children = _.without(node.parent.children, node);
+          // remove it from nodes
+          remove_nodes.push(node)
+          existing_node.parents.push(node.parent)
+        
+          
+
+        } else {
+          // otherwise, push it to the all_nodes
+          all_nodes.push(node);
+        }
+      });
+      console.log(2893749824)
+        console.log(remove_nodes)
+      nodes = _.difference(nodes, remove_nodes);
+      return nodes;
+    }
+
+    // USE THIS LINKS METHOD INSTEAD OF THE BUILT IN LINKS METHOD FOR D3
+    function create_links(nodes) {
+      // creates links for nodes with multiple parents
+      // console.log(d3.merge(nodes.map(function(parent) {
+      //   var ret_array;
+      //   console.log('hihihuwehfuhefu')
+      //     console.log(this)
+      //   _.each(parent.children, function(child) {
+          
+      //     _.each(child.parents, function(child_parent) {
+      //       console.log(this)
+      //       ret_array.push({
+      //         source: child_parent,
+      //         target: child
+      //       });
+
+      //     }, this);
+      //   }, this);
+      //   return ret_array;
+
+      // })));
+
+
+      return d3.merge(nodes.map(function(parent) {
+        var ret_array = [];
+        _.each(parent.children, function(child) {
+          _.each(child.parents, function(child_parent) {
+            console.log("THIS IS SPARTA")
+            console.log(child_parent)
+            ret_array.push({
+              source: child_parent,
+              target: child
+            });
+
+          });
+        });
+        console.log(ret_array)
+        return ret_array;
+
+      }));
+        // console.log(d3.merge(nodes.map(function(parent) {
+        // return (parent.children || []).map(function(child) {
+        //   return {
+        //     source: parent,
+        //     target: child
+        //   };
+        //   });
+        // })));
+      
+      // return d3.merge(nodes.map(function(parent) {
+      //   return (parent.children || []).map(function(child) {
+      //     return {
+      //       source: parent,
+      //       target: child
+      //     };
+      //   });
+      // }));
+    }
     
-    var nodes = cluster.nodes(root),
-        links = cluster.links(nodes);
+    var nodes = cluster.nodes(root);
+    nodes = re_node(nodes);
+    console.log('the nodes')
+    console.log(nodes)
+    var links = create_links(nodes);
 
     var link = svg.selectAll(".link")
         .data(links)

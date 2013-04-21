@@ -14,8 +14,9 @@ function ruby_skeleton(_class, _interfaces)
 	console.log(methods)
 
 	//get parent info if exists
-	var parent = _class.parents
-	var parname = ""
+  var parent = _.pluck(_.filter((_class.parents), function(item){
+    return item.project_id !== undefined;
+  }), 'name');	var parname = ""
 	//get interfaces info if exists
 	var interfaces = _class.interfaces
 
