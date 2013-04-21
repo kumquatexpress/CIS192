@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Table, Boolean, Integer, String, create_engine, ForeignKey
+from sqlalchemy import Column, Table, Integer, String, create_engine, ForeignKey
+from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref, sessionmaker
+import json
 
 engine = create_engine('mysql://codify@cis330.ca9iefbk06km.us-east-1.rds.amazonaws.com:3306/codify')
 Base = declarative_base()
@@ -24,18 +26,22 @@ class Class(Base):
     attributes = relationship("Attribute", backref="class")
     project_id = Column(Integer, ForeignKey("projects.id"))
     project = relationship("Project", backref=backref("classes"))
-    abstract = Column(Boolean)
+    abstract = Column(TINYINT)
     description = Column(String(length=1500))
 
     def __init__(self, name, description, abstract=False):
         self.name = name
-        self.abstract = abstract
+        self.abstract = int(abstract)
         self.description = description
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'description': self.description, 'children': self.children,
-                  'methods': self.methods, 'attributes': self.attributes, 'abstract': self.abstract, 'project_id': self.project_id}
-        return str(result)
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {
+            'id': self.id, 'name': self.name, 'description': self.description, 'children': [c.to_dict() for c in self.children],
+            'methods': [m.to_dict() for m in self.methods], 'attributes': [a.to_dict() for a in self.attributes],
+            'abstract': self.abstract, 'project_id': self.project_id}
 
 
 class Argument(Base):
@@ -53,9 +59,11 @@ class Argument(Base):
         self.description = desc
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'attr_type': self.attr_type,
-                  'description': self.description, 'method_id': self.method_id}
-        return str(result)
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {'id': self.id, 'name': self.name, 'attr_type': self.attr_type,
+                'description': self.description, 'method_id': self.method_id}
 
 
 class Method(Base):
@@ -75,10 +83,12 @@ class Method(Base):
         self.description = description
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'class_id': self.class_id,
-                  'scope': self.scope, 'ret': self.ret, 'description': self.description,
-                  'arguments': self.arguments}
-        return str(result)
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {'id': self.id, 'name': self.name, 'class_id': self.class_id,
+                'scope': self.scope, 'ret': self.ret, 'description': self.description,
+                'arguments': [a.to_dict() for a in self.arguments]}
 
 
 class Attribute(Base):
@@ -98,9 +108,11 @@ class Attribute(Base):
         self.description = desc
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'class_id': self.class_id,
-                  'scope': self.scope, 'attr_type': self.attr_type, 'description': self.description}
-        return str(result)
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        return {'id': self.id, 'name': self.name, 'class_id': self.class_id,
+                'scope': self.scope, 'attr_type': self.attr_type, 'description': self.description}
 
 
 class Project(Base):
@@ -115,8 +127,18 @@ class Project(Base):
         self.description = description
 
     def __repr__(self):
-        result = {'id': self.id, 'name': self.name, 'description': self.description, 'classes': self.classes}
-        return str(result)
+        return json.dumps(self.to_dict())
+
+    def to_dict(self):
+        take = []
+        used = []
+        for c in self.classes:
+            if c.id not in used:
+                used.append(c.id)
+                take.append(c.to_dict())
+                for child in c.children:
+                    used.append(child.id)
+        return {'id': self.id, 'name': self.name, 'description': self.description, 'classes': take}
 
 
 def recreate():
@@ -128,37 +150,63 @@ def make_session():
     return sessionmaker(bind=engine)()
 
 
-def new_project(name, description):
+def new_project(name, description, id=None):
     db = make_session()
-    p = Project(name, description)
+    if id is None:
+        p = Project(name, description)
+    else:
+        p = db.query(Project).filter(Project.id == id).first()
+        p.name = name
+        p.description = description
     db.add(p)
     db.commit()
     return p
 
 
-def new_class(name, description, project_id, abstract=False):
+def new_class(name, description, project_id, abstract=False, id=None):
     db = make_session()
-    c = Class(name, description, abstract)
-    c.project_id = project_id
+    if id is None:
+        c = Class(name, description, abstract)
+        c.project_id = project_id
+    else:
+        c = db.query(Class).filter(Class.id == id).first()
+        c.name = name
+        c.description = description
+        c.project_id = project_id
+        c.abstract = int(abstract)
     db.add(c)
     db.commit()
     p = db.query(Project).filter(Project.id == c.project_id).first()
     return p
 
 
-def new_method(name, scope, ret, description, class_id, project_id):
+def new_method(name, scope, ret, description, class_id, project_id, id=None):
     db = make_session()
-    m = Method(name, scope, ret, description)
-    m.class_id = class_id
+    if id is None:
+        m = Method(name, scope, ret, description)
+        m.class_id = class_id
+    else:
+        m = db.query(Method).filter(Method.id == id).first()
+        m.name = name
+        m.ret = ret
+        m.description = description
+        m.class_id = class_id
     db.add(m)
     db.commit()
     p = db.query(Project).filter(Project.id == project_id).first()
     return p
 
 
-def new_attribute(name, scope, attr_type, description, project_id):
+def new_attribute(name, scope, attr_type, description, project_id, id=None):
     db = make_session()
-    a = Attribute(name, scope, attr_type, description)
+    if id is None:
+        a = Attribute(name, scope, attr_type, description)
+    else:
+        a = db.query(Attribute).filter(Attribute.id == id).first()
+        a.name = name
+        a.scope = scope
+        a.attr_type = attr_type
+        a.description = description
     db.commit(a)
     p = db.query(Project).filter(Project.id == project_id).first()
     return p
