@@ -1,8 +1,119 @@
 var app = {
   util: {},
   display: {}
-  };
+};
 
+sample_dat = {
+    "description": "thisisatest",
+    "classes": [
+        {
+            "methods": [
+                {
+                    "description": "methodforclassA",
+                    "class_id": 1,
+                    "ret": "void",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "public",
+                    "id": 1,
+                    "name": "methodA"
+                },
+                {
+                    "description": "methodforclassB",
+                    "class_id": 1,
+                    "ret": "string",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "private",
+                    "id": 2,
+                    "name": "methodB"
+                }
+            ],
+            "name": "testClass",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                {
+                    "methods": [
+                        {
+                            "description": "justkiddingmethodBwaspartofclassA",
+                            "class_id": 2,
+                            "ret": "void",
+                            "arguments": [
+                                
+                            ],
+                            "scope": "protected",
+                            "id": 3,
+                            "name": "methodrealB"
+                        }
+                    ],
+                    "name": "child",
+                    "attributes": [
+                        
+                    ],
+                    "abstract": "False",
+                    "project_id": 1,
+                    "children": [
+                        
+                    ],
+                    "id": 2,
+                    "description": "thisisachildclass"
+                }
+            ],
+            "id": 1,
+            "description": "0"
+        },
+        {
+            "methods": [
+                {
+                    "description": "justkiddingmethodBwaspartofclassA",
+                    "class_id": 2,
+                    "ret": "void",
+                    "arguments": [
+                        
+                    ],
+                    "scope": "protected",
+                    "id": 3,
+                    "name": "methodrealB"
+                }
+            ],
+            "name": "child",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                
+            ],
+            "id": 2,
+            "description": "thisisachildclass"
+        },
+        {
+            "methods": [
+                
+            ],
+            "name": "classC",
+            "attributes": [
+                
+            ],
+            "abstract": "False",
+            "project_id": 1,
+            "children": [
+                
+            ],
+            "id": 3,
+            "description": "classCisaseparateclassfromAandB"
+        }
+    ],
+    "id": 1,
+    "name": "testProj"
+}
 
 var project = null;
 var me = 'AnonymousUser' + parseInt(Math.random() * 10000);
@@ -13,10 +124,11 @@ $(document).ready(function() {
     method : "GET",
     url : 'sample_data',//"/projects/"+project_id+".json",
     success : function(data) {
-      project = data; 
+      project = sample_dat; 
       console.log('insideeeee');
-      console.log('projeect');
       console.log(data);
+      console.log('projeect');
+      console.log(project);
       if(!project.classes) project.classes = [];
       for(var i in project.classes) {
         project.classes[i].methods = [];

@@ -27,7 +27,6 @@ function resetAddClass() {
 	var the_class = {
 		name: "",
 		description: "",
-		parents: [],
 		attributes: [],
 		interfaces: []
 	};
@@ -65,7 +64,7 @@ function resetAddAttribute() {
 	$('#attribute-textbox').unbind('keydown');
 	$('#attribute-textbox').keydown(function(event) {
 		if(event.keyCode == 13) {
-			
+    
 		switch($("#add-attribute .form-state").text()) {
 			case "0":
 				$('.attribute-prompt').html("Enter the attribute's type <span>Press enter to continue, esc to cancel</span>");
@@ -84,8 +83,11 @@ function resetAddAttribute() {
 			case "2":
 				the_attribute.description = $("#attribute-textbox").val();
 				var obj_type = $("#current-object-type").text();
-				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
+				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
 				modified_class.attributes.push(the_attribute);
+  console.log('inside attributelistner');
+  console.log(modified_class);
+  console.log(obj_type);
 				var data = {
 					action : "modify",
 					type : obj_type,
@@ -194,8 +196,8 @@ function resetAddMethod() {
 				case "2":
 					the_method.description = $("#method-textbox").val();
 					var modified_method = the_method;
-					modified_method.parent = $("#current-object-id").text();
-					modified_method.parent_type = $("#current-object-type").text();
+					// modified_method.parent = $("#current-object-id").text();
+					// modified_method.parent_type = $("#current-object-type").text();
 					modified_method.scope = "public";
 					modified_method.args = [];
 					var data = {
@@ -233,7 +235,8 @@ function classListeners() {
 				var n_desc = $('.edit-class-desc-' + _name).val();
 
 				var obj_type = $("#current-object-type").text();
-				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
+        
+				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
 				modified_class.name = n_name;
 				modified_class.description = n_desc;
 				var data = {
@@ -251,9 +254,9 @@ function classListeners() {
 
 	$(".info .parent").unbind("click");
 	$(".info .parent").click(function() {
-    var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
+    var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
 				
-		modified_class.parents.splice(modified_class.parents.indexOf($(this).text()), 1);
+		// modified_class.parents.splice(modified_class.parents.indexOf($(this).text()), 1);
 		var data = {
 			action: "modify",
 			type: "class",
@@ -267,7 +270,7 @@ function classListeners() {
 
 	$(".info .interface").unbind("click");
 	$(".info .interface").click(function() {
-    var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
+    var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
 		var data = {
 			action: "modify",
 			type: "class",
@@ -281,8 +284,8 @@ function classListeners() {
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
     if(event.keyCode == 13) {
-      var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
-      modified_class.parents.push($(this).val());
+      var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
+      // modified_class.parents.push($(this).val());
 			var data = {
 				action: "modify",
 				type: "class",
@@ -300,7 +303,7 @@ function classListeners() {
 	$(".info .add-interface").unbind("keydown");
 	$(".info .add-interface").keydown(function(event) {
     if(event.keyCode == 13) {
-      var modified_class = app.util.getInterClass($("#current-object-id").text(),"class");
+      var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
 				
 			modified_class.interfaces.push($(this).val());
 			var data = {
@@ -319,7 +322,7 @@ function classListeners() {
 function attributeListeners() {
   $('.attribute .delete').unbind('click');
   $('.attribute .delete').click(function() {
-    var modified_obj = app.util.getInterClass(
+    var modified_obj = app.util.data.getInterClass(
 					
 		$('#current-object-id').text(),
 		$('#current-object-type').text());
@@ -362,7 +365,7 @@ function attributeListeners() {
 				//_attribute.find('.type').html(n_type);
 				//_attribute.find('.description').html(n_desc);
 				var obj_type = $("#current-object-type").text();
-				var modified_class = app.util.getInterClass($("#current-object-id").text(),obj_type);
+				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
 				for(var i=0;i<modified_class.attributes.length;i++) {
 					if(modified_class.attributes[i].name == _name) {
 						modified_class.attributes[i].name = n_name;
