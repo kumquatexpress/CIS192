@@ -2,9 +2,7 @@ from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket import WebSocketError
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, render_template, jsonify
-import json
 import actions
-import requests
 import class_models as models
 
 app = Flask(__name__)
@@ -130,7 +128,8 @@ def sample_data():
 def new_project():
     name = request.args.get("name")
     description = request.args.get("description")
-    return models.new_project(name, description)
+    pid = request.args.get("id")
+    return models.new_project(name, description, pid)
 
 
 @app.route("/class/new")
@@ -139,7 +138,8 @@ def new_class():
     project_id = request.args.get("id")
     abstract = request.args.get("abstract")
     description = request.args.get("description")
-    return models.new_class(name, description, project_id, abstract)
+    cid = request.args.get("id")
+    return models.new_class(name, description, project_id, abstract, cid)
 
 
 @app.route("/method/new")
@@ -150,7 +150,8 @@ def new_method():
     desc = request.args.get("desc")
     ret = request.args.get("ret")
     class_id = request.args.get("class_id")
-    return models.new_method(name, scope, ret, desc, class_id, project_id)
+    mid = request.args.get("id")
+    return models.new_method(name, scope, ret, desc, class_id, project_id, mid)
 
 
 @app.route("/attribute/new")
@@ -160,7 +161,8 @@ def new_attribute():
     scope = request.args.get("scope")
     desc = request.args.get("desc")
     attr_type = request.args.get("attr_type")
-    return models.new_attribute(name, scope, attr_type, desc, project_id)
+    aid = request.args.get("id")
+    return models.new_attribute(name, scope, attr_type, desc, project_id, aid)
 
 
 @app.route('/ws')
