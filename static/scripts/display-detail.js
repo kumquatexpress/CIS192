@@ -74,8 +74,10 @@
         edit_obj.find(".info .description").text(the_obj.description);
         var rels = edit_obj.find(".info .relations");
         rels.html("");
+        // check parents, only if the have a project_id
         for(var i in the_obj.parents) {
-          rels.append('<div class="parent">'+the_obj.parents[i]+'</div>');
+          if(the_obj.parents[i].project_id)
+          rels.append('<div class="parent">'+the_obj.parents[i].name+'</div>');
         }
         for(var i in the_obj.interfaces) {
           rels.append('<div class="interface">'+the_obj.interfaces[i]+'</div>');

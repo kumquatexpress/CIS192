@@ -44,10 +44,13 @@ var width = $('#hierarchy-wrapper').width(),
       _.each(nodes, function(node) {
         // instantiate its parents if it doesn't have it
         node.parents = node.parents || [];
-        // check if its parents contains its parent, otherwise push it on
-        if(!_.contains(node.parents, node.parent)){
+        // check if its parents contains its parent, and it's not a project (contains projectid), otherwise push it on
+        if(node.project_id && !_.findWhere(node.parents, {id: node.parent.id})) {
           node.parents.push(node.parent);
         }
+        // if(!_.contains(node.parents, node.parent)){
+        //   node.parents.push(node.parent);
+        // }
         var existing_node = _.findWhere(all_nodes, {id: node.id, name: node.name});
         if(existing_node !== undefined){
           // push the parent to the existing node
@@ -55,8 +58,7 @@ var width = $('#hierarchy-wrapper').width(),
           // remove it from its parent
           node.parent.children = _.without(node.parent.children, node);
           // remove it from nodes
-          remove_nodes.push(node)
-          existing_node.parents.push(node.parent)
+          remove_nodes.push(node);
         
           
 
