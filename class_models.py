@@ -207,10 +207,37 @@ def new_attribute(name, scope, attr_type, description, project_id, id=None):
         a.scope = scope
         a.attr_type = attr_type
         a.description = description
-    db.commit(a)
+	db.add(a)
+    db.commit()
     p = db.query(Project).filter(Project.id == project_id).first()
     return p
 
+	
+def new_argument(name, attr_type, description, method_id, project_id):
+	db = make_session()
+	a = Argument(name, attr_type, description)
+	a.method_id = method_id
+	db.add(a)
+	db.commit()
+	p = db.query(Project).filter(Project.id == project_id).first()
+	return p
+	
+	
+def delete_row(id, model, project_id):
+	db = make_session()
+	if model == "class":
+		db.query(Class).filter(Class.id == id).delete()
+	elif model == "method":
+		db.query(Method).filter(Method.id == id).delete()
+	elif model == "attribute":
+		db.query(Attribute).filter(Attribute.id == id).delete()
+	elif model == "argument":
+		db.query(Argument).filter(Argument.id == id).delete()
+	elif model == "project":
+		db.query(Project).filter(Project.id == id).delete()
+		return False
+	return db.query(Project).filter(Project.id == project_id).first()
+	
 # to use ORM, call
     # Session = sessionmaker(bind=engine)
     # session = Session() whenever a new session is required

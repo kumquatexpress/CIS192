@@ -137,7 +137,7 @@ def new_class():
     name = request.args.get("name")
     project_id = request.args.get("id")
     abstract = request.args.get("abstract")
-    description = request.args.get("description")
+    description = request.args.get("desc")
     cid = request.args.get("id")
     return models.new_class(name, description, project_id, abstract, cid)
 
@@ -164,7 +164,24 @@ def new_attribute():
     aid = request.args.get("id")
     return models.new_attribute(name, scope, attr_type, desc, project_id, aid)
 
+	
+@app.route("/argument/new")
+def new_argument():
+	method_id = request.args.get("method_id")
+	name = request.args.get("name")
+	attr_type = request.args.get("attr_type")
+	desc = request.args.get("desc")
+	project_id = request.args.get("id")
+	return models.new_argument(name, attr_type, desc, method_id, project_id)
 
+	
+@app.route("/<model_type>/delete")
+def delete_row(model):
+	id = request.args.get("id")
+	project_id = request.args.get("project_id")
+	return models.delete_row(id, str(model), project_id)
+	
+	
 @app.route('/ws')
 def ws():
     if request.environ.get('wsgi.websocket'):
