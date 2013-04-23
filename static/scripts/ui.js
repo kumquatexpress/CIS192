@@ -63,41 +63,41 @@ function resetAddAttribute() {
 	$("#attribute-textbox").attr("placeholder", "Start typing");
 	$('#attribute-textbox').unbind('keydown');
 	$('#attribute-textbox').keydown(function(event) {
-		if(event.keyCode == 13) {
-    
-		switch($("#add-attribute .form-state").text()) {
-			case "0":
-				$('.attribute-prompt').html("Enter the attribute's type <span>Press enter to continue, esc to cancel</span>");
-				the_attribute.name = $("#attribute-textbox").val();
-				$('.attribute-preview').append("<div class='name'>"+the_attribute.name+"</div>");
-				$("#add-attribute .form-state").text("1");
-				$("#attribute-textbox").val("");
-				break;
-			case "1":
-				$('.attribute-prompt').html("Enter the attribute's description <span>Press enter to continue, esc to cancel</span>");
-				the_attribute.attr_type = $("#attribute-textbox").val();
-				$('.attribute-preview').append("<div class='type'>"+the_attribute.attr_type+"</div>");
-				$("#add-attribute .form-state").text("2");
-				$("#attribute-textbox").val("");
-				break;
-			case "2":
-				the_attribute.description = $("#attribute-textbox").val();
-				var obj_type = $("#current-object-type").text();
-				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
-				modified_class.attributes.push(the_attribute);
-  console.log('inside attributelistner');
-  console.log(modified_class);
-  console.log(obj_type);
-				var data = {
-					action : "modify",
-					type : obj_type,
-					info : modified_class,
-					project_id : $("#current-project-id").text()
-				};
-				console.log(data);
-        sockets.saveAction(data);
-        resetAddAttribute();
-        break;
+		if (event.keyCode == 13) {
+
+			switch ($("#add-attribute .form-state").text()) {
+				case "0":
+					$('.attribute-prompt').html("Enter the attribute's type <span>Press enter to continue, esc to cancel</span>");
+					the_attribute.name = $("#attribute-textbox").val();
+					$('.attribute-preview').append("<div class='name'>" + the_attribute.name + "</div>");
+					$("#add-attribute .form-state").text("1");
+					$("#attribute-textbox").val("");
+					break;
+				case "1":
+					$('.attribute-prompt').html("Enter the attribute's description <span>Press enter to continue, esc to cancel</span>");
+					the_attribute.attr_type = $("#attribute-textbox").val();
+					$('.attribute-preview').append("<div class='type'>" + the_attribute.attr_type + "</div>");
+					$("#add-attribute .form-state").text("2");
+					$("#attribute-textbox").val("");
+					break;
+				case "2":
+					the_attribute.description = $("#attribute-textbox").val();
+					var obj_type = $("#current-object-type").text();
+					var modified_class = app.util.data.getInterClass($("#current-object-id").text(), obj_type);
+					modified_class.attributes.push(the_attribute);
+					console.log('inside attributelistner');
+					console.log(modified_class);
+					console.log(obj_type);
+					var data = {
+						action: "modify",
+						type: obj_type,
+						info: modified_class,
+						project_id: $("#current-project-id").text()
+					};
+					console.log(data);
+					sockets.saveAction(data);
+					resetAddAttribute();
+					break;
 			}
 		}
 		if (event.keyCode == 27) {
@@ -119,41 +119,40 @@ function resetAddArgument(the_method) {
 	the_method.find(".argument-textbox").attr("placeholder", "Start typing");
 	the_method.find('.argument-textbox').unbind('keydown');
 	the_method.find('.argument-textbox').keydown(function(event) {
-  if(event.keyCode == 13) {
-			
-		switch(the_method.find(".add-argument .form-state").text()) {
-			case "0":
-				the_method.find('.argument-prompt').html("Enter the argument's type <span>Press enter to continue, esc to cancel</span>");
-				the_argument.name = the_method.find(".argument-textbox").val();
-				the_method.find('.argument-preview').append("<div class='name'>"+the_argument.name+"</div>");
-				the_method.find(".add-argument .form-state").text("1");
-				the_method.find(".argument-textbox").val("");
-				break;
-			case "1":
-				the_method.find('.argument-prompt').html("Enter the argument's description <span>Press enter to continue, esc to cancel</span>");
-				the_argument.attr_type = the_method.find(".argument-textbox").val();
-				the_method.find('.argument-preview').append("<div class='type'>"+the_argument.attr_type+"</div>");
-				the_method.find(".add-argument .form-state").text("2");
-				the_method.find(".argument-textbox").val("");
-				break;
-			case "2":
-				the_argument.description = the_method.find(".argument-textbox").val();
-				var modified_method = app.util.getMethod(
-				the_method.find(".method-id").text(),
-				$("#current-object-id").text(),
-				$("#current-object-type").text()
-				);
-				modified_method.args.push(the_argument);
-				var data = {
-					action : "modify",
-					type : "method",
-					info : modified_method,
-					project_id : $("#current-project-id").text()
-				}
-				console.log(data);
-        sockets.saveAction(data);
-        resetAddArgument(the_method);
-        break;
+		if (event.keyCode == 13) {
+
+			switch (the_method.find(".add-argument .form-state").text()) {
+				case "0":
+					the_method.find('.argument-prompt').html("Enter the argument's type <span>Press enter to continue, esc to cancel</span>");
+					the_argument.name = the_method.find(".argument-textbox").val();
+					the_method.find('.argument-preview').append("<div class='name'>" + the_argument.name + "</div>");
+					the_method.find(".add-argument .form-state").text("1");
+					the_method.find(".argument-textbox").val("");
+					break;
+				case "1":
+					the_method.find('.argument-prompt').html("Enter the argument's description <span>Press enter to continue, esc to cancel</span>");
+					the_argument.attr_type = the_method.find(".argument-textbox").val();
+					the_method.find('.argument-preview').append("<div class='type'>" + the_argument.attr_type + "</div>");
+					the_method.find(".add-argument .form-state").text("2");
+					the_method.find(".argument-textbox").val("");
+					break;
+				case "2":
+					the_argument.description = the_method.find(".argument-textbox").val();
+					var modified_method = app.util.getMethod(
+					the_method.find(".method-id").text(),
+					$("#current-object-id").text(),
+					$("#current-object-type").text());
+					modified_method.args.push(the_argument);
+					var data = {
+						action: "modify",
+						type: "method",
+						info: modified_method,
+						project_id: $("#current-project-id").text()
+					}
+					console.log(data);
+					sockets.saveAction(data);
+					resetAddArgument(the_method);
+					break;
 			}
 
 		}
@@ -235,8 +234,8 @@ function classListeners() {
 				var n_desc = $('.edit-class-desc-' + _name).val();
 
 				var obj_type = $("#current-object-type").text();
-        
-				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
+
+				var modified_class = app.util.data.getInterClass($("#current-object-id").text(), obj_type);
 				modified_class.name = n_name;
 				modified_class.description = n_desc;
 				var data = {
@@ -254,8 +253,8 @@ function classListeners() {
 
 	$(".info .parent").unbind("click");
 	$(".info .parent").click(function() {
-    var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
-				
+		var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
+
 		// modified_class.parents.splice(modified_class.parents.indexOf($(this).text()), 1);
 		var data = {
 			action: "modify",
@@ -270,7 +269,7 @@ function classListeners() {
 
 	$(".info .interface").unbind("click");
 	$(".info .interface").click(function() {
-    var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
+		var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
 		var data = {
 			action: "modify",
 			type: "class",
@@ -283,9 +282,9 @@ function classListeners() {
 
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
-    if(event.keyCode == 13) {
-      var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
-      // modified_class.parents.push($(this).val());
+		if (event.keyCode == 13) {
+			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
+			// modified_class.parents.push($(this).val());
 			var data = {
 				action: "modify",
 				type: "class",
@@ -302,9 +301,9 @@ function classListeners() {
 
 	$(".info .add-interface").unbind("keydown");
 	$(".info .add-interface").keydown(function(event) {
-    if(event.keyCode == 13) {
-      var modified_class = app.util.data.getInterClass($("#current-object-id").text(),"class");
-				
+		if (event.keyCode == 13) {
+			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
+
 			modified_class.interfaces.push($(this).val());
 			var data = {
 				action: "modify",
@@ -320,10 +319,10 @@ function classListeners() {
 }
 
 function attributeListeners() {
-  $('.attribute .delete').unbind('click');
-  $('.attribute .delete').click(function() {
-    var modified_obj = app.util.data.getInterClass(
-					
+	$('.attribute .delete').unbind('click');
+	$('.attribute .delete').click(function() {
+		var modified_obj = app.util.data.getInterClass(
+
 		$('#current-object-id').text(),
 		$('#current-object-type').text());
 		for (var i in modified_obj.attributes) {
@@ -365,9 +364,9 @@ function attributeListeners() {
 				//_attribute.find('.type').html(n_type);
 				//_attribute.find('.description').html(n_desc);
 				var obj_type = $("#current-object-type").text();
-				var modified_class = app.util.data.getInterClass($("#current-object-id").text(),obj_type);
-				for(var i=0;i<modified_class.attributes.length;i++) {
-					if(modified_class.attributes[i].name == _name) {
+				var modified_class = app.util.data.getInterClass($("#current-object-id").text(), obj_type);
+				for (var i = 0; i < modified_class.attributes.length; i++) {
+					if (modified_class.attributes[i].name == _name) {
 						modified_class.attributes[i].name = n_name;
 						modified_class.attributes[i].type = n_type;
 						modified_class.attributes[i].description = n_desc;
@@ -421,7 +420,7 @@ function methodListeners() {
 					//_method.find('.name:first').html("<span>"+n_name+"</span>");
 					//_method.find('.return-type').html(n_type);
 					//_method.find('.description:first').html(n_desc);
-					
+
 					var modified_method = app.util.getMethod(
 					_method.find(".method-id").text(),
 					$("#current-object-id").text(),
@@ -443,10 +442,10 @@ function methodListeners() {
 		});
 
 		the_method.find(".delete:first").click(function() {
-      var modified_method = app.util.getMethod(
-        the_method.find(".method-id").text(),
-        $("#current-object-id").text(),
-        $("#current-object-type").text());
+			var modified_method = app.util.getMethod(
+			the_method.find(".method-id").text(),
+			$("#current-object-id").text(),
+			$("#current-object-type").text());
 			var data = {
 				action: "delete",
 				type: "method",
@@ -461,7 +460,7 @@ function methodListeners() {
 			var the_arg = $(this);
 			the_arg.find('.delete').unbind('click');
 			the_arg.find('.delete').click(function() {
-        var modified_method = app.util.getMethod(
+				var modified_method = app.util.getMethod(
 				the_method.find(".method-id").text(),
 				$("#current-object-id").text(),
 				$("#current-object-type").text());
@@ -504,7 +503,7 @@ function methodListeners() {
 						//_arg.find('.name:first').html("<span>"+n_name+"</span>");
 						//_arg.find('.return-type').html(n_type);
 						//_arg.find('.description:first').html(n_desc);
-						
+
 						var modified_method = app.util.getMethod(
 						the_method.find(".method-id").text(),
 						$("#current-object-id").text(),
