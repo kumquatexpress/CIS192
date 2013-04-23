@@ -181,6 +181,7 @@ def new_class(name, description, project_id, abstract=0, id=None):
         c.abstract = abstract
     db.add(c)
     db.commit()
+    return c.id
 
 
 def new_method(name, scope, ret, description, class_id, id=None):
