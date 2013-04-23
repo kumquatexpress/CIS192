@@ -199,6 +199,7 @@ function resetAddMethod() {
 					// modified_method.parent_type = $("#current-object-type").text();
 					modified_method.scope = "public";
 					modified_method.args = [];
+					modified_method.class_id = $("#current-object-id").text();
 					var data = {
 						action: "add",
 						type: "method",
