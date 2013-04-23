@@ -29,9 +29,9 @@ class Class(Base):
     abstract = Column(TINYINT)
     description = Column(String(length=1500))
 
-    def __init__(self, name, description, abstract=False):
+    def __init__(self, name, description, abstract=0):
         self.name = name
-        self.abstract = int(abstract)
+        self.abstract = abstract
         self.description = description
 
     def __repr__(self):

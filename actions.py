@@ -51,7 +51,10 @@ def new_class(json_obj):
     else:
         abstract = json_obj["abstract"]
     description = json_obj["description"]
-    cid = json_obj["id"]
+    if "id" not in json_obj:
+        cid = None
+    else:
+        cid = json_obj["id"]
     return models.new_class(name, description, project_id, abstract, cid)
 
 
@@ -61,7 +64,10 @@ def new_method(json_obj):
     desc = json_obj["description"]
     ret = json_obj["ret"]
     class_id = json_obj["class_id"]
-    mid = json_obj["id"]
+    if "id" not in json_obj:
+        mid = None
+    else:
+        mid = json_obj["id"]
     return models.new_method(name, scope, ret, desc, class_id, mid)
 
 
@@ -70,7 +76,10 @@ def new_attribute(json_obj):
     scope = json_obj["scope"]
     desc = json_obj["description"]
     attr_type = json_obj["attr_type"]
-    aid = json_obj["id"]
+    if "id" not in json_obj:
+        aid = None
+    else:
+        aid = json_obj["id"]
     return models.new_attribute(name, scope, attr_type, desc, aid)
 
 
