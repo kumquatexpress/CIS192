@@ -28,8 +28,6 @@ def handle_json(json_obj):
     if action_type == "new" or "update":
         if obj_type == "class":
             new_class(obj_info)
-        elif obj_type == "project":
-            return new_project(obj_info)
         elif obj_type == "method":
             new_method(obj_info)
         elif obj_type == "attribute":
@@ -47,7 +45,7 @@ def handle_json(json_obj):
 
 def new_class(json_obj):
     name = json_obj["name"]
-    project_id = json_obj["id"]
+    project_id = json_obj["project_id"]
     abstract = json_obj["abstract"]
     description = json_obj["desc"]
     cid = json_obj["id"]
