@@ -22,13 +22,13 @@ def start_connection(ws, groups):
     return cc
 
 
-def handle_json(json_obj):
+def handle_json(json_obj, conn):
     obj_type = json_obj['type']
     action_type = json_obj['action']
     obj_info = json_obj["info"]
     if action_type == "new" or "update":
         if obj_type == "class":
-            new_class(obj_info)
+            json_obj["info"]["id"] = new_class(obj_info)
         elif obj_type == "method":
             new_method(obj_info)
         elif obj_type == "attribute":
@@ -41,7 +41,8 @@ def handle_json(json_obj):
         delete_row(json_obj)
     else:
         pass
-    return models.get_project_json(json_obj['project_id'])
+    out_obj = {"tag": "update", "data": json_obj}
+    conn.group.broadcast_json(out_obj)
 
 
 def new_class(json_obj):
