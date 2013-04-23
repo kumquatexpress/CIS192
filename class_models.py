@@ -178,7 +178,7 @@ def new_class(name, description, project_id, abstract=0, id=None):
         c.name = name
         c.description = description
         c.project_id = project_id
-        c.abstract = int(abstract)
+        c.abstract = abstract
     db.add(c)
     db.commit()
 
