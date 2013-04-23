@@ -24,24 +24,24 @@ def handle_json(json_obj):
     action_type = json_obj['action']
     if action_type == "new_or_update":
         if obj_type == "class":
-			new_class(json_obj)
-		elif obj_type == "project":
-			return new_project(json_obj)
-		elif obj_type == "method":
-			new_method(json_obj)
-		elif obj_type == "attribute":
-			new_attribute(json_obj)
-		elif obj_type == "argument":
-			new_argument(json_obj)
-		else:
-			pass
+            new_class(json_obj)
+        elif obj_type == "project":
+            return new_project(json_obj)
+        elif obj_type == "method":
+            new_method(json_obj)
+        elif obj_type == "attribute":
+            new_attribute(json_obj)
+        elif obj_type == "argument":
+            new_argument(json_obj)
+        else:
+            pass
     elif action_type == "delete":
-		delete_row(json_obj)
+        delete_row(json_obj)
     else:
         pass
-	return models.get_project_json(json_obj['project_id'])
-	
-		
+    return models.get_project_json(json_obj['project_id'])
+    
+        
 def new_class(json_obj):
     name = json_obj["name"]
     project_id = json_obj["id"]
@@ -69,16 +69,16 @@ def new_attribute(json_obj):
     aid = json_obj["id"]
     return models.new_attribute(name, scope, attr_type, desc, aid)
 
-	
+    
 def new_argument(json_obj):
-	method_id = json_obj["method_id"]
-	name = json_obj["name"]
-	attr_type = json_obj["attr_type"]
-	desc = json_obj["desc"]
-	return models.new_argument(name, attr_type, desc, method_id)
-	
+    method_id = json_obj["method_id"]
+    name = json_obj["name"]
+    attr_type = json_obj["attr_type"]
+    desc = json_obj["desc"]
+    return models.new_argument(name, attr_type, desc, method_id)
+    
 
 def delete_row(model):
-	id = json_obj["id"]
-	project_id = json_obj["project_id"]
-	return models.delete_row(id, str(model), project_id)
+    id = json_obj["id"]
+    project_id = json_obj["project_id"]
+    return models.delete_row(id, str(model), project_id)

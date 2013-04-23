@@ -1,7 +1,7 @@
 from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket import WebSocketError
 from gevent.pywsgi import WSGIServer
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect
 import actions
 import class_models as models
 
@@ -25,10 +25,10 @@ def list():
     return render_template('list.html')
 
 
-@app.route("/new")
+@app.route("/new",methods=["POST"])
 def new():
-    proj = models.new_project(request.args.get("name"),request.args.get("description"))
-    return redirect("/project?id=%s" % proj["id"])
+    proj = models.new_project(request.form["name"],request.form["description"])
+    return redirect("/project?id=%s" % proj.id)
 
 @app.route("/project")
 def project():
@@ -37,7 +37,7 @@ def project():
 
 
 @app.route("/projects/<proj_id>.json")
-def project(proj_id):
+def view_project(proj_id):
     output = models.get_project_json(proj_id)
     print output
     return output
