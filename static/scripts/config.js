@@ -161,7 +161,7 @@ $(document).ready(function() {
     }
   });
   $(".back").click(function() {
-      loadProjectDetail();
+      app.util.details.loadProjectDetail();
   });
 
   sockets.init("1");
