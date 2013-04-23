@@ -87,7 +87,7 @@
         '<div class="scope">' + the_attr.scope + '</div>' +
         '<div class="name"><span>' + the_attr.name + '</span></div>' +
         '<div class="type">' + the_attr.attr_type + '</div>' +
-        '<div id="delete-attribute-' + the_attr.name + '" class="delete">Delete</div>' +
+        //'<div id="delete-attribute-' + the_attr.name + '" class="delete">Delete</div>' +
         '</div>' +
         '<div class="description">' + the_attr.description + '</div>' +
         '</div>');
@@ -108,7 +108,7 @@
         '<div class="scope">' + the_method.scope + '</div>' +
         '<div class="name"><span>' + the_method.name + '</span></div>' +
         '<div class="return-type">' + the_method.ret + '</div>' +
-        '<div id="delete-method-' + the_method.id + '" class="delete">Delete</div>' +
+        //'<div id="delete-method-' + the_method.id + '" class="delete">Delete</div>' +
         '</div>' +
         '<div class="description">' + the_method.description + '</div>' +
         '<div class="arguments"></div>' +
@@ -121,7 +121,7 @@
           '<div class="name"><span>' + the_arg.name + '</span></div>' +
           '<div class="type">' + the_arg.attr_type + '</div>' +
           '<div class="description">' + the_arg.description + '</div>' +
-          '<div id="delete-argument-' + the_arg.name + '" class="delete">Delete</div>' +
+          //'<div id="delete-argument-' + the_arg.name + '" class="delete">Delete</div>' +
           '</div>' +
           '</div>');
       }
