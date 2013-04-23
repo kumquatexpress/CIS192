@@ -32,8 +32,6 @@ def handle_json(json_obj, conn):
             json_obj["info"]["id"] = new_class(obj_info)
         elif obj_type == "method":
             new_method(obj_info)
-        elif obj_type == "argument":
-            new_argument(obj_info)
         else:
             pass
     elif action_type == "delete":
@@ -77,12 +75,13 @@ def new_method(json_obj):
     scope = json_obj["scope"]
     desc = json_obj["description"]
     ret = json_obj["ret"]
+    args = json_obj["arguments"]
     class_id = json_obj["class_id"]
     if "id" not in json_obj:
         mid = None
     else:
         mid = json_obj["id"]
-    return models.new_method(name, scope, ret, desc, class_id, mid)
+    return models.new_method(name, scope, ret, desc, class_id, args, mid)
 
 
 def new_attribute(json_obj):

@@ -201,7 +201,7 @@ def add_child(child_id, parent_name):
     return parent.to_dict()
 
 
-def new_method(name, scope, ret, description, class_id, id=None):
+def new_method(name, scope, ret, description, class_id, arguments=[], id=None):
     db = make_session()
     if id is None:
         m = Method(name, scope, ret, description)
@@ -212,8 +212,13 @@ def new_method(name, scope, ret, description, class_id, id=None):
         m.ret = ret
         m.description = description
         m.class_id = class_id
+        old_names = [a.name for a in m.attributes]
+        new_attrs = [arg for arg in arguments if arg['name'] not in old_names]
+        for a in new_attrs:
+            m.attributes.append(new_argument(a.name, a.attr_type, a.description, m.id))
     db.add(m)
     db.commit()
+    return m.id
 
 
 def new_attribute(name, scope, attr_type, description, id=None):
