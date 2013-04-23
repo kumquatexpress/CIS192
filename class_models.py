@@ -180,12 +180,25 @@ def new_class(name, description, project_id, abstract=0, attributes=[], id=None)
         c.project_id = project_id
         c.abstract = abstract
         old_names = [a.name for a in c.attributes]
-        new_attrs = [attr for attr in attributes if attr.name not in old_names]
+        new_attrs = [attr for attr in attributes if attr['name'] not in old_names]
         for a in new_attrs:
             c.attributes.append(new_attribute(a.name, a.scope, a.attr_type, a.description))
     db.add(c)
     db.commit()
     return c.id
+
+
+def add_child(child_id, parent_name):
+    db = make_session()
+    child = db.query(Class).filter(Class.id == child_id).first()
+    parent = db.query(Class).filter(Class.name == parent_name).first()
+    if parent is not None:
+        parent.children.append(child)
+    else:
+        return False
+    db.add(parent)
+    db.commit()
+    return parent.to_dict()
 
 
 def new_method(name, scope, ret, description, class_id, id=None):

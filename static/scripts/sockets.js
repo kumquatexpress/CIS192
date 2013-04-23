@@ -81,13 +81,16 @@
               }
               // if it contains a classes thats not empty
               if(c.children && c.children.length > 0) {
-                ret_class = find_class(c.children, class_id);
+                ret_class = find_class_inheritance(c.children, class_id);
               }
             });
             return ret_class;
           };
 
-          find_class(project.classes, action_obj.info.id, action_obj.info);
+console.log('hihihihihihih here')
+console.log(action_obj)
+
+          find_class_inheritance(project.classes, action_obj.info.id, action_obj.info);
           app.util.details.loadClassDetail(action_obj.info.id);
           
 				}

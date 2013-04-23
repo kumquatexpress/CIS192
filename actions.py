@@ -26,7 +26,8 @@ def handle_json(json_obj, conn):
     obj_type = json_obj['type']
     action_type = json_obj['action']
     obj_info = json_obj["info"]
-    if action_type == "add" or "modify":
+    broadcast = True
+    if action_type == "add" or action_type == "modify":
         if obj_type == "class":
             json_obj["info"]["id"] = new_class(obj_info)
         elif obj_type == "method":
@@ -37,10 +38,22 @@ def handle_json(json_obj, conn):
             pass
     elif action_type == "delete":
         delete_row(json_obj)
+    elif action_type == "inherit":
+        if obj_type == "class":
+            broadcast = add_child(obj_info)
+            if broadcast:
+                json_obj["info"] = broadcast
     else:
         pass
-    out_obj = {"tag": "update", "data": json_obj}
-    conn.group.broadcast_json(out_obj)
+    if broadcast:
+        out_obj = {"tag": "update", "data": json_obj}
+        conn.group.broadcast_json(out_obj)
+
+
+def add_child(json_obj):
+    child_id = json_obj["child"]
+    parent_name = json_obj["p"]
+    return models.add_child(child_id, parent_name)
 
 
 def new_class(json_obj):

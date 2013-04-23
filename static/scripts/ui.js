@@ -284,10 +284,11 @@ function classListeners() {
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
 		if (event.keyCode == 13) {
+			var thing =$(this).val();
 			var data = {
 				action: "inherit",
 				type: "class",
-				info: {"child" : $("#current-object-id").text(), "parent" : $(this).val()},
+				info: {"child" : $("#current-object-id").text(), "p" : thing},
 				project_id: $("#current-project-id").text()
 			}
 			console.log(data);
