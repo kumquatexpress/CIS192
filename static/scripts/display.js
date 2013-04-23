@@ -45,18 +45,23 @@
   
   app.util.display.modifyClass = function(info_obj) {
     //Update the project object
-    var the_obj = null;
-    for (var i in project.classes) {
-      var the_class = project.classes[i];
-      if (the_class.id == info_obj.id) {
-        the_class.name = info_obj.name;
-        the_class.descripton = info_obj.description;
-        the_class.attributes = info_obj.attributes;
-        // the_class.parent = info_obj.parent;
-        the_class.interfaces = info_obj.interfaces;
-        the_obj = the_class;
-      }
-    }
+    app.util.details.loadProjectDetail();
+    $('.the-code').toggle();
+    $('#hierarchy-wrapper').toggle();
+    var the_obj = find_class(project.classes, info_obj.id)
+    update_codeview(the_obj);
+    app.util.details.loadObjectDetail(the_obj);
+    // for (var i in project.classes) {
+    //   var the_class = project.classes[i];
+    //   if (the_class.id == info_obj.id) {
+    //     the_class.name = info_obj.name;
+    //     the_class.descripton = info_obj.description;
+    //     the_class.attributes = info_obj.attributes;
+    //     // the_class.parent = info_obj.parent;
+    //     the_class.interfaces = info_obj.interfaces;
+    //     the_obj = the_class;
+    //   }
+    // }
     if (the_obj) {
       //Update the detail panel if necessary
       if(the_obj.id == $("#current-object-id").text()) {
@@ -67,7 +72,7 @@
         update_codeview(the_obj, project.interfaces, "class")
       }
   
-      //Update the heierachical view if necessary
+      //Update the hierachical view if necessary
     }
   };
   
