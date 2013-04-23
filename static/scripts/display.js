@@ -11,7 +11,9 @@
       info_obj.methods = [];
     }
     project.classes.push(info_obj);
-    update_hierarchy(project);
+    //update_hierarchy(project);
+    console.log("CALLING GENERATE HIERARCHY");
+    app.util.generate_hierarchy('hierarchy-wrapper', project);
   };
   
   app.util.display.modifyClass = function(info_obj) {

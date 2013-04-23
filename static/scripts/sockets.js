@@ -21,25 +21,25 @@
 		};
 	};
 
-  function clear_parent(obj){
-    // remove all parent attributes
-    obj.parent = undefined;
-    _.each(obj.children, function(item) {
-      item.parent = undefined;
-      if(item.children && item.children.length > 0) {
-        item.children = clear_parent(item.children);
-      }
-    });
-    return obj;
-  }
+	function clear_parent(obj) {
+		// remove all parent attributes
+		obj.parent = undefined;
+		_.each(obj.children, function(item) {
+			item.parent = undefined;
+			if (item.children && item.children.length > 0) {
+				item.children = clear_parent(item.children);
+			}
+		});
+		return obj;
+	}
 
 	sockets.saveAction = function(action_obj) {
 		console.log("Saving object : " + action_obj);
-    console.log(action_obj)
-    var obj_no_par = action_obj;
-    obj_no_par.info = clear_parent(obj_no_par.info)
-    console.log(obj_no_par)
-    
+		console.log(action_obj)
+		var obj_no_par = action_obj;
+		obj_no_par.info = clear_parent(obj_no_par.info)
+		console.log(obj_no_par)
+
 		ws.send(JSON.stringify(obj_no_par));
 		console.log('Finished saving action.');
 	};
@@ -58,29 +58,29 @@
 		switch (action_obj.type) {
 			case "class":
 				if (action_obj.action == "add") {
-					addClass(action_obj.info);
+					app.util.display.addClass(action_obj.info);
 				} else if (action_obj.action == "modify") {
-					modifyClass(action_obj.info);
+					app.util.display.modifyClass(action_obj.info);
 				} else if (action_obj.action == "delete") {
-					deleteClass(action_obj.info);
+					app.util.display.deleteClass(action_obj.info);
 				}
 				break;
 			case "interface":
 				if (action_obj.action == "add") {
-					addInterface(action_obj.info);
+					app.util.display.addInterface(action_obj.info);
 				} else if (action_obj.action == "modify") {
-					modifyInterface(action_obj.info);
+					app.util.display.modifyInterface(action_obj.info);
 				} else if (action_obj.action == "delete") {
-					deleteInterface(action_obj.info);
+					app.util.display.deleteInterface(action_obj.info);
 				}
 				break;
 			case "method":
 				if (action_obj.action == "add") {
-					addMethod(action_obj.info);
+					app.util.display.addMethod(action_obj.info);
 				} else if (action_obj.action == "modify") {
-					modifyMethod(action_obj.info);
+					app.util.display.modifyMethod(action_obj.info);
 				} else if (action_obj.action == "delete") {
-					deleteMethod(action_obj.info);
+					app.util.display.deleteMethod(action_obj.info);
 				}
 				break;
 		}

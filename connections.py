@@ -41,5 +41,5 @@ class ClientConnection:
         return json.loads(raw_msg)
 
     def close(self):
-        self.group.remove(self)
+        self.group.connections.remove(self)
 

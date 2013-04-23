@@ -12,11 +12,6 @@ connections = {}
 
 @app.route("/")
 def experiment():
-    return render_template('index.html')
-
-
-@app.route("/create")
-def create():
     return render_template('create.html')
 
 
@@ -32,7 +27,9 @@ def list():
 
 @app.route("/new")
 def new():
-    return render_template('new.html')
+    #MAKE A PROJECT
+    #SEND YOU TO /project?id=project_id
+    pass
 
 
 @app.route("/project")
