@@ -192,7 +192,7 @@ def add_child(child_id, parent_name):
     db = make_session()
     child = db.query(Class).filter(Class.id == child_id).first()
     parent = db.query(Class).filter(Class.name == parent_name).first()
-    if parent is not None:
+    if parent is not None and child not in parent.children and parent not in child.parents:
         parent.children.append(child)
     else:
         return False
