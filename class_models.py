@@ -150,6 +150,11 @@ def make_session():
     return sessionmaker(bind=engine)()
 
 
+def get_project_json(project_id):
+	db = make_session()
+	return db.query(Project).filter(Project.id == id).first()
+	
+	
 def new_project(name, description, id=None):
     db = make_session()
     if id is None:
@@ -176,11 +181,9 @@ def new_class(name, description, project_id, abstract=False, id=None):
         c.abstract = int(abstract)
     db.add(c)
     db.commit()
-    p = db.query(Project).filter(Project.id == c.project_id).first()
-    return p
 
 
-def new_method(name, scope, ret, description, class_id, project_id, id=None):
+def new_method(name, scope, ret, description, class_id, id=None):
     db = make_session()
     if id is None:
         m = Method(name, scope, ret, description)
@@ -193,11 +196,9 @@ def new_method(name, scope, ret, description, class_id, project_id, id=None):
         m.class_id = class_id
     db.add(m)
     db.commit()
-    p = db.query(Project).filter(Project.id == project_id).first()
-    return p
 
 
-def new_attribute(name, scope, attr_type, description, project_id, id=None):
+def new_attribute(name, scope, attr_type, description, id=None):
     db = make_session()
     if id is None:
         a = Attribute(name, scope, attr_type, description)
@@ -209,18 +210,14 @@ def new_attribute(name, scope, attr_type, description, project_id, id=None):
         a.description = description
 	db.add(a)
     db.commit()
-    p = db.query(Project).filter(Project.id == project_id).first()
-    return p
 
 	
-def new_argument(name, attr_type, description, method_id, project_id):
+def new_argument(name, attr_type, description, method_id):
 	db = make_session()
 	a = Argument(name, attr_type, description)
 	a.method_id = method_id
 	db.add(a)
 	db.commit()
-	p = db.query(Project).filter(Project.id == project_id).first()
-	return p
 	
 	
 def delete_row(id, model, project_id):
@@ -236,7 +233,8 @@ def delete_row(id, model, project_id):
 	elif model == "project":
 		db.query(Project).filter(Project.id == id).delete()
 		return False
-	return db.query(Project).filter(Project.id == project_id).first()
+	else:
+		return None
 	
 # to use ORM, call
     # Session = sessionmaker(bind=engine)

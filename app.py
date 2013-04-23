@@ -123,57 +123,6 @@ def sample_data():
     }
     return jsonify(data)
 
-
-@app.route("/project/new")
-def new_project():
-    name = request.args.get("name")
-    description = request.args.get("description")
-    pid = request.args.get("id")
-    return models.new_project(name, description, pid)
-
-
-@app.route("/class/new")
-def new_class():
-    name = request.args.get("name")
-    project_id = request.args.get("id")
-    abstract = request.args.get("abstract")
-    description = request.args.get("desc")
-    cid = request.args.get("id")
-    return models.new_class(name, description, project_id, abstract, cid)
-
-
-@app.route("/method/new")
-def new_method():
-    name = request.args.get("name")
-    project_id = request.args.get("id")
-    scope = request.args.get("scope")
-    desc = request.args.get("desc")
-    ret = request.args.get("ret")
-    class_id = request.args.get("class_id")
-    mid = request.args.get("id")
-    return models.new_method(name, scope, ret, desc, class_id, project_id, mid)
-
-
-@app.route("/attribute/new")
-def new_attribute():
-    name = request.args.get("name")
-    project_id = request.args.get("id")
-    scope = request.args.get("scope")
-    desc = request.args.get("desc")
-    attr_type = request.args.get("attr_type")
-    aid = request.args.get("id")
-    return models.new_attribute(name, scope, attr_type, desc, project_id, aid)
-
-	
-@app.route("/argument/new")
-def new_argument():
-	method_id = request.args.get("method_id")
-	name = request.args.get("name")
-	attr_type = request.args.get("attr_type")
-	desc = request.args.get("desc")
-	project_id = request.args.get("id")
-	return models.new_argument(name, attr_type, desc, method_id, project_id)
-
 	
 @app.route("/<model_type>/delete")
 def delete_row(model):
