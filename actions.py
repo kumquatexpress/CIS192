@@ -28,7 +28,7 @@ def handle_json(json_obj, conn):
     obj_info = json_obj["info"]
     if action_type == "new" or "update":
         if obj_type == "class":
-            new_class(obj_info)
+            json_obj["info"]["id"] = new_class(obj_info)
         elif obj_type == "method":
             new_method(obj_info)
         elif obj_type == "attribute":
@@ -41,7 +41,7 @@ def handle_json(json_obj, conn):
         delete_row(json_obj)
     else:
         pass
-    out_obj = {"tag": "update", "data": models.get_project_json(json_obj['project_id'])}
+    out_obj = {"tag": "update", "data": json_obj}
     conn.group.broadcast_json(out_obj)
 
 
