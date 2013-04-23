@@ -37,7 +37,7 @@ def project():
     return render_template('project.html', project_id=proj_id)
 
 
-@app.route("/projects/<proj_id>",methods=["POST"])
+@app.route("/projects/<proj_id>", methods=["POST"])
 def view_project(proj_id):
     print "GOT IT : %s" % proj_id
     output = models.get_project_json(proj_id)
@@ -136,9 +136,7 @@ def ws():
             print "Client now connected, listening for connections"
             while True:
                 in_obj = cc.get_json()
-                out_obj = {"tag": "update", "data": in_obj}
-                cc.group.broadcast_json(out_obj)
-                actions.handle_json(in_obj)
+                actions.handle_json(in_obj, cc)
         except WebSocketError:
             print "Connection closed"
             try:
