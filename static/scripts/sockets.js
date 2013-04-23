@@ -10,7 +10,7 @@
 			ws.send(JSON.stringify(handshake));
 		};
 		ws.onmessage = function(evt) {
-      console.log('receivved message')
+			console.log('receivved message')
 			console.log(evt.data);
 			data = $.parseJSON(evt.data);
 			if (data.tag == "update") {
@@ -58,7 +58,7 @@
 	};
 
 	sockets.processAction = function(action_obj) {
-    console.log('inside process action')
+		console.log('inside process action')
 		switch (action_obj.type) {
 			case "class":
 				if (action_obj.action == "add") {
@@ -69,89 +69,96 @@
 					app.util.display.deleteClass(action_obj.info);
 				} else if (action_obj.action == "inherit") {
 					//@TODO What needs to be done for inheritance?
-          
-//           var find_class_inheritance = function(cls, class_id, replacer) {
-//             var ret_class;
-//             _.each(cls, function(c, index){
-//               if(c.id === parseInt(class_id)) {
-//                 ret_class = c;
-//                 cls[index] = replacer;
-//                 // replace it
-//                 return;
-//               }
-//               // if it contains a classes thats not empty
-//               if(c.children && c.children.length > 0) {
-//                 ret_class = find_class_inheritance(c.children, class_id);
-//               }
-//             });
-//             return ret_class;
-//           };
 
-//           var remove_class = function(cls, class_id) {
-//             var ret_class;
-//             _.each(cls, function(c, index){
-//               if(c.id === parseInt(class_id)) {
-//                 ret_class = c;
-//                 delete cls[index];
-//                 // replace it
-//                 return;
-//               }
-//               // if it contains a classes thats not empty
-//               if(c.children && c.children.length > 0) {
-//                 ret_class = find_class_inheritance(c.children, class_id);
-//               }
-//             });
-//             return ret_class;
-//           }
+					//           var find_class_inheritance = function(cls, class_id, replacer) {
+					//             var ret_class;
+					//             _.each(cls, function(c, index){
+					//               if(c.id === parseInt(class_id)) {
+					//                 ret_class = c;
+					//                 cls[index] = replacer;
+					//                 // replace it
+					//                 return;
+					//               }
+					//               // if it contains a classes thats not empty
+					//               if(c.children && c.children.length > 0) {
+					//                 ret_class = find_class_inheritance(c.children, class_id);
+					//               }
+					//             });
+					//             return ret_class;
+					//           };
+
+					//           var remove_class = function(cls, class_id) {
+					//             var ret_class;
+					//             _.each(cls, function(c, index){
+					//               if(c.id === parseInt(class_id)) {
+					//                 ret_class = c;
+					//                 delete cls[index];
+					//                 // replace it
+					//                 return;
+					//               }
+					//               // if it contains a classes thats not empty
+					//               if(c.children && c.children.length > 0) {
+					//                 ret_class = find_class_inheritance(c.children, class_id);
+					//               }
+					//             });
+					//             return ret_class;
+					//           }
 
 
-// console.log('hihihihihihih here')
-// console.log(action_obj)
+					// console.log('hihihihihihih here')
+					// console.log(action_obj)
 
-//           var temp1 = remove_class(project.classes, parseInt($('#current-object-id').text()));
-//           var temp2 = remove_class(project.children, parseInt($('#current-object-id').text()));
-//           temp1.parents.push(action_obj.info)
-//           temp2.parents.push(action_obj.info)
+					//           var temp1 = remove_class(project.classes, parseInt($('#current-object-id').text()));
+					//           var temp2 = remove_class(project.children, parseInt($('#current-object-id').text()));
+					//           temp1.parents.push(action_obj.info)
+					//           temp2.parents.push(action_obj.info)
 
-//           find_class_inheritance(project.classes, action_obj.info.id, action_obj.info);
-//           find_class_inheritance(project.children, action_obj.info.id, action_obj.info);
-//           // re_node(project.classes);
-//           // Replace new instance of class with old instance, plus the parent
-//           find_class_inheritance(project.classes,  parseInt($('#current-object-id').text()), temp1);
-//           find_class_inheritance(project.classes,  parseInt($('#current-object-id').text()), temp2);
-          
-//           console.log('renoding!!!')
-//           console.log(project.classes)
+					//           find_class_inheritance(project.classes, action_obj.info.id, action_obj.info);
+					//           find_class_inheritance(project.children, action_obj.info.id, action_obj.info);
+					//           // re_node(project.classes);
+					//           // Replace new instance of class with old instance, plus the parent
+					//           find_class_inheritance(project.classes,  parseInt($('#current-object-id').text()), temp1);
+					//           find_class_inheritance(project.classes,  parseInt($('#current-object-id').text()), temp2);
 
-//           app.util.details.loadClassDetail(parseInt($('#current-object-id').text()));
-//
-//
-//
-//
-         
-  function find_class(cls, class_id) {
-    var ret_class;
-    _.each(cls, function(c){
-      if(c.id === parseInt(class_id)) {
-        ret_class = c;
-        return;
-      }
-      // if it contains a classes thats not empty
-      if(c.children && c.children.length > 0) {
-        ret_class = find_class(c.children, class_id);
-      }
-    });
-    return ret_class;
-  }
-          
-          project = action_obj.info; 
-          app.util.details.loadProjectDetail();
-          
-          $('.the-code').toggle();
-          $('#hierarchy-wrapper').toggle();
-          update_codeview(find_class(project.classes, parseInt($('#current-object-id').text())), project.interfaces, "class")
-          app.util.details.loadObjectDetail(find_class(project.classes, parseInt($('#current-object-id').text())))
-          
+					//           console.log('renoding!!!')
+					//           console.log(project.classes)
+
+					//           app.util.details.loadClassDetail(parseInt($('#current-object-id').text()));
+					//
+					//
+					//
+					//
+
+					function find_class(cls, class_id) {
+						var ret_class;
+						_.each(cls, function(c) {
+							if (c.id === parseInt(class_id)) {
+								ret_class = c;
+								return;
+							}
+							// if it contains a classes thats not empty
+							if (c.children && c.children.length > 0) {
+								ret_class = find_class(c.children, class_id);
+							}
+						});
+						return ret_class;
+					}
+
+					project = action_obj.info;
+
+					var flag = false;
+					if ($(".edit-object").css("display") != "none") {
+						flag = true;
+					}
+					app.util.details.loadProjectDetail();
+					if (flag) {
+
+						$('.the-code').toggle();
+						$('#hierarchy-wrapper').toggle();
+						update_codeview(find_class(project.classes, parseInt($('#current-object-id').text())), project.interfaces, "class")
+						app.util.details.loadObjectDetail(find_class(project.classes, parseInt($('#current-object-id').text())))
+
+					}
 				}
 				break;
 			case "interface":
