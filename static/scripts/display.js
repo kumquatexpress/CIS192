@@ -28,7 +28,19 @@
     //update_hierarchy(project);
     console.log("CALLING GENERATE HIERARCHY");
     console.log(project);
-    app.util.generate_hierarchy('hierarchy-wrapper', project);
+    var flag = false;
+    if($(".edit-object").css("display") != "none") {
+      flag = true;
+    }
+    app.util.details.loadProjectDetail();
+    if(flag) {
+
+          $('.the-code').toggle();
+          $('#hierarchy-wrapper').toggle();
+          update_codeview(find_class(project.classes, parseInt($('#current-object-id').text())), project.interfaces, "class")
+          app.util.details.loadObjectDetail(find_class(project.classes, parseInt($('#current-object-id').text())))
+  
+    }
   };
   
   app.util.display.modifyClass = function(info_obj) {
