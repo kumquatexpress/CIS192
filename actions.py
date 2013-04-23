@@ -25,7 +25,6 @@ def handle_json(json_obj):
     obj_type = json_obj['type']
     action_type = json_obj['action']
     obj_info = json_obj["info"]
-    obj_info["project_id"] = obj_info["project"]
     if action_type == "new" or "update":
         if obj_type == "class":
             new_class(obj_info)

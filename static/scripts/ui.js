@@ -36,7 +36,7 @@ function resetAddClass() {
 	$("#create-class").click(function() {
 		the_class.name = $("#class-name-textbox").val();
 		the_class.description = $("#class-description-textbox").val();
-		the_class.project = $("#current-project-id").text();
+		the_class.project_id = $("#current-project-id").text();
 		var data = {
 			action: "add",
 			type: $("#class-type").val(),
