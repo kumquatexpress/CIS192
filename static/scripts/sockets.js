@@ -10,6 +10,7 @@
 			ws.send(JSON.stringify(handshake));
 		};
 		ws.onmessage = function(evt) {
+      console.log('receivved message')
 			console.log(evt.data);
 			data = $.parseJSON(evt.data);
 			if (data.tag == "update") {
@@ -24,8 +25,10 @@
 	function clear_parent(obj) {
 		// remove all parent attributes
 		obj.parent = undefined;
+		obj.parents = undefined;
 		_.each(obj.children, function(item) {
 			item.parent = undefined;
+			item.parents = undefined;
 			if (item.children && item.children.length > 0) {
 				item.children = clear_parent(item.children);
 			}
@@ -55,6 +58,7 @@
 	};
 
 	sockets.processAction = function(action_obj) {
+    console.log('inside process action')
 		switch (action_obj.type) {
 			case "class":
 				if (action_obj.action == "add") {
