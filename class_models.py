@@ -192,13 +192,14 @@ def add_child(child_id, parent_name):
     db = make_session()
     child = db.query(Class).filter(Class.id == child_id).first()
     parent = db.query(Class).filter(Class.name == parent_name).first()
+    project = parent.project
     if parent is not None and child not in parent.children and parent not in child.parents:
         parent.children.append(child)
     else:
         return False
     db.add(parent)
     db.commit()
-    return parent.to_dict()
+    return project.to_dict()
 
 
 def new_method(name, scope, ret, description, class_id, arguments=[], id=None):
