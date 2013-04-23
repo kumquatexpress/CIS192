@@ -142,7 +142,7 @@ function resetAddArgument(the_method) {
 					the_method.find(".method-id").text(),
 					$("#current-object-id").text(),
 					$("#current-object-type").text());
-					modified_method.args.push(the_argument);
+					modified_method.arguments.push(the_argument);
 					var data = {
 						action: "modify",
 						type: "method",
@@ -198,7 +198,7 @@ function resetAddMethod() {
 					// modified_method.parent = $("#current-object-id").text();
 					// modified_method.parent_type = $("#current-object-type").text();
 					modified_method.scope = "public";
-					modified_method.args = [];
+					modified_method.arguments = [];
 					modified_method.class_id = $("#current-object-id").text();
 					var data = {
 						action: "add",
@@ -444,9 +444,9 @@ function methodListeners() {
 				the_method.find(".method-id").text(),
 				$("#current-object-id").text(),
 				$("#current-object-type").text());
-				for (var j in modified_method.args) {
-					if (modified_method.args[j].name == the_arg.find('.name').text()) {
-						modified_method.args.splice(j, 1);
+				for (var j in modified_method.arguments) {
+					if (modified_method.arguments[j].name == the_arg.find('.name').text()) {
+						modified_method.arguments.splice(j, 1);
 					}
 				}
 				var data = {
@@ -488,11 +488,11 @@ function methodListeners() {
 						the_method.find(".method-id").text(),
 						$("#current-object-id").text(),
 						$("#current-object-type").text());
-						for (var j in modified_method.args) {
-							if (modified_method.args[j].name == _name) {
-								modified_method.args[j].name = n_name;
-								modified_method.args[j].attr_type = n_type;
-								modified_method.args[j].description = n_desc;
+						for (var j in modified_method.arguments) {
+							if (modified_method.arguments[j].name == _name) {
+								modified_method.arguments[j].name = n_name;
+								modified_method.arguments[j].attr_type = n_type;
+								modified_method.arguments[j].description = n_desc;
 							}
 						}
 						var data = {
