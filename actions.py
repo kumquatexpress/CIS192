@@ -2,8 +2,9 @@ from connections import ClientGroup, ClientConnection
 from geventwebsocket import WebSocketError
 import class_models as models
 
-def start_connection(ws,groups):
-    cc = ClientConnection(ws,None)
+
+def start_connection(ws, groups):
+    cc = ClientConnection(ws, None)
     handshake = cc.get_json()
     try:
         proj_id = handshake['project_id']
@@ -19,20 +20,21 @@ def start_connection(ws,groups):
     group.connections.append(cc)
     return cc
 
+
 def handle_json(json_obj):
     obj_type = json_obj['type']
     action_type = json_obj['action']
-    if action_type == "new_or_update":
+    if action_type == "new" or "update":
         if obj_type == "class":
-            new_class(json_obj)
+            models.new_class(json_obj)
         elif obj_type == "project":
-            return new_project(json_obj)
+            return models.new_project(json_obj)
         elif obj_type == "method":
-            new_method(json_obj)
+            models.new_method(json_obj)
         elif obj_type == "attribute":
-            new_attribute(json_obj)
+            models.new_attribute(json_obj)
         elif obj_type == "argument":
-            new_argument(json_obj)
+            models.new_argument(json_obj)
         else:
             pass
     elif action_type == "delete":
@@ -40,8 +42,8 @@ def handle_json(json_obj):
     else:
         pass
     return models.get_project_json(json_obj['project_id'])
-    
-        
+
+
 def new_class(json_obj):
     name = json_obj["name"]
     project_id = json_obj["id"]
@@ -69,16 +71,17 @@ def new_attribute(json_obj):
     aid = json_obj["id"]
     return models.new_attribute(name, scope, attr_type, desc, aid)
 
-    
+
 def new_argument(json_obj):
     method_id = json_obj["method_id"]
     name = json_obj["name"]
     attr_type = json_obj["attr_type"]
     desc = json_obj["desc"]
     return models.new_argument(name, attr_type, desc, method_id)
-    
 
-def delete_row(model):
-    id = json_obj["id"]
+
+def delete_row(json_obj):
+    model = json_obj["model"]
+    rid = json_obj["id"]
     project_id = json_obj["project_id"]
-    return models.delete_row(id, str(model), project_id)
+    return models.delete_row(rid, str(model), project_id)

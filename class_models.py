@@ -151,10 +151,10 @@ def make_session():
 
 
 def get_project_json(project_id):
-	db = make_session()
-	return db.query(Project).filter(Project.id == id).first()
-	
-	
+    db = make_session()
+    return str(db.query(Project).filter(Project.id == id).first())
+
+
 def new_project(name, description, id=None):
     db = make_session()
     if id is None:
@@ -208,34 +208,34 @@ def new_attribute(name, scope, attr_type, description, id=None):
         a.scope = scope
         a.attr_type = attr_type
         a.description = description
-	db.add(a)
+        db.add(a)
     db.commit()
 
-	
+
 def new_argument(name, attr_type, description, method_id):
-	db = make_session()
-	a = Argument(name, attr_type, description)
-	a.method_id = method_id
-	db.add(a)
-	db.commit()
-	
-	
+    db = make_session()
+    a = Argument(name, attr_type, description)
+    a.method_id = method_id
+    db.add(a)
+    db.commit()
+
+
 def delete_row(id, model, project_id):
-	db = make_session()
-	if model == "class":
-		db.query(Class).filter(Class.id == id).delete()
-	elif model == "method":
-		db.query(Method).filter(Method.id == id).delete()
-	elif model == "attribute":
-		db.query(Attribute).filter(Attribute.id == id).delete()
-	elif model == "argument":
-		db.query(Argument).filter(Argument.id == id).delete()
-	elif model == "project":
-		db.query(Project).filter(Project.id == id).delete()
-		return False
-	else:
-		return None
-	
+    db = make_session()
+    if model == "class":
+        db.query(Class).filter(Class.id == id).delete()
+    elif model == "method":
+        db.query(Method).filter(Method.id == id).delete()
+    elif model == "attribute":
+        db.query(Attribute).filter(Attribute.id == id).delete()
+    elif model == "argument":
+        db.query(Argument).filter(Argument.id == id).delete()
+    elif model == "project":
+        db.query(Project).filter(Project.id == id).delete()
+        return False
+    else:
+        return None
+
 # to use ORM, call
     # Session = sessionmaker(bind=engine)
     # session = Session() whenever a new session is required

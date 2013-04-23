@@ -25,10 +25,11 @@ def list():
     return render_template('list.html')
 
 
-@app.route("/new",methods=["POST"])
+@app.route("/new", methods=["POST"])
 def new():
-    proj = models.new_project(request.form["name"],request.form["description"])
+    proj = models.new_project(request.form["name"], request.form["description"])
     return redirect("/project?id=%s" % proj.id)
+
 
 @app.route("/project")
 def project():
@@ -41,6 +42,7 @@ def view_project(proj_id):
     output = models.get_project_json(proj_id)
     print output
     return output
+
 
 @app.route("/sample_data")
 def sample_data():
@@ -108,15 +110,15 @@ def sample_data():
             }
             ]
         },
-        {
-            "id": "5",
-            "name": "uncommentable yo",
-            "project": "1",
-            "description": "hi",
-            "interfaces": [""],
-            "attributes": [],
-            "methods": []
-        }
+            {
+                "id": "5",
+                "name": "uncommentable yo",
+                "project": "1",
+                "description": "hi",
+                "interfaces": [""],
+                "attributes": [],
+                "methods": []
+            }
         ],
         "interfaces": [
 
@@ -124,14 +126,7 @@ def sample_data():
     }
     return jsonify(data)
 
-	
-@app.route("/<model_type>/delete")
-def delete_row(model):
-	id = request.args.get("id")
-	project_id = request.args.get("project_id")
-	return models.delete_row(id, str(model), project_id)
-	
-	
+
 @app.route('/ws')
 def ws():
     if request.environ.get('wsgi.websocket'):
