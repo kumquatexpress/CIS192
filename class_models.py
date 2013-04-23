@@ -263,22 +263,3 @@ def delete_row(id, model, project_id):
 
 def close_session():
     db.close()
-
-
-# to use ORM, call
-    # Session = sessionmaker(bind=engine)
-    # session = Session() whenever a new session is required
-    # session.add/.add_all(objects) to add to session buffer
-    # session.commit() to push to database
-    # Query >>> for name, fullname in session.query(User.name, User.fullname):
-    #     print name, fullname
-
-
-# p = Project("testp")
-# c = Class("testc")
-    # p.classes is [] right now, c.project_id does not exist
-# d = Class("testc2")
-# p.classes = [c, d]
-    # d.project_id is now p.id
-    # c.project now returns p
-    # all of this happens before committing

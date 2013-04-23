@@ -50,9 +50,7 @@ def handle_json(json_obj, conn):
 
 
 def add_child(json_obj):
-    child_id = json_obj["child"]
-    parent_name = json_obj["p"]
-    return models.add_child(child_id, parent_name)
+    return models.add_child(json_obj["child"], json_obj["p"])
 
 
 def new_class(json_obj):
@@ -73,42 +71,27 @@ def new_class(json_obj):
 
 
 def new_method(json_obj):
-    name = json_obj["name"]
-    scope = json_obj["scope"]
-    desc = json_obj["description"]
-    ret = json_obj["ret"]
-    class_id = json_obj["class_id"]
     if "id" not in json_obj:
         mid = None
         args = None
     else:
         mid = json_obj["id"]
         args = json_obj["arguments"]
-    return models.new_method(name, scope, ret, desc, class_id, args, mid)
+    return models.new_method(json_obj["name"], json_obj["scope"], json_obj["ret"], json_obj["description"], json_obj["class_id"], args, mid)
 
 
 def new_attribute(json_obj):
-    name = json_obj["name"]
-    scope = json_obj["scope"]
-    desc = json_obj["description"]
-    attr_type = json_obj["attr_type"]
     if "id" not in json_obj:
         aid = None
     else:
         aid = json_obj["id"]
-    return models.new_attribute(name, scope, attr_type, desc, aid)
+    return models.new_attribute(json_obj["name"], json_obj["scope"], json_obj["attr_type"], json_obj["description"], aid)
 
 
 def new_argument(json_obj):
-    method_id = json_obj["method_id"]
-    name = json_obj["name"]
-    attr_type = json_obj["attr_type"]
-    desc = json_obj["description"]
-    return models.new_argument(name, attr_type, desc, method_id)
+    return models.new_argument(json_obj["name"], json_obj["attr_type"],\
+    json_obj["description"], json_obj["method_id"])
 
 
 def delete_row(json_obj):
-    model = json_obj["model"]
-    rid = json_obj["id"]
-    project_id = json_obj["project_id"]
-    return models.delete_row(rid, str(model), project_id)
+    return models.delete_row(json_obj["id"], str(json_obj["model"]), json_obj["project_id"])
