@@ -1,5 +1,11 @@
 (function() {
   app.util.generate_hierarchy = function(id, data) {
+
+    $(".edit-object").css("display", "none");
+    $(".the-code").css("display","none");
+    $(".warnings-panel").css("display","none");
+    $("#hierarchy-wrapper").show();
+    
     console.log("HERE IS THE DATA MOFO");
     console.log(data);
     // remove any existing value

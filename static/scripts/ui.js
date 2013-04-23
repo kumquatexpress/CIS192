@@ -283,29 +283,23 @@ function classListeners() {
 
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
-		if (event.keyCode == 13) {
-			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
-			// modified_class.parents.push($(this).val());
-			var data = {
-				action: "modify",
-				type: "class",
-				info: modified_class,
-				project_id: $("#current-project-id").text()
-			}
-			console.log(data);
-			sockets.saveAction(data);
-			update_hierarchy(project);
-			$(this).val("");
+		function find_class_by_id(cls, class_id) {
+			var ret_class;
+			_.each(cls, function(c) {
+				if (c.id === parseInt(class_id)) {
+					ret_class = c;
+					return;
+				}
+				// if it contains a classes thats not empty
+				if (c.children && c.children.length > 0) {
+					ret_class = find_class(c.children, class_id);
+				}
+			});
+			return ret_class;
 		}
-	});
-
-
-	$(".info .add-interface").unbind("keydown");
-	$(".info .add-interface").keydown(function(event) {
 		if (event.keyCode == 13) {
-			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
-
-			modified_class.interfaces.push($(this).val());
+			var modified_class = find_class_by_id(project.classes, $("#current-object-id").text());
+			modified_class.children.push($(this).val())
 			var data = {
 				action: "modify",
 				type: "class",
@@ -314,6 +308,7 @@ function classListeners() {
 			}
 			console.log(data);
 			sockets.saveAction(data);
+			app.util.generate_hierarchy("hierarchy-wrapper", project);
 			$(this).val("");
 		}
 	});
