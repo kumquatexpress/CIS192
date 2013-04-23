@@ -16,7 +16,7 @@ function python_skeleton(_class, _interfaces)
   var parent = _.pluck(_.filter((_class.parents), function(item){
     return item.project_id !== undefined;
   }), 'name');	
-	var parname = ""
+	var parname = ":"
 
 	//get interfaces info if exists
 	var interfaces = _class.interfaces
@@ -48,7 +48,7 @@ function python_skeleton(_class, _interfaces)
 	//treating interfaces like parents because there are no interfaces
 	if (parent[0])
 	{
-		var parname = " extends " + parent.join(", ")
+		var parname = "("+ parent.join(", ") +")"+parname
 	}
 
 	//build the string
@@ -81,7 +81,7 @@ function python_method_string(method)
 	var argument_string = arguments.join(", ")
 
 	return "def "+ method.name + "(" +
-		argument_string + ")\n\t\t\"\"\"" + method.description +
+		argument_string + "):\n\t\t\"\"\"" + method.description +
 		"\n\t\t"+inputs.join("\n\t\t")+"\"\"\"\n\t\t#TODO\n\n"
 }
 

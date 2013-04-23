@@ -193,7 +193,7 @@ def add_child(child_id, parent_name):
     child = db.query(Class).filter(Class.id == child_id).first()
     parent = db.query(Class).filter(Class.name == parent_name).first()
     project = parent.project
-    if parent is not None and child not in parent.children and parent not in child.parents:
+    if parent is not None and child not in parent.children and parent not in child.parents and parent != child:
         parent.children.append(child)
     else:
         return False
