@@ -285,7 +285,7 @@ function classListeners() {
 	$(".info .add-parent").keydown(function(event) {
 		if (event.keyCode == 13) {
 			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
-			// modified_class.parents.push($(this).val());
+			modified_class.parents.push($(this).val());
 			var data = {
 				action: "modify",
 				type: "class",
@@ -294,28 +294,8 @@ function classListeners() {
 			}
 			console.log(data);
 			sockets.saveAction(data);
-			update_hierarchy(project);
+			app.util.generate_hierarchy('hierarchy-wrapper', project);
 			$(this).val("");
-		}
-	});
-
-
-	$(".info .add-interface").unbind("keydown");
-	$(".info .add-interface").keydown(function(event) {
-		if (event.keyCode == 13) {
-			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
-
-			modified_class.interfaces.push($(this).val());
-			var data = {
-				action: "modify",
-				type: "class",
-				info: modified_class,
-				project_id: $("#current-project-id").text()
-			}
-			console.log(data);
-			sockets.saveAction(data);
-			$(this).val("");
-		}
 	});
 }
 

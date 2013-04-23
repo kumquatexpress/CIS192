@@ -1,7 +1,15 @@
 (function() {
   app.util.generate_hierarchy = function(id, data) {
+
+
+    $(".edit-object").css("display", "none");
+    $(".the-code").css("display","none");
+    $(".warnings-panel").css("display","none");
+    $("#hierarchy-wrapper").show();
+    
     console.log("HERE IS THE DATA MOFO");
     console.log(data);
+
     // remove any existing value
     $('#hierarchy-wrapper').find('svg').remove();
     var width = $('#hierarchy-wrapper').width(),
@@ -79,8 +87,6 @@
           all_nodes.push(node);
         }
       });
-      console.log(2893749824)
-      console.log(remove_nodes)
       nodes = _.difference(nodes, remove_nodes);
       return nodes;
     }
@@ -113,8 +119,6 @@
         var ret_array = [];
         _.each(parent.children, function(child) {
           _.each(child.parents, function(child_parent) {
-            console.log("THIS IS SPARTA")
-            console.log(child_parent)
             ret_array.push({
               source: child_parent,
               target: child
@@ -122,7 +126,6 @@
 
           });
         });
-        console.log(ret_array)
         return ret_array;
 
       }));
@@ -147,8 +150,6 @@
 
     var nodes = cluster.nodes(root);
     nodes = re_node(nodes);
-    console.log('the nodes')
-    console.log(nodes)
     var links = create_links(nodes);
 
     var link = svg.selectAll(".link")
@@ -169,13 +170,11 @@
     node.append("circle")
       .attr("r", 4.5)
       .on('mouseover', function(d) {
-      console.log('YEAH BRO');
       // console.log(x); 
       // console.log(i); 
       // console.log(this);
       // console.log(d3.select(this).select("text"))
       // d3.select(this).select("text").style("dx", -2);
-      console.log(d);
       // d3.select(d).transition().attr('r', '100')
       // d3.select(this).transition()
       //   .attr('r', '10');
@@ -185,7 +184,6 @@
       // return x + 5;
       // });
       // console.log(_.template(hover_template)())
-      console.log($(this).offset())
       // $('#method-info').prepend(_.template(hover_template)());
       $('#class-info').css({
         left: $(this).offset().left - $('#detail-panel').width(),
@@ -202,6 +200,7 @@
       console.log(this)
       console.log(d);
       app.util.details.loadClassDetail(d.id);
+      $('.the-code').toggle();
       // hide
       $('#hierarchy-wrapper').toggle();
     });
