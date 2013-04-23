@@ -47,6 +47,8 @@ def handle_json(json_obj):
 def new_class(json_obj):
     name = json_obj["name"]
     project_id = json_obj["project_id"]
+    if "abstract" not in json_obj:
+        abstract = None
     abstract = json_obj["abstract"]
     description = json_obj["desc"]
     cid = json_obj["id"]
