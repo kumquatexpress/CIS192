@@ -42,13 +42,6 @@ def handle_json(json_obj):
 	return models.get_project_json(json_obj['project_id'])
 	
 		
-def new_project(json_obj):
-    name = json_obj["name"]
-    description = json_obj["description"]
-    pid = json_obj["id"]
-    return models.new_project(name, description, pid)
-
-
 def new_class(json_obj):
     name = json_obj["name"]
     project_id = json_obj["id"]
@@ -84,8 +77,7 @@ def new_argument(json_obj):
 	desc = json_obj["desc"]
 	return models.new_argument(name, attr_type, desc, method_id)
 	
-	
-@app.route("/<model_type>/delete")
+
 def delete_row(model):
 	id = json_obj["id"]
 	project_id = json_obj["project_id"]

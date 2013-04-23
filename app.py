@@ -27,16 +27,20 @@ def list():
 
 @app.route("/new")
 def new():
-    #MAKE A PROJECT
-    #SEND YOU TO /project?id=project_id
-    pass
-
+    proj = models.new_project(request.args.get("name"),request.args.get("description"))
+    return redirect("/project?id=%s" % proj["id"])
 
 @app.route("/project")
 def project():
     proj_id = request.args.get("id")
     return render_template('project.html', project_id=proj_id)
 
+
+@app.route("/projects/<proj_id>.json")
+def project(proj_id):
+    output = models.get_project_json(proj_id)
+    print output
+    return output
 
 @app.route("/sample_data")
 def sample_data():
