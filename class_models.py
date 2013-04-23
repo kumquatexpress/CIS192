@@ -152,7 +152,7 @@ def make_session():
 
 def get_project_json(project_id):
     db = make_session()
-    return str(db.query(Project).filter(Project.id == id).first())
+    return str(db.query(Project).filter(Project.id == project_id).first())
 
 
 def new_project(name, description, id=None):

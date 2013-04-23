@@ -4,7 +4,7 @@
 
   app.util.details.loadProjectDetail = function() {
     $("#current-project-id").text(project.id);
-    $(".project-info .title").text(project.name);
+    $(".project-info .project_title").text(project.name);
     $(".project-info .description").text(project.description);
     $(".add-attributes").css("display", "none");
     $(".add-methods").css("display", "none");

@@ -37,8 +37,9 @@ def project():
     return render_template('project.html', project_id=proj_id)
 
 
-@app.route("/projects/<proj_id>.json")
+@app.route("/projects/<proj_id>",methods=["POST"])
 def view_project(proj_id):
+    print "GOT IT : %s" % proj_id
     output = models.get_project_json(proj_id)
     print output
     return output

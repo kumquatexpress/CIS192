@@ -24,17 +24,19 @@ def start_connection(ws, groups):
 def handle_json(json_obj):
     obj_type = json_obj['type']
     action_type = json_obj['action']
+    obj_info = json_obj["info"]
+    obj_info["project_id"] = obj_info["project"]
     if action_type == "new" or "update":
         if obj_type == "class":
-            models.new_class(json_obj)
+            new_class(obj_info)
         elif obj_type == "project":
-            return models.new_project(json_obj)
+            return new_project(obj_info)
         elif obj_type == "method":
-            models.new_method(json_obj)
+            new_method(obj_info)
         elif obj_type == "attribute":
-            models.new_attribute(json_obj)
+            new_attribute(obj_info)
         elif obj_type == "argument":
-            models.new_argument(json_obj)
+            new_argument(obj_info)
         else:
             pass
     elif action_type == "delete":
