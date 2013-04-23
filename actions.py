@@ -50,7 +50,7 @@ def new_class(json_obj):
         abstract = None
     else:
         abstract = json_obj["abstract"]
-    description = json_obj["desc"]
+    description = json_obj["description"]
     cid = json_obj["id"]
     return models.new_class(name, description, project_id, abstract, cid)
 
@@ -58,7 +58,7 @@ def new_class(json_obj):
 def new_method(json_obj):
     name = json_obj["name"]
     scope = json_obj["scope"]
-    desc = json_obj["desc"]
+    desc = json_obj["description"]
     ret = json_obj["ret"]
     class_id = json_obj["class_id"]
     mid = json_obj["id"]
@@ -68,7 +68,7 @@ def new_method(json_obj):
 def new_attribute(json_obj):
     name = json_obj["name"]
     scope = json_obj["scope"]
-    desc = json_obj["desc"]
+    desc = json_obj["description"]
     attr_type = json_obj["attr_type"]
     aid = json_obj["id"]
     return models.new_attribute(name, scope, attr_type, desc, aid)
@@ -78,7 +78,7 @@ def new_argument(json_obj):
     method_id = json_obj["method_id"]
     name = json_obj["name"]
     attr_type = json_obj["attr_type"]
-    desc = json_obj["desc"]
+    desc = json_obj["description"]
     return models.new_argument(name, attr_type, desc, method_id)
 
 
