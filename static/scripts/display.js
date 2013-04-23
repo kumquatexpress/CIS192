@@ -106,6 +106,8 @@
     if (info_obj.parent_type != "interface") {
       
       the_obj = find_class(project.classes, info_obj.class_id)
+
+      the_obj.methods.push(info_obj);
       // for (var i in project.classes) {
       //   var the_class = project.classes[i];
       //   if (the_class.id == info_obj.parent) {
