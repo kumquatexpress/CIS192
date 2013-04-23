@@ -168,7 +168,7 @@ def new_project(name, description, id=None):
     return p
 
 
-def new_class(name, description, project_id, abstract=0, id=None):
+def new_class(name, description, project_id, abstract=0, attributes=[], id=None):
     db = make_session()
     if id is None:
         c = Class(name, description, abstract)
@@ -179,6 +179,10 @@ def new_class(name, description, project_id, abstract=0, id=None):
         c.description = description
         c.project_id = project_id
         c.abstract = abstract
+        old_names = [a.name for a in c.attributes]
+        new_attrs = [attr for attr in attributes if attr.name not in old_names]
+        for a in new_attrs:
+            c.attributes.append(new_attribute(a.name, a.scope, a.attr_type, a.description))
     db.add(c)
     db.commit()
     return c.id
@@ -211,6 +215,7 @@ def new_attribute(name, scope, attr_type, description, id=None):
         a.description = description
         db.add(a)
     db.commit()
+    return a
 
 
 def new_argument(name, attr_type, description, method_id):

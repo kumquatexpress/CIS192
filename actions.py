@@ -26,13 +26,11 @@ def handle_json(json_obj, conn):
     obj_type = json_obj['type']
     action_type = json_obj['action']
     obj_info = json_obj["info"]
-    if action_type == "new" or "update":
+    if action_type == "add" or "modify":
         if obj_type == "class":
             json_obj["info"]["id"] = new_class(obj_info)
         elif obj_type == "method":
             new_method(obj_info)
-        elif obj_type == "attribute":
-            new_attribute(obj_info)
         elif obj_type == "argument":
             new_argument(obj_info)
         else:
@@ -53,11 +51,12 @@ def new_class(json_obj):
     else:
         abstract = json_obj["abstract"]
     description = json_obj["description"]
+    attributes = json_obj["attributes"]
     if "id" not in json_obj:
         cid = None
     else:
         cid = json_obj["id"]
-    return models.new_class(name, description, project_id, abstract, cid)
+    return models.new_class(name, description, project_id, abstract, attributes, cid)
 
 
 def new_method(json_obj):
