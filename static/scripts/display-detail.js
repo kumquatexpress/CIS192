@@ -8,6 +8,10 @@
     $(".project-info .description").text(project.description);
     $(".add-attributes").css("display", "none");
     $(".add-methods").css("display", "none");
+    $(".edit-object").css("display", "none");
+    $(".the-code").css("display","none");
+    $(".warnings-panel").css("display","none");
+    $("#hierarchy-wrapper").show();
     app.util.generate_hierarchy("hierarchy-wrapper",project);
   };
 
