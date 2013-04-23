@@ -131,24 +131,30 @@
         console.log(d);
         var temp = " <div>" ;
         
-        temp += "Attributes<br><div class='class-info-attrs'>";
-        _.each(d.attributes, function(item){
-          temp += item.name + "(" + item.attr_type + ')' + ': ' + item.description + "<br>";
-        });
-        temp += "</div>";
+        if(d.methods.length === 0 && d.attributes.length === 0) {
+          temp = "No attributes or methods"
+        }
+        if(d.methods.length > 0) {
+          temp += "Attributes<br><div class='class-info-attrs'>";
+          _.each(d.attributes, function(item){
+            temp += item.name + "(" + item.attr_type + ')' + ': ' + item.description + "<br>";
+          });
+          temp += "</div>";
+        }
         
-        temp += "Methods<br><div class='class-info-methods'";
-        _.each(d.methods, function(item){
-          temp += item.name + "(" + item.ret + ')' + ': ' + item.description + "<br>";
-        });
-        temp += "</div>";
-        // "</div>"
+        if(d.methods.length > 0) {
+          temp += "Methods<br><div class='class-info-methods'";
+          for(var i in d.methods){
+            temp += d.methods[i].name + "(" + d.methods[i].ret + ')' + ': ' + d.methods[i].description + "<br>";
+          }
+          temp += "</div>";
+          // "</div>"
+        }
         
 
         $('#class-info').css({
           left: $(this).offset().left - $('.detail-panel').outerWidth() + 10,
           top: $(this).offset().top,
-          color: 'black'
         });
         $('#class-info').html(temp);
         $('#class-info').toggle();
