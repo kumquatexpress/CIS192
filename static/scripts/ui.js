@@ -294,7 +294,7 @@ function classListeners() {
 			}
 			console.log(data);
 			sockets.saveAction(data);
-			update_hierarchy(project);
+			app.util.generate_hierarchy('hierarchy-wrapper', project);
 			$(this).val("");
 		}
 	});
