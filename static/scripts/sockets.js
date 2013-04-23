@@ -67,6 +67,8 @@
 					app.util.display.modifyClass(action_obj.info);
 				} else if (action_obj.action == "delete") {
 					app.util.display.deleteClass(action_obj.info);
+				} else if (action_obj.action == "inherit") {
+					//@TODO What needs to be done for inheritance?
 				}
 				break;
 			case "interface":

@@ -284,18 +284,16 @@ function classListeners() {
 	$(".info .add-parent").unbind("keydown");
 	$(".info .add-parent").keydown(function(event) {
 		if (event.keyCode == 13) {
-			var modified_class = app.util.data.getInterClass($("#current-object-id").text(), "class");
-			modified_class.parents.push($(this).val());
 			var data = {
-				action: "modify",
+				action: "inherit",
 				type: "class",
-				info: modified_class,
+				info: {"child" : $("#current-object-id").text(), "parent" : $(this).val()},
 				project_id: $("#current-project-id").text()
 			}
 			console.log(data);
 			sockets.saveAction(data);
-			app.util.generate_hierarchy('hierarchy-wrapper', project);
 			$(this).val("");
+		}
 	});
 }
 
