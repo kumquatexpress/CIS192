@@ -152,23 +152,19 @@
   
   app.util.display.modifyMethod = function(info_obj) {
     var the_obj = null;
-    for (var i in project.classes) {
-      var the_class = project.classes[i];
-      if (the_class.id == info_obj.class_id) {
-        for (var j in the_class.methods) {
-          var the_method = the_class.methods[j];
-          if (the_method.id == info_obj.id) {
-            the_method.name = info_obj.name;
-            the_method.ret = info_obj.ret;
-            the_method.arguments = info_obj.arguments;
-            the_method.scope = info_obj.scope;
-            the_method.description = info_obj.description;
-          }
-        }
-        the_obj = the_class;
-        update_codeview(the_obj, project.interfaces, "class");
+    the_class = find_class(project.classes, info_obj.class_id);
+    for (var j in the_class.methods) {
+      var the_method = the_class.methods[j];
+      if (the_method.id == info_obj.id) {
+        the_method.name = info_obj.name;
+        the_method.ret = info_obj.ret;
+        the_method.arguments = info_obj.arguments;
+        the_method.scope = info_obj.scope;
+        the_method.description = info_obj.description;
       }
     }
+    the_obj = the_class;
+    update_codeview(the_obj, project.interfaces, "class");
     if(the_obj) {
       if($("#current-object-id").text() == the_obj.id) {
         app.util.details.loadMethodsDetail(the_obj);

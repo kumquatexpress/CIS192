@@ -149,6 +149,13 @@ def recreate():
 db = sessionmaker(bind=engine)()
 
 
+def test_session():
+    engine = create_engine('sqlite:///:memory:', echo=True)
+    Base = declarative_base
+    recreate()
+    db = sessionmaker(bind=engine)()
+
+
 def get_project_json(project_id):
     return str(db.query(Project).filter(Project.id == project_id).first())
 

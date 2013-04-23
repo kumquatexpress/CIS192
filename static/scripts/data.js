@@ -109,28 +109,11 @@
   };
 
   app.util.data.getMethod = function(method_id,parent_id,parent_type) {
-    if(parent_type == "class") {
-      for(var i=0;i<project.classes.length;i++) {
-        if(project.classes[i].id == parent_id) {
-          var methods = project.classes[i].methods;
-          for(var j=0;j<methods.length;j++) {
-            if(methods[j].id == method_id) {
-              return methods[j];
-            }
-          }
-        }
-      }
-    }
-    else if(parent_type == "interface") {
-      for(var i=0;i<project.interfaces.length;i++) {
-        if(project.interfaces[i].id == parent_id) {
-          var methods = project.interfaces[i].methods;
-          for(var j=0;j<methods.length;j++) {
-            if(methods[j].id == method_id) {
-              return methods[j];
-            }
-          }
-        }
+    obj_class = find_class(project.classes, parent_id);
+    var methods = obj_class.methods;
+    for(var j=0;j<methods.length;j++) {
+      if(methods[j].id == method_id) {
+        return methods[j];
       }
     }
   };
