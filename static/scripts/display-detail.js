@@ -113,10 +113,10 @@
         '<div class="description">' + the_method.description + '</div>' +
         '<div class="arguments"></div>' +
         '</div>');
-      var args = meths.find('.method:last .arguments');
-      for (var k in the_method.args) {
-        var the_arg = the_method.args[k];
-        args.append('<div class="argument">' +
+      var arguments = meths.find('.method:last .arguments');
+      for (var k in the_method.arguments) {
+        var the_arg = the_method.arguments[k];
+        arguments.append('<div class="argument">' +
           '<div class="vital-info">' +
           '<div class="name"><span>' + the_arg.name + '</span></div>' +
           '<div class="type">' + the_arg.attr_type + '</div>' +
@@ -125,8 +125,8 @@
           '</div>' +
           '</div>');
       }
-      args.append('<div class="toggle-add-argument">Add Argument</div>');
-      args.append('<div class="add-argument">' +
+      arguments.append('<div class="toggle-add-argument">Add Argument</div>');
+      arguments.append('<div class="add-argument">' +
         '<div class="method-id">' + the_method.id + '</div>' +
         '<div class="form-state">0</div>' +
         '<div class="argument-prompt prompt"></div>' +

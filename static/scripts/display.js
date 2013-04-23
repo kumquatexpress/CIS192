@@ -144,7 +144,7 @@
             if (the_method.id == info_obj.id) {
               the_method.name = info_obj.name;
               the_method.ret = info_obj.ret;
-              the_method.args = info_obj.args;
+              the_method.arguments = info_obj.arguments;
               the_method.scope = info_obj.scope;
               the_method.description = info_obj.description;
             }
@@ -161,7 +161,7 @@
             if (the_method.id == info_obj.id) {
               the_method.name = info_obj.name;
               the_method.ret = info_obj.ret;
-              the_method.args = info_obj.args;
+              the_method.arguments = info_obj.arguments;
               the_method.scope = info_obj.scope;
               the_method.description = info_obj.description;
             }

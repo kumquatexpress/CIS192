@@ -26,7 +26,7 @@
         parent : "1",
         parent_type : "class",
         ret : "void",
-        args : [
+        arguments : [
         {name : "user", attr_type : "User", description : "The user liking it"},
         {name : "timestamp", attr_type : "long", description : "The UNIX timestamp"}
         ]
@@ -62,7 +62,7 @@
         parent : "1",	
         parent_type : "interface",
         ret : "boolean",
-        args : [
+        arguments : [
         {name : "comment", attr_type : "string", description : "The comment to add"},
         {name : "user", attr_type : "User", description : "The user commenting."}
         ]
