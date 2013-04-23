@@ -15,12 +15,12 @@
     var ret_class;
     _.each(cls, function(c) {
       if (c.id === parseInt(class_id)) {
-        ret_class = c;
-        return;
+        ret_class = ret_class || c;
+        return ret_class;
       }
       // if it contains a classes thats not empty
       if (c.children && c.children.length > 0) {
-        ret_class = find_class(c.children, class_id);
+        ret_class = ret_class || find_class(c.children, class_id);
       }
     });
     return ret_class;
