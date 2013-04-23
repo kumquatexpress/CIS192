@@ -128,13 +128,29 @@
     node.append("circle")
       .attr("r", 4.5)
       .on('mouseover', function(d) {
-        var temp = " <div> </div>"
+        console.log(d);
+        var temp = " <div>" ;
+        
+        temp += "Attributes<br><div class='class-info-attrs'>";
+        _.each(d.attributes, function(item){
+          temp += item.name + "(" + item.attr_type + ')' + ': ' + item.description + "<br>";
+        });
+        temp += "</div>";
+        
+        temp += "Methods<br><div class='class-info-methods'";
+        _.each(d.methods, function(item){
+          temp += item.name + "(" + item.ret + ')' + ': ' + item.description + "<br>";
+        });
+        temp += "</div>";
+        // "</div>"
         
 
         $('#class-info').css({
           left: $(this).offset().left - $('.detail-panel').outerWidth() + 10,
-          top: $(this).offset().top
+          top: $(this).offset().top,
+          color: 'black'
         });
+        $('#class-info').html(temp);
         $('#class-info').toggle();
 
       })
