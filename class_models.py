@@ -146,17 +146,14 @@ def recreate():
     Base.metadata.create_all(engine)
 
 
-def make_session():
-    return sessionmaker(bind=engine)()
+db = sessionmaker(bind=engine)()
 
 
 def get_project_json(project_id):
-    db = make_session()
     return str(db.query(Project).filter(Project.id == project_id).first())
 
 
 def new_project(name, description, id=None):
-    db = make_session()
     if id is None:
         p = Project(name, description)
     else:
@@ -169,7 +166,6 @@ def new_project(name, description, id=None):
 
 
 def new_class(name, description, project_id, abstract=0, attributes=[], id=None):
-    db = make_session()
     if id is None:
         c = Class(name, description, abstract)
         c.project_id = project_id
@@ -189,7 +185,6 @@ def new_class(name, description, project_id, abstract=0, attributes=[], id=None)
 
 
 def add_child(child_id, parent_name):
-    db = make_session()
     child = db.query(Class).filter(Class.id == child_id).first()
     parent = db.query(Class).filter(Class.name == parent_name).first()
     project = parent.project
@@ -203,7 +198,6 @@ def add_child(child_id, parent_name):
 
 
 def new_method(name, scope, ret, description, class_id, arguments=[], id=None):
-    db = make_session()
     if id is None:
         m = Method(name, scope, ret, description)
         m.class_id = class_id
@@ -224,7 +218,6 @@ def new_method(name, scope, ret, description, class_id, arguments=[], id=None):
 
 
 def new_attribute(name, scope, attr_type, description, id=None):
-    db = make_session()
     if id is None:
         a = Attribute(name, scope, attr_type, description)
     else:
@@ -239,7 +232,6 @@ def new_attribute(name, scope, attr_type, description, id=None):
 
 
 def new_argument(name, attr_type, description, method_id):
-    db = make_session()
     a = Argument(name, attr_type, description)
     a.method_id = method_id
     db.add(a)
@@ -247,7 +239,6 @@ def new_argument(name, attr_type, description, method_id):
 
 
 def delete_row(id, model, project_id):
-    db = make_session()
     if model == "class":
         db.query(Class).filter(Class.id == id).delete()
     elif model == "method":
@@ -261,6 +252,11 @@ def delete_row(id, model, project_id):
         return False
     else:
         return None
+
+
+def close_session():
+    db.close()
+
 
 # to use ORM, call
     # Session = sessionmaker(bind=engine)

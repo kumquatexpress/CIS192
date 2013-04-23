@@ -46,6 +46,7 @@ def handle_json(json_obj, conn):
     if broadcast:
         out_obj = {"tag": "update", "data": json_obj}
         conn.group.broadcast_json(out_obj)
+        models.close_session()
 
 
 def add_child(json_obj):
