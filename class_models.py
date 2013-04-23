@@ -182,7 +182,7 @@ def new_class(name, description, project_id, abstract=0, attributes=[], id=None)
         old_names = [a.name for a in c.attributes]
         new_attrs = [attr for attr in attributes if attr['name'] not in old_names]
         for a in new_attrs:
-            c.attributes.append(new_attribute(a.name, a.scope, a.attr_type, a.description))
+            c.attributes.append(new_attribute(a["name"], a["scope"], a["attr_type"], a["description"]))
     db.add(c)
     db.commit()
     return c.id
@@ -206,19 +206,20 @@ def new_method(name, scope, ret, description, class_id, arguments=[], id=None):
     if id is None:
         m = Method(name, scope, ret, description)
         m.class_id = class_id
+        m.arguments = []
     else:
         m = db.query(Method).filter(Method.id == id).first()
         m.name = name
         m.ret = ret
         m.description = description
         m.class_id = class_id
-        old_names = [a.name for a in m.attributes]
+        old_names = [a.name for a in m.arguments]
         new_attrs = [arg for arg in arguments if arg['name'] not in old_names]
         for a in new_attrs:
-            m.attributes.append(new_argument(a.name, a.attr_type, a.description, m.id))
+            new_argument(a["name"], a["attr_type"], a["description"], m.id)
     db.add(m)
     db.commit()
-    return m.id
+    return m.to_dict()
 
 
 def new_attribute(name, scope, attr_type, description, id=None):

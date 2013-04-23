@@ -72,11 +72,11 @@ function python_method_string(method)
 {
 	var arguments = ["self"]
 	var inputs = []
-	for(var xy in method.args)
+	for(var xy in method.arguments)
 	{
-		arguments.push(method.args[xy].name)
-		inputs.push(":param "+ method.args[xy].name+": " +
-			method.args[xy].description)
+		arguments.push(method.arguments[xy].name)
+		inputs.push(":param "+ method.arguments[xy].name+": " +
+			method.arguments[xy].description)
 	}
 	var argument_string = arguments.join(", ")
 

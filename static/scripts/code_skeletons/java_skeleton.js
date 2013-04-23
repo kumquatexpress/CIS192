@@ -108,9 +108,9 @@ function method_string(method, warn)
 	var arguments = []
   console.log('method_string')
   console.log(method.ret)
-	for(var xy in method.args)
+	for(var xy in method.arguments)
 	{
-		arguments.push(method.args[xy].attr_type + " " + method.args[xy].name)
+		arguments.push(method.arguments[xy].attr_type + " " + method.arguments[xy].name)
 	}
 	var argument_string = arguments.join(", ")
 	var ret_type = check_warnings(method.ret, warn)
@@ -123,10 +123,10 @@ function javadoc(method)
 {
 	var retstring = "\n\t/* \n"
 	retstring = retstring + "\t* " + method.description + "\n"
-	for(var xy in method.args)
+	for(var xy in method.arguments)
 	{
-		retstring = retstring + "\t* " + "@param " + method.args[xy].name + " " + 
-		method.args[xy].description + "\n"
+		retstring = retstring + "\t* " + "@param " + method.arguments[xy].name + " " + 
+		method.arguments[xy].description + "\n"
 	}
 	retstring = retstring + "\t* " + "@return " +  method.ret + "\n\t*/\n"
 	return retstring

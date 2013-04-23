@@ -138,11 +138,11 @@ function resetAddArgument(the_method) {
 					break;
 				case "2":
 					the_argument.description = the_method.find(".argument-textbox").val();
-					var modified_method = app.util.getMethod(
+					var modified_method = app.util.data.getMethod(
 					the_method.find(".method-id").text(),
 					$("#current-object-id").text(),
 					$("#current-object-type").text());
-					modified_method.args.push(the_argument);
+					modified_method.arguments.push(the_argument);
 					var data = {
 						action: "modify",
 						type: "method",
@@ -198,7 +198,7 @@ function resetAddMethod() {
 					// modified_method.parent = $("#current-object-id").text();
 					// modified_method.parent_type = $("#current-object-type").text();
 					modified_method.scope = "public";
-					modified_method.args = [];
+					modified_method.arguments = [];
 					modified_method.class_id = $("#current-object-id").text();
 					var data = {
 						action: "add",
@@ -401,7 +401,7 @@ function methodListeners() {
 					//_method.find('.return-type').html(n_type);
 					//_method.find('.description:first').html(n_desc);
 
-					var modified_method = app.util.getMethod(
+					var modified_method = app.util.data.getMethod(
 					_method.find(".method-id").text(),
 					$("#current-object-id").text(),
 					$("#current-object-type").text());
@@ -422,7 +422,7 @@ function methodListeners() {
 		});
 
 		the_method.find(".delete:first").click(function() {
-			var modified_method = app.util.getMethod(
+			var modified_method = app.util.data.getMethod(
 			the_method.find(".method-id").text(),
 			$("#current-object-id").text(),
 			$("#current-object-type").text());
@@ -440,7 +440,7 @@ function methodListeners() {
 			var the_arg = $(this);
 			the_arg.find('.delete').unbind('click');
 			the_arg.find('.delete').click(function() {
-				var modified_method = app.util.getMethod(
+				var modified_method = app.util.data.getMethod(
 				the_method.find(".method-id").text(),
 				$("#current-object-id").text(),
 				$("#current-object-type").text());
@@ -484,7 +484,7 @@ function methodListeners() {
 						//_arg.find('.return-type').html(n_type);
 						//_arg.find('.description:first').html(n_desc);
 
-						var modified_method = app.util.getMethod(
+						var modified_method = app.util.data.getMethod(
 						the_method.find(".method-id").text(),
 						$("#current-object-id").text(),
 						$("#current-object-type").text());

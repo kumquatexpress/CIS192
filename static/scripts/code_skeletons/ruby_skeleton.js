@@ -92,9 +92,9 @@ function ruby_attr_string(attr)
 function ruby_method_string(method)
 {
 	var arguments = []
-	for(var xy in method.args)
+	for(var xy in method.arguments)
 	{
-		arguments.push(method.args[xy].name)
+		arguments.push(method.arguments[xy].name)
 	}
 	var argument_string = arguments.join(", ")
 
@@ -106,10 +106,10 @@ function rubydoc(method)
 {
 	var retstring = "\n\t# " + method.description + "\n"
 	retstring = retstring + "\t# Params:\n"
-	for(var xy in method.args)
+	for(var xy in method.arguments)
 	{
-		retstring = retstring + "\t# " + "+" + method.args[xy].name + "+:: " + 
-		method.args[xy].description + "\n"
+		retstring = retstring + "\t# " + "+" + method.arguments[xy].name + "+:: " + 
+		method.arguments[xy].description + "\n"
 	}
 	return retstring
 }
