@@ -2,6 +2,20 @@
   app.util = app.util || {};
   app.util.display = app.util.display || {};
 
+  function find_class(cls, class_id) {
+    var ret_class;
+    _.each(cls, function(c){
+      if(c.id === parseInt(class_id)) {
+        ret_class = c;
+        return;
+      }
+      // if it contains a classes thats not empty
+      if(c.children && c.children.length > 0) {
+        ret_class = find_class(c.children, class_id);
+      }
+    });
+    return ret_class;
+  }
 
   app.util.display.addClass = function(info_obj) {
     if (!info_obj.attributes) {
@@ -13,6 +27,7 @@
     project.classes.push(info_obj);
     //update_hierarchy(project);
     console.log("CALLING GENERATE HIERARCHY");
+    console.log(project);
     app.util.generate_hierarchy('hierarchy-wrapper', project);
   };
   
@@ -86,14 +101,18 @@
   app.util.display.addMethod = function(info_obj) {
     //Update the project object
     var the_obj = null;
+    console.log('here')
+    console.log(info_obj)
     if (info_obj.parent_type != "interface") {
-      for (var i in project.classes) {
-        var the_class = project.classes[i];
-        if (the_class.id == info_obj.parent) {
-          the_class.methods.push(info_obj);
-          the_obj = the_class;
-        }
-      }
+      
+      the_obj = find_class(project.classes, info_obj.class_id)
+      // for (var i in project.classes) {
+      //   var the_class = project.classes[i];
+      //   if (the_class.id == info_obj.parent) {
+      //     the_class.methods.push(info_obj);
+      //     the_obj = the_class;
+      //   }
+      // }
       update_codeview(the_obj, project.interfaces, "class");
     } else {
       for (var i in project.interfaces) {

@@ -2,6 +2,8 @@
   app.util.generate_hierarchy = function(id, data) {
     console.log("HERE IS THE DATA MOFO");
     console.log(data);
+    // remove any existing value
+    $('#hierarchy-wrapper').find('svg').remove();
     var width = $('#hierarchy-wrapper').width(),
       height = $(window).height();
 
@@ -186,7 +188,7 @@
       console.log($(this).offset())
       // $('#method-info').prepend(_.template(hover_template)());
       $('#class-info').css({
-        left: $(this).offset().left,
+        left: $(this).offset().left - $('#detail-panel').width(),
         top: $(this).offset().top
       });
       $('#class-info').toggle();

@@ -18,6 +18,7 @@ def start_connection(ws, groups):
         groups[proj_id] = group
     cc.group = group
     group.connections.append(cc)
+    print "%s is not connected" % str(cc)
     return cc
 
 

@@ -14,7 +14,7 @@
   function find_class(cls, class_id) {
     var ret_class;
     _.each(cls, function(c){
-      if(c.id === class_id) {
+      if(c.id === parseInt(class_id)) {
         ret_class = c;
         return;
       }

@@ -38,6 +38,8 @@ class ClientConnection:
         print "Listening"
         raw_msg = self.ws.receive()
         print "Received %s" % raw_msg
+        if raw_msg is None:
+            raise WebSocketError
         return json.loads(raw_msg)
 
     def close(self):
