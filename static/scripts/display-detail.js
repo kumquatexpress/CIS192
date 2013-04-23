@@ -8,7 +8,7 @@
     $(".project-info .description").text(project.description);
     $(".add-attributes").css("display", "none");
     $(".add-methods").css("display", "none");
-    update_hierarchy(project);
+    app.util.generate_hierarchy("hierarchy-wrapper",project);
   };
 
   function find_class(cls, class_id) {
