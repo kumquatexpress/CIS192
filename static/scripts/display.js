@@ -135,39 +135,21 @@
   
   app.util.display.modifyMethod = function(info_obj) {
     var the_obj = null;
-    if (info_obj.parent_type != "interface") {
-      for (var i in project.classes) {
-        var the_class = project.classes[i];
-        if (the_class.id == info_obj.parent) {
-          for (var j in the_class.methods) {
-            var the_method = the_class.methods[j];
-            if (the_method.id == info_obj.id) {
-              the_method.name = info_obj.name;
-              the_method.ret = info_obj.ret;
-              the_method.arguments = info_obj.arguments;
-              the_method.scope = info_obj.scope;
-              the_method.description = info_obj.description;
-            }
+    for (var i in project.classes) {
+      var the_class = project.classes[i];
+      if (the_class.id == info_obj.class_id) {
+        for (var j in the_class.methods) {
+          var the_method = the_class.methods[j];
+          if (the_method.id == info_obj.id) {
+            the_method.name = info_obj.name;
+            the_method.ret = info_obj.ret;
+            the_method.arguments = info_obj.arguments;
+            the_method.scope = info_obj.scope;
+            the_method.description = info_obj.description;
           }
-          the_obj = the_class;
         }
-      }
-    } else {
-      for (var i in project.interfaces) {
-        var the_interface = project.interfaces[i];
-        if (the_interface.id == info_obj.parent) {
-          for (var j in the_interface.methods) {
-            var the_method = the_interface.methods[j];
-            if (the_method.id == info_obj.id) {
-              the_method.name = info_obj.name;
-              the_method.ret = info_obj.ret;
-              the_method.arguments = info_obj.arguments;
-              the_method.scope = info_obj.scope;
-              the_method.description = info_obj.description;
-            }
-          }
-          the_obj = the_interface;
-        }
+        the_obj = the_class;
+        update_codeview(the_obj, project.interfaces, "class");
       }
     }
     if(the_obj) {
