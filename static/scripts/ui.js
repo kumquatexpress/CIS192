@@ -303,7 +303,7 @@ function attributeListeners() {
 	$('.attribute .delete').click(function() {
 		var modified_obj = app.util.data.getInterClass(
 
-		$('#current-object-id').text(),
+		$('#current-object-id').text();
 		$('#current-object-type').text());
 		for (var i in modified_obj.attributes) {
 			if (modified_obj.attributes[i].name == $(this).parent().find('.name').text()) {
