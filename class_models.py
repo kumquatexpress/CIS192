@@ -168,7 +168,7 @@ def new_project(name, description, id=None):
     return p
 
 
-def new_class(name, description, project_id, abstract=False, id=None):
+def new_class(name, description, project_id, abstract=0, id=None):
     db = make_session()
     if id is None:
         c = Class(name, description, abstract)
