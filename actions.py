@@ -48,7 +48,8 @@ def new_class(json_obj):
     project_id = json_obj["project_id"]
     if "abstract" not in json_obj:
         abstract = None
-    abstract = json_obj["abstract"]
+    else:
+        abstract = json_obj["abstract"]
     description = json_obj["desc"]
     cid = json_obj["id"]
     return models.new_class(name, description, project_id, abstract, cid)
