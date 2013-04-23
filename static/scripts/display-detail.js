@@ -65,6 +65,7 @@
   };
 
   app.util.details.loadObjInfoDetail = function(the_obj) {
+    the_obj = find_class(project.classes, the_obj.id);
     console.log('inside loadobjinfodetail');
     console.log(the_obj);
     var edit_obj = $(".edit-object");

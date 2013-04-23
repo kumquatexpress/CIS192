@@ -128,13 +128,16 @@
     node.append("circle")
       .attr("r", 4.5)
       .on('mouseover', function(d) {
-        $('#class-info').css({
-        left: $(this).offset().left - $('.detail-panel').outerWidth() + 10,
-        top: $(this).offset().top
-      });
-      $('#class-info').toggle();
+        var temp = " <div> </div>"
+        
 
-    })
+        $('#class-info').css({
+          left: $(this).offset().left - $('.detail-panel').outerWidth() + 10,
+          top: $(this).offset().top
+        });
+        $('#class-info').toggle();
+
+      })
       .on('mouseout', function(d) {
       $('#class-info').toggle();
     })
