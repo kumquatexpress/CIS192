@@ -45,11 +45,6 @@
       .attr("transform", "translate(40,0)");
 
 
-    // d3.json("static/data.json", function(error, root) {
-    // set to default for now, future needs to change to "class"
-    // console.log(root);
-
-
     // go through all the nodes, and check, if the nodes exist already, then add to the existing node's parents attribute
 
     function re_node(nodes) {
@@ -94,27 +89,7 @@
     // USE THIS LINKS METHOD INSTEAD OF THE BUILT IN LINKS METHOD FOR D3
 
     function create_links(nodes) {
-      // creates links for nodes with multiple parents
-      // console.log(d3.merge(nodes.map(function(parent) {
-      //   var ret_array;
-      //   console.log('hihihuwehfuhefu')
-      //     console.log(this)
-      //   _.each(parent.children, function(child) {
-
-      //     _.each(child.parents, function(child_parent) {
-      //       console.log(this)
-      //       ret_array.push({
-      //         source: child_parent,
-      //         target: child
-      //       });
-
-      //     }, this);
-      //   }, this);
-      //   return ret_array;
-
-      // })));
-
-
+      
       return d3.merge(nodes.map(function(parent) {
         var ret_array = [];
         _.each(parent.children, function(child) {
@@ -129,23 +104,6 @@
         return ret_array;
 
       }));
-      // console.log(d3.merge(nodes.map(function(parent) {
-      // return (parent.children || []).map(function(child) {
-      //   return {
-      //     source: parent,
-      //     target: child
-      //   };
-      //   });
-      // })));
-
-      // return d3.merge(nodes.map(function(parent) {
-      //   return (parent.children || []).map(function(child) {
-      //     return {
-      //       source: parent,
-      //       target: child
-      //     };
-      //   });
-      // }));
     }
 
     var nodes = cluster.nodes(root);
@@ -170,23 +128,8 @@
     node.append("circle")
       .attr("r", 4.5)
       .on('mouseover', function(d) {
-      // console.log(x); 
-      // console.log(i); 
-      // console.log(this);
-      // console.log(d3.select(this).select("text"))
-      // d3.select(this).select("text").style("dx", -2);
-      // d3.select(d).transition().attr('r', '100')
-      // d3.select(this).transition()
-      //   .attr('r', '10');
-      // transform the links as well
-      // console.log(link)
-      // d3.select(link[0][i]).transition().attr('x', function(x, i) {
-      // return x + 5;
-      // });
-      // console.log(_.template(hover_template)())
-      // $('#method-info').prepend(_.template(hover_template)());
-      $('#class-info').css({
-        left: $(this).offset().left - $('#detail-panel').width(),
+        $('#class-info').css({
+        left: $(this).offset().left - $('.detail-panel').outerWidth() + 10,
         top: $(this).offset().top
       });
       $('#class-info').toggle();
@@ -196,16 +139,12 @@
       $('#class-info').toggle();
     })
       .on('mousedown', function(d) {
-      console.log('this')
-      console.log(this)
-      console.log(d);
       app.util.details.loadClassDetail(d.id);
       $('.the-code').toggle();
       // hide
       $('#hierarchy-wrapper').toggle();
     });
 
-    // console.log(node.value());
 
     node.append("text")
       .attr("dx", function(d) {

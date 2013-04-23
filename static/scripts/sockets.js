@@ -69,6 +69,27 @@
 					app.util.display.deleteClass(action_obj.info);
 				} else if (action_obj.action == "inherit") {
 					//@TODO What needs to be done for inheritance?
+
+          var find_class_inheritance = function(cls, class_id, replacer) {
+            var ret_class;
+            _.each(cls, function(c){
+              if(c.id === parseInt(class_id)) {
+                ret_class = c;
+                c = replacer;
+                // replace it
+                return;
+              }
+              // if it contains a classes thats not empty
+              if(c.children && c.children.length > 0) {
+                ret_class = find_class(c.children, class_id);
+              }
+            });
+            return ret_class;
+          };
+
+          find_class(project.classes, action_obj.info.id, action_obj.info);
+          app.util.details.loadClassDetail(action_obj.info.id);
+          
 				}
 				break;
 			case "interface":
