@@ -4,6 +4,7 @@ engine = create_engine('mysql://codify@cis330.ca9iefbk06km.us-east-1.rds.amazona
 
 
 def make_big_json(proj_id):
+    """ Used to query for the entire json of a project. """
     session = sessionmaker(bind=engine)()
     result = session.query(Project).filter(Project.id == proj_id).first()
     if result is not None:

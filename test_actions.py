@@ -50,8 +50,6 @@ def test_create_method():
 def test_create_child():
     name = "childclass"
     desc = "should be child of class c"
-    d = models.db.query(models.Class).filter(models.Class.id ==
-                                             models.new_class(name, desc,
-                                                              p.id)).first()
+    d = models.db.query(models.Class).filter(models.Class.id == models.new_class(name, desc, p.id)).first()
     models.add_child(d.id, c.name)
     assert d in c.children and c in d.parents

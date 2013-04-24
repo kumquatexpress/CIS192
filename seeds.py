@@ -1,4 +1,5 @@
 import class_models as mods
+# used solely for initial testing
 
 p = mods.Project("testProj", "awesome project")
 
