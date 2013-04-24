@@ -1,13 +1,31 @@
+Running the Project:
+python app.py
+Go to localhost:8080 in your browser.
+
+Features:
+Outline classes with inheritance, arguments, method, and arguments
+Visualize relationships between classes
+Scaffold code in Java, Ruby, and Python
+Use websockets to broadcast any changes in a project to all users viewing that project
+
+Interesting Code Bits:
+The handling of websocket client connections and connection groups turned out to be the most difficult/interesting aspect of this. The final solution was relatively simple and required little code but arriving at the decision to structure the app like that was the interesting bit. We also made an attempt to perform all of the websocket interaction without a pre-existing library, but after many hours of frustrating binary output and failed readings of the RFC specs we caved in to the gevent library (I really would have liked to come to office hours to try to solve this, but I was never available during those times).
+
+Known Limitations:
+The socket connections seem to be somewhat flaky, especially when running the app locally with the connections on Amazon RDS.
+Certain sequences of actions on one client may trigger undesired view switching on the second connected client (ie if I'm working on class A and you update class B to extend class A, I will be returned to the hierarchical view). We're going to go with the notion that this is desired behavior though considering you'd probably want to know whatever you're doing is now being added to class B as well.
+
+Changes from Initial Spec:
+We realized that much of what we accomplished was not outlined, and much of what we outlined was not accomplished. The switch from NoSQL to MySQL came after the realization that NoSQL solutions really don't like updates and the structure of our data required either joins or constant updates, and the abandonment of nginx game with the necessity of using gevent. 
+
+
+pip requirements
 Flask==0.9
 Jinja2==2.6
-Mako==0.7.1
-MarkupSafe==0.15
 MySQL-python==1.2.3
-Pygments==1.5
 SQLAlchemy==0.8.0
 gevent==0.13.8
 gevent-socketio==0.3.5-rc2
 gevent-websocket==0.3.6
 greenlet==0.4.0
-gunicorn==0.17.2
 simplejson==2.6.1
