@@ -8,8 +8,10 @@ engine = create_engine('mysql://codify@cis330.ca9iefbk06km.us-east-1.rds.amazona
 Base = declarative_base()
 
 parent_table = Table('classes_parents', Base.metadata,
-                     Column('parent_id', Integer, ForeignKey('classes.id'), primary_key=True),
-                     Column('class_id', Integer, ForeignKey('classes.id'), primary_key=True)
+                     Column('parent_id', Integer, ForeignKey('classes.id'),
+                            primary_key=True),
+                     Column('class_id', Integer, ForeignKey('classes.id'),
+                            primary_key=True)
                      )
 
 
@@ -39,8 +41,10 @@ class Class(Base):
 
     def to_dict(self):
         return {
-            'id': self.id, 'name': self.name, 'description': self.description, 'children': [c.to_dict() for c in self.children],
-            'methods': [m.to_dict() for m in self.methods], 'attributes': [a.to_dict() for a in self.attributes],
+            'id': self.id, 'name': self.name, 'description': self.description,
+            'children': [c.to_dict() for c in self.children],
+            'methods': [m.to_dict() for m in self.methods],
+            'attributes': [a.to_dict() for a in self.attributes],
             'abstract': self.abstract, 'project_id': self.project_id}
 
 
@@ -87,7 +91,8 @@ class Method(Base):
 
     def to_dict(self):
         return {'id': self.id, 'name': self.name, 'class_id': self.class_id,
-                'scope': self.scope, 'ret': self.ret, 'description': self.description,
+                'scope': self.scope, 'ret': self.ret,
+                'description': self.description,
                 'arguments': [a.to_dict() for a in self.arguments]}
 
 
@@ -112,7 +117,8 @@ class Attribute(Base):
 
     def to_dict(self):
         return {'id': self.id, 'name': self.name, 'class_id': self.class_id,
-                'scope': self.scope, 'attr_type': self.attr_type, 'description': self.description}
+                'scope': self.scope, 'attr_type': self.attr_type,
+                'description': self.description}
 
 
 class Project(Base):
@@ -138,7 +144,8 @@ class Project(Base):
                 take.append(c.to_dict())
                 for child in c.children:
                     used.append(child.id)
-        return {'id': self.id, 'name': self.name, 'description': self.description, 'classes': take}
+        return {'id': self.id, 'name': self.name,
+                'description': self.description, 'classes': take}
 
 
 def recreate():

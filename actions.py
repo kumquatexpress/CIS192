@@ -4,6 +4,7 @@ import class_models as models
 
 
 def start_connection(ws, groups):
+    """ Start up all server socket connections, set up client group. """
     cc = ClientConnection(ws, None)
     handshake = cc.get_json()
     try:
@@ -23,6 +24,13 @@ def start_connection(ws, groups):
 
 
 def handle_json(json_obj, conn):
+    """ json_obj: object of data containing type, action, and data
+        conn: connection it's taken from
+        Given a json object and a connection it's taken from, delegate
+        the object to the correct method based on type, action.
+        Broadcast the info received to all children
+
+    """
     obj_type = json_obj['type']
     action_type = json_obj['action']
     obj_info = json_obj["info"]
@@ -67,7 +75,8 @@ def new_class(json_obj):
     else:
         cid = json_obj["id"]
         attributes = json_obj["attributes"]
-    return models.new_class(name, description, project_id, abstract, attributes, cid)
+    return models.new_class(name, description, project_id, abstract,
+                            attributes, cid)
 
 
 def new_method(json_obj):
@@ -77,7 +86,9 @@ def new_method(json_obj):
     else:
         mid = json_obj["id"]
         args = json_obj["arguments"]
-    return models.new_method(json_obj["name"], json_obj["scope"], json_obj["ret"], json_obj["description"], json_obj["class_id"], args, mid)
+    return models.new_method(json_obj["name"], json_obj["scope"],
+                             json_obj["ret"], json_obj["description"],
+                             json_obj["class_id"], args, mid)
 
 
 def new_attribute(json_obj):
@@ -85,13 +96,17 @@ def new_attribute(json_obj):
         aid = None
     else:
         aid = json_obj["id"]
-    return models.new_attribute(json_obj["name"], json_obj["scope"], json_obj["attr_type"], json_obj["description"], aid)
+    return models.new_attribute(json_obj["name"], json_obj["scope"],
+                                json_obj["attr_type"], json_obj["description"],
+                                aid)
 
 
 def new_argument(json_obj):
-    return models.new_argument(json_obj["name"], json_obj["attr_type"],\
-    json_obj["description"], json_obj["method_id"])
+    return models.new_argument(json_obj["name"], json_obj["attr_type"],
+                               json_obj["description"], json_obj["method_id"])
 
 
 def delete_row(json_obj):
-    return models.delete_row(json_obj["id"], str(json_obj["model"]), json_obj["project_id"])
+    """ Method used in the event we need to delete a specific row in the db """
+    return models.delete_row(json_obj["id"], str(json_obj["model"]),
+                             json_obj["project_id"])
