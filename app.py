@@ -38,7 +38,7 @@ def project():
 
 @app.route("/projects/<proj_id>", methods=["POST"])
 def view_project(proj_id):
-    return odels.get_project_json(proj_id)
+    return models.get_project_json(proj_id)
 
 @app.route('/ws')
 def ws():
